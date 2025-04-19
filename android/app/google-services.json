@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "942104383253",
+    "project_id": "moodie-v2",
+    "storage_bucket": "moodie-v2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942104383253:android:0792c355403193f70ba31c",
+        "android_client_info": {
+          "package_name": "com.example.moodie_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcIukFX9q-jCNJS-HNAmOuMy5J2ZYxSbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
