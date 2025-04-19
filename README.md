@@ -1,16 +1,33 @@
-# moodie_v2
+# Moodie
 
-A new Flutter project.
+An app that supports mental wellness for students
 
-## Getting Started
+## Project Overview
 
-This project is a starting point for a Flutter application.
+### Core Features
+- Anonymous AI chat companion
+- Daily mood tracking
+- Personalized wellness suggestions
+- Private journaling
 
-A few resources to get you started if this is your first Flutter project:
+## Technical Architecture
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Frontend
+- Flutter for cross-platform development
+- Material Design components
+- Offline-first architecture
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### AI/ML
+- Primary: Gemini API
+- Offline fallback: Gemma
+- Local sentiment analysis
+
+### Backend
+- Firebase Firestore
+- Anonymous authentication
+- End-to-end encryption
+
+
+
+
+
