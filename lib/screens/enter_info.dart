@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'onboarding_q1.dart';
 
 class EnterInfoScreen extends StatefulWidget {
@@ -13,15 +14,24 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _occupationController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void _saveUserInfoAndProceed() async {
     String name = _nameController.text.trim();
     String age = _ageController.text.trim();
     String occupation = _occupationController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
 
-    if (name.isEmpty || age.isEmpty || occupation.isEmpty) {
+    if (name.isEmpty ||
+        age.isEmpty ||
+        occupation.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill in all fields.')),
       );
@@ -29,22 +39,24 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
     }
 
     try {
-      // Save user info to Firestore
-      DocumentReference docRef = await _firestore
-          .collection('user_answers')
-          .add({
-            'name': name,
-            'age': age,
-            'occupation': occupation,
-            'timestamp': FieldValue.serverTimestamp(),
-          });
+      // Create a new user with email and password
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
-      Navigator.push(
+      // Save additional user info in Firestore
+      await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'name': name,
+        'age': age,
+        'occupation': occupation,
+        'email': email,
+      });
+
+      // Navigate to the next screen (Onboarding Question 1)
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder:
               (context) => OnboardingQuestionOneScreen(
-                //userId: docRef.id, // Pass doc ID if needed to reference later
                 name: name,
                 age: age,
                 occupation: occupation,
@@ -53,10 +65,9 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
         ),
       );
     } catch (e) {
-      print('Error saving data: $e');
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Something went wrong: $e')));
+      ).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
     }
   }
 
@@ -67,7 +78,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context); // Go back
           },
         ),
         backgroundColor: Colors.transparent,
@@ -88,7 +99,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
             ),
             const SizedBox(height: 8.0),
             const Text(
-              'We\'ll use this information to personalise your experience and ensure you get suggestions suited to you.',
+              'We\'ll use this information to personalize your experience and ensure you get suggestions suited to you.',
               style: TextStyle(fontSize: 14.0, color: Colors.black54),
             ),
             const SizedBox(height: 24.0),
@@ -146,18 +157,43 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                 fillColor: Colors.grey[200],
               ),
             ),
+            const SizedBox(height: 16.0),
+            const Text(
+              'Email',
+              style: TextStyle(fontSize: 16.0, color: Colors.black87),
+            ),
             const SizedBox(height: 8.0),
-            Row(
-              children: <Widget>[
-                Icon(Icons.info_outline, color: Colors.grey[500], size: 16.0),
-                const SizedBox(width: 4.0),
-                const Expanded(
-                  child: Text(
-                    'Knowing what you do helps us understand what you\'re balancing',
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey),
-                  ),
+            TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                hintText: 'Your email',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide.none,
                 ),
-              ],
+                filled: true,
+                fillColor: Colors.grey[200],
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            const Text(
+              'Password',
+              style: TextStyle(fontSize: 16.0, color: Colors.black87),
+            ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: 'Your password',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Colors.grey[200],
+              ),
             ),
             const Spacer(),
             SizedBox(

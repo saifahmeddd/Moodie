@@ -5,9 +5,9 @@ class OnboardingQuestionTwoScreen extends StatefulWidget {
   final int answer1; // Parameter to accept the answer from Question 1
 
   const OnboardingQuestionTwoScreen({
-    Key? key,
+    super.key,
     required this.answer1, // Mark it as required
-  }) : super(key: key);
+  });
 
   @override
   State<OnboardingQuestionTwoScreen> createState() =>
@@ -30,10 +30,10 @@ class _OnboardingQuestionTwoScreenState
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'Onboarding Question 2',
-          style: TextStyle(color: Colors.black87),
-        ),
+        //title: const Text(
+          //'Onboarding Question 2',
+          //style: TextStyle(color: Colors.black87),
+        //),
         centerTitle: false,
       ),
       body: Padding(
@@ -80,21 +80,19 @@ class _OnboardingQuestionTwoScreenState
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed:
-                    _selectedValue == -1
-                        ? null // Disable the button if no option is selected
-                        : () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => OnboardingQuestionThreeScreen(
-                                    answer1: widget.answer1,
-                                    answer2: _selectedValue,
-                                  ),
+                onPressed: _selectedValue == -1
+                    ? null // Disable the button if no option is selected
+                    : () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OnboardingQuestionThreeScreen(
+                              answer1: widget.answer1, // Pass answer1
+                              answer2: _selectedValue, // Pass answer2
                             ),
-                          );
-                        },
+                          ),
+                        );
+                      },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple[300],
                   padding: const EdgeInsets.symmetric(vertical: 16.0),

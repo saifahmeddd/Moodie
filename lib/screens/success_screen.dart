@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class SuccessScreen extends StatefulWidget {
   final Map<String, dynamic> userAnswers; // Pass answers from onboarding
 
-  SuccessScreen({required this.userAnswers});
+  const SuccessScreen({super.key, required this.userAnswers});
 
   @override
   _SuccessScreenState createState() => _SuccessScreenState();
@@ -62,9 +62,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (_isSaving)
-                CircularProgressIndicator()
+                const CircularProgressIndicator()
               else ...[
-                Text(
+                const Text(
                   "That was brave.\nWell Done!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -73,13 +73,13 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 24.0),
+                const SizedBox(height: 24.0),
                 Image.asset(
                   'assets/images/img4.png', // make sure this is in pubspec.yaml
                   height: 324,
                   width: 324,
                 ),
-                SizedBox(height: 32.0),
+                const SizedBox(height: 32.0),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
@@ -87,15 +87,15 @@ class _SuccessScreenState extends State<SuccessScreen> {
                       // Navigate to home or dashboard screen
                       Navigator.pushReplacementNamed(context, '/home');
                     },
-                    icon: Icon(Icons.lightbulb_outline),
-                    label: Text("Start Your Journey"),
+                    icon: const Icon(Icons.lightbulb_outline),
+                    label: const Text("Start Your Journey"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple[300],
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      textStyle: TextStyle(fontSize: 16.0),
+                      textStyle: const TextStyle(fontSize: 16.0),
                     ),
                   ),
                 ),

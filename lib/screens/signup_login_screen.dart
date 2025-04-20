@@ -1,7 +1,7 @@
-// lib/screens/signup_login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'enter_info.dart';
+import 'package:moodie_v2/screens/login_screen.dart'; // Import the LoginScreen
 
 class SignupLoginScreen extends StatelessWidget {
   const SignupLoginScreen({super.key});
@@ -55,7 +55,7 @@ class SignupLoginScreen extends StatelessWidget {
                   } catch (e) {
                     print("Error signing in anonymously: $e");
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Failed to sign in anonymously.")),
+                      const SnackBar(content: Text("Failed to sign in anonymously.")),
                     );
                   }
                 },
@@ -79,13 +79,19 @@ class SignupLoginScreen extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Log in button (you can implement real login later)
+            // Log in button
             SizedBox(
               width: double.infinity,
               height: 50,
               child: OutlinedButton(
                 onPressed: () {
-                  print('Log In pressed');
+                  print('Navigating to LoginScreen...');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
                 },
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: Color(0xFF7C84F8)),

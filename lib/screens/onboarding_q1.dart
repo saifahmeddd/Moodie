@@ -9,10 +9,10 @@ class OnboardingQuestionOneScreen extends StatefulWidget {
 
   const OnboardingQuestionOneScreen({
     super.key,
-    required this.userId,
+    //required this.userId,
     required this.name,
     required this.age,
-    required this.occupation,
+    required this.occupation, required this.userId,
   });
 
   @override
@@ -47,10 +47,10 @@ class _OnboardingQuestionOneScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CircleAvatar(
+            const CircleAvatar(
               radius: 24.0,
-              backgroundColor: const Color(0xFFE0E0E0),
-              child: const Text(
+              backgroundColor: Color(0xFFE0E0E0),
+              child: Text(
                 '1',
                 style: TextStyle(
                   fontSize: 20.0,

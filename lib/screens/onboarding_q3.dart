@@ -8,10 +8,10 @@ class OnboardingQuestionThreeScreen extends StatefulWidget {
   final int answer2;
 
   const OnboardingQuestionThreeScreen({
-    Key? key,
+    super.key,
     required this.answer1,
     required this.answer2,
-  }) : super(key: key);
+  });
 
   @override
   State<OnboardingQuestionThreeScreen> createState() =>
@@ -65,7 +65,7 @@ class _OnboardingQuestionThreeScreenState
     } catch (e) {
       print('Error saving data: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Something went wrong. Please try again.')),
+        const SnackBar(content: Text('Something went wrong. Please try again.')),
       );
     } finally {
       setState(() {
@@ -79,7 +79,7 @@ class _OnboardingQuestionThreeScreenState
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: _navigateToPreviousScreen,
         ),
         backgroundColor: Colors.transparent,
@@ -93,7 +93,7 @@ class _OnboardingQuestionThreeScreenState
             CircleAvatar(
               radius: 24.0,
               backgroundColor: Colors.grey[200],
-              child: Text(
+              child: const Text(
                 '3',
                 style: TextStyle(
                   fontSize: 20.0,
@@ -102,8 +102,8 @@ class _OnboardingQuestionThreeScreenState
                 ),
               ),
             ),
-            SizedBox(height: 16.0),
-            Text(
+            const SizedBox(height: 16.0),
+            const Text(
               'Anything else you\'d like to tell?',
               style: TextStyle(
                 fontSize: 20.0,
@@ -111,12 +111,12 @@ class _OnboardingQuestionThreeScreenState
                 color: Colors.black87,
               ),
             ),
-            SizedBox(height: 24.0),
-            Text(
+            const SizedBox(height: 24.0),
+            const Text(
               'Additional Context',
               style: TextStyle(fontSize: 16.0, color: Colors.black54),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             TextField(
               controller: _additionalContextController,
               maxLines: 4,
@@ -131,22 +131,22 @@ class _OnboardingQuestionThreeScreenState
                 hintStyle: TextStyle(color: Colors.grey[400]),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _handleFinish,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple[300],
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
                 child:
                     _isLoading
-                        ? CircularProgressIndicator(color: Colors.white)
-                        : Row(
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
