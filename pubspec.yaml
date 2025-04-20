@@ -1,6 +1,6 @@
 name: moodie_v2
 description: "A new Flutter project."
-publish_to: 'none' 
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -21,3 +21,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/img1.png
+    - assets/images/img2.png
+    - assets/images/img3.png
+    - assets/icons/icon-google.png
+    - assets/icons/icon-github.png
+    - assets/icons/icon-apple.png
