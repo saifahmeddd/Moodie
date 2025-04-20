@@ -1,4 +1,7 @@
+// lib/screens/signup_login_screen.dart
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'enter_info.dart';
 
 class SignupLoginScreen extends StatelessWidget {
   const SignupLoginScreen({super.key});
@@ -10,12 +13,9 @@ class SignupLoginScreen extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // Align all items to the left
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const SizedBox(height: 60),
-
-            // Welcome Text
             const Text(
               'Welcome to moodie',
               style: TextStyle(
@@ -25,26 +25,39 @@ class SignupLoginScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-
-            // Sub Text
             const Text(
               'This is your space—let\'s make it feel like home. You won\'t even need an email, just sign up and get started',
               style: TextStyle(fontSize: 16, color: Colors.black54),
             ),
             const SizedBox(height: 30),
-
-            // Main image
             Image.asset('assets/images/img3.png', height: 364, width: 364),
             const SizedBox(height: 40),
 
-            // Create account button
+            // Create account button with anonymous login
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Implement create account functionality
-                  print('Create an account pressed');
+                onPressed: () async {
+                  try {
+                    UserCredential userCredential =
+                        await FirebaseAuth.instance.signInAnonymously();
+                    print(
+                      "Anonymous sign-in successful: ${userCredential.user?.uid}",
+                    );
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EnterInfoScreen(),
+                      ),
+                    );
+                  } catch (e) {
+                    print("Error signing in anonymously: $e");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Failed to sign in anonymously.")),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF7C84F8),
@@ -63,15 +76,15 @@ class SignupLoginScreen extends StatelessWidget {
                 ),
               ),
             ),
+
             const SizedBox(height: 16),
 
-            // Log in button
+            // Log in button (you can implement real login later)
             SizedBox(
               width: double.infinity,
               height: 50,
               child: OutlinedButton(
                 onPressed: () {
-                  // TODO: Implement log in functionality
                   print('Log In pressed');
                 },
                 style: OutlinedButton.styleFrom(
@@ -91,9 +104,9 @@ class SignupLoginScreen extends StatelessWidget {
                 ),
               ),
             ),
+
             const SizedBox(height: 32),
 
-            // OR Divider
             const Row(
               children: [
                 Expanded(child: Divider(color: Colors.grey)),
@@ -107,9 +120,9 @@ class SignupLoginScreen extends StatelessWidget {
                 Expanded(child: Divider(color: Colors.grey)),
               ],
             ),
+
             const SizedBox(height: 16),
 
-            // Social login buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[

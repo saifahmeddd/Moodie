@@ -16,10 +16,7 @@ class MoodieApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Moodie App',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        fontFamily: 'Roboto',
-      ),
+      theme: ThemeData(primarySwatch: Colors.deepPurple, fontFamily: 'Roboto'),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(), // Start with splash screen
     );
