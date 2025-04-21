@@ -55,14 +55,16 @@ class SignupLoginScreen extends StatelessWidget {
                   } catch (e) {
                     print("Error signing in anonymously: $e");
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Failed to sign in anonymously.")),
+                      const SnackBar(
+                        content: Text("Failed to sign in anonymously."),
+                      ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF7C84F8),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   elevation: 3,
                 ),
@@ -96,7 +98,7 @@ class SignupLoginScreen extends StatelessWidget {
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: Color(0xFF7C84F8)),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),

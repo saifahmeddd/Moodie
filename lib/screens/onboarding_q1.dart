@@ -1,28 +1,63 @@
 import 'package:flutter/material.dart';
-import 'onboarding_q2.dart'; // Import the next screen
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'onboarding_q2.dart';
 
 class OnboardingQuestionOneScreen extends StatefulWidget {
-  final String userId;
   final String name;
   final String age;
   final String occupation;
+  final String email;
+  final String password;
+  final String userId;
 
   const OnboardingQuestionOneScreen({
-    super.key,
-    //required this.userId,
+    Key? key,
     required this.name,
     required this.age,
-    required this.occupation, required this.userId,
-  });
+    required this.occupation,
+    required this.email,
+    required this.password,
+    required this.userId,
+  }) : super(key: key);
 
   @override
-  _OnboardingQuestionOneScreenState createState() =>
+  State<OnboardingQuestionOneScreen> createState() =>
       _OnboardingQuestionOneScreenState();
 }
 
 class _OnboardingQuestionOneScreenState
     extends State<OnboardingQuestionOneScreen> {
-  int _selectedValue = -1; // Start with nothing selected
+  int _selectedValue = -1;
+
+  void _saveResponseAndContinue() async {
+    if (_selectedValue == -1) return;
+
+    try {
+      // Save the response to Firestore under the same UID
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .collection('responses')
+          .doc('question1')
+          .set({'answer': _selectedValue});
+
+      // Navigate to the next onboarding question
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder:
+              (context) => OnboardingQuestionTwoScreen(
+                answer1: _selectedValue,
+                userId: widget.userId, // Pass the UID
+              ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error saving response: ${e.toString()}')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +66,11 @@ class _OnboardingQuestionOneScreenState
         leading: BackButton(
           color: Colors.black87,
           onPressed: () {
-            Navigator.pop(context); // Go back
+            Navigator.pop(context);
           },
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        //title: const Text(
-        //'Onboarding Question 1',
-        //style: TextStyle(color: Colors.black87),
-        //),
-        centerTitle: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -81,19 +111,7 @@ class _OnboardingQuestionOneScreenState
               width: double.infinity,
               child: ElevatedButton(
                 onPressed:
-                    _selectedValue == -1
-                        ? null
-                        : () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => OnboardingQuestionTwoScreen(
-                                    answer1: _selectedValue,
-                                  ),
-                            ),
-                          );
-                        },
+                    _selectedValue == -1 ? null : _saveResponseAndContinue,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple[300],
                   padding: const EdgeInsets.symmetric(vertical: 16.0),

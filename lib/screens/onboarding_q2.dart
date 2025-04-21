@@ -6,7 +6,8 @@ class OnboardingQuestionTwoScreen extends StatefulWidget {
 
   const OnboardingQuestionTwoScreen({
     super.key,
-    required this.answer1, // Mark it as required
+    required this.answer1,
+    required String userId, // Mark it as required
   });
 
   @override
@@ -31,8 +32,8 @@ class _OnboardingQuestionTwoScreenState
         backgroundColor: Colors.transparent,
         elevation: 0,
         //title: const Text(
-          //'Onboarding Question 2',
-          //style: TextStyle(color: Colors.black87),
+        //'Onboarding Question 2',
+        //style: TextStyle(color: Colors.black87),
         //),
         centerTitle: false,
       ),
@@ -47,9 +48,9 @@ class _OnboardingQuestionTwoScreenState
               child: Text(
                 '2',
                 style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  //fontSize: 20.0,
+                  //fontWeight: FontWeight.bold,
+                  //color: Colors.black87,
                 ),
               ),
             ),
@@ -62,12 +63,12 @@ class _OnboardingQuestionTwoScreenState
                 color: Colors.black87,
               ),
             ),
-            const SizedBox(height: 24.0),
-            // Display the answer from Question 1
-            Text(
-              'Your answer from Question 1: ${widget.answer1}',
-              style: const TextStyle(fontSize: 16.0, color: Colors.black54),
-            ),
+            //const SizedBox(height: 24.0),
+            // // Display the answer from Question 1
+            // Text(
+            //   'Your answer from Question 1: ${widget.answer1}',
+            //   style: const TextStyle(fontSize: 16.0, color: Colors.black54),
+            // ),
             const SizedBox(height: 24.0),
             _buildOption(index: 0, text: 'Personal growth'),
             const SizedBox(height: 8.0),
@@ -80,19 +81,21 @@ class _OnboardingQuestionTwoScreenState
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _selectedValue == -1
-                    ? null // Disable the button if no option is selected
-                    : () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OnboardingQuestionThreeScreen(
-                              answer1: widget.answer1, // Pass answer1
-                              answer2: _selectedValue, // Pass answer2
+                onPressed:
+                    _selectedValue == -1
+                        ? null // Disable the button if no option is selected
+                        : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => OnboardingQuestionThreeScreen(
+                                    answer1: widget.answer1, // Pass answer1
+                                    answer2: _selectedValue, // Pass answer2
+                                  ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple[300],
                   padding: const EdgeInsets.symmetric(vertical: 16.0),

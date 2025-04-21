@@ -26,10 +26,14 @@ class _SuccessScreenState extends State<SuccessScreen> {
     });
 
     try {
-      // Sign in anonymously
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInAnonymously();
-      String uid = userCredential.user!.uid;
+      // ✅ Get the currently signed-in user (DO NOT sign in again!)
+      User? currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser == null) {
+        throw Exception("No user signed in");
+      }
+
+      String uid = currentUser.uid;
 
       // Save user answers to Firestore
       await FirebaseFirestore.instance
@@ -41,9 +45,12 @@ class _SuccessScreenState extends State<SuccessScreen> {
             'timestamp': Timestamp.now(),
           });
 
-      print('Data saved for UID: $uid');
+      print('✅ Data saved for UID: $uid');
     } catch (e) {
-      print('Error saving data: $e');
+      print('❌ Error saving data: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Failed to save answers: $e")));
     } finally {
       setState(() {
         _isSaving = false;

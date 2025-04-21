@@ -34,14 +34,18 @@ class _OnboardingQuestionThreeScreenState
     });
 
     try {
+      // ✅ Get the currently signed-in user
+      User? currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser == null) {
+        throw Exception("No user is currently signed in");
+      }
+
+      String uid = currentUser.uid;
+
       String additionalText = _additionalContextController.text;
 
-      // Sign in anonymously
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInAnonymously();
-      String uid = userCredential.user!.uid;
-
-      // Save to Firestore
+      // ✅ Save data to Firestore using the same UID
       await FirebaseFirestore.instance.collection('user_answers').doc(uid).set({
         'answer1': widget.answer1,
         'answer2': widget.answer2,
@@ -49,7 +53,9 @@ class _OnboardingQuestionThreeScreenState
         'timestamp': FieldValue.serverTimestamp(),
       });
 
-      // Navigate to success screen
+      print("✅ Saved answers for UID: $uid");
+
+      // ✅ Navigate to SuccessScreen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder:
@@ -63,9 +69,11 @@ class _OnboardingQuestionThreeScreenState
         ),
       );
     } catch (e) {
-      print('Error saving data: $e');
+      print('❌ Error saving data: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Something went wrong. Please try again.')),
+        const SnackBar(
+          content: Text('Something went wrong. Please try again.'),
+        ),
       );
     } finally {
       setState(() {
@@ -111,11 +119,11 @@ class _OnboardingQuestionThreeScreenState
                 color: Colors.black87,
               ),
             ),
-            const SizedBox(height: 24.0),
-            const Text(
-              'Additional Context',
-              style: TextStyle(fontSize: 16.0, color: Colors.black54),
-            ),
+            //const SizedBox(height: 24.0),
+            // const Text(
+            //   'Additional Context',
+            //   style: TextStyle(fontSize: 16.0, color: Colors.black54),
+            // ),
             const SizedBox(height: 8.0),
             TextField(
               controller: _additionalContextController,
