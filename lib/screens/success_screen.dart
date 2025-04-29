@@ -26,7 +26,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
     });
 
     try {
-      // ✅ Get the currently signed-in user (DO NOT sign in again!)
+      
       User? currentUser = FirebaseAuth.instance.currentUser;
 
       if (currentUser == null) {
@@ -35,7 +35,6 @@ class _SuccessScreenState extends State<SuccessScreen> {
 
       String uid = currentUser.uid;
 
-      // Save user answers to Firestore
       await FirebaseFirestore.instance
           .collection('onboarding_responses')
           .doc(uid)

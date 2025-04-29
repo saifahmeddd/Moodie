@@ -28,13 +28,13 @@ class _LoginScreenState extends State<LoginScreen> {
       // Authenticate the user
       await _auth.signInWithEmailAndPassword(email: email, password: password);
 
-      // Print success message
-      print('Logged in successfully');
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Logged in successfully')));
+
+      // 🔁 Navigate to MoodCheckinScreen after successful login
+      Navigator.pushReplacementNamed(context, '/mood-checkin');
     } catch (e) {
-      // Print error message
       print('Login failed: ${e.toString()}');
       ScaffoldMessenger.of(
         context,

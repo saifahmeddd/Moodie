@@ -11,14 +11,14 @@ class OnboardingQuestionOneScreen extends StatefulWidget {
   final String userId;
 
   const OnboardingQuestionOneScreen({
-    Key? key,
+    super.key,
     required this.name,
     required this.age,
     required this.occupation,
     required this.email,
     required this.password,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   State<OnboardingQuestionOneScreen> createState() =>

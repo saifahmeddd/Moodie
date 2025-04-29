@@ -9,11 +9,11 @@ class EmailPasswordScreen extends StatefulWidget {
   final String occupation;
 
   const EmailPasswordScreen({
-    Key? key,
+    super.key,
     required this.name,
     required this.age,
     required this.occupation,
-  }) : super(key: key);
+  });
 
   @override
   State<EmailPasswordScreen> createState() => _EmailPasswordScreenState();

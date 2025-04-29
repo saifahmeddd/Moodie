@@ -19,6 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1
+  flutter_svg: ^2.1.0
 
 flutter:
   uses-material-design: true
@@ -30,3 +31,9 @@ flutter:
     - assets/icons/icon-google.png
     - assets/icons/icon-github.png
     - assets/icons/icon-apple.png
+    - assets/icons/cloud-rain-light.svg
+    - assets/icons/cloud-sun-light.svg
+    - assets/icons/head-circuit-light.svg
+    - assets/icons/leaf-light.svg
+    - assets/icons/Vector.svg
+    - assets/icons/fire-light.svg
