@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'mood_checkin_screen.dart'; // Import the MoodCheckinScreen
 
 class SuccessScreen extends StatefulWidget {
   final Map<String, dynamic> userAnswers; // Pass answers from onboarding
@@ -26,7 +27,6 @@ class _SuccessScreenState extends State<SuccessScreen> {
     });
 
     try {
-      
       User? currentUser = FirebaseAuth.instance.currentUser;
 
       if (currentUser == null) {
@@ -80,18 +80,19 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   ),
                 ),
                 const SizedBox(height: 24.0),
-                Image.asset(
-                  'assets/images/img4.png', // make sure this is in pubspec.yaml
-                  height: 324,
-                  width: 324,
-                ),
+                Image.asset('assets/images/img4.png', height: 324, width: 324),
                 const SizedBox(height: 32.0),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      // Navigate to home or dashboard screen
-                      Navigator.pushReplacementNamed(context, '/home');
+                      // Navigate to MoodCheckinScreen
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MoodCheckinScreen(),
+                        ),
+                      );
                     },
                     icon: const Icon(Icons.lightbulb_outline),
                     label: const Text("Start Your Journey"),

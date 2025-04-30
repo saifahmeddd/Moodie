@@ -5,7 +5,7 @@ import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/success_screen.dart';
 import 'screens/mood_checkin_screen.dart';
-import 'screens/home_page.dart';
+import 'screens/home_page.dart' as Home;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,11 @@ class MoodieApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Moodie App',
-      theme: ThemeData(primarySwatch: Colors.deepPurple, fontFamily: 'Roboto'),
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        fontFamily: 'Roboto',
+        scaffoldBackgroundColor: Colors.white,
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/splash',
       onGenerateRoute: (settings) {
@@ -32,7 +36,7 @@ class MoodieApp extends StatelessWidget {
           case '/mood-checkin':
             return MaterialPageRoute(builder: (_) => const MoodCheckinScreen());
           case '/home':
-            return MaterialPageRoute(builder: (_) => const HomePage());
+            return MaterialPageRoute(builder: (_) => const Home.HomePage());
           case '/success':
             final args = settings.arguments as Map<String, dynamic>?;
             if (args != null && args.containsKey('userAnswers')) {

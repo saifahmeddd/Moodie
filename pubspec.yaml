@@ -37,3 +37,8 @@ flutter:
     - assets/icons/leaf-light.svg
     - assets/icons/Vector.svg
     - assets/icons/fire-light.svg
+    - assets/images/robot.svg
+    - assets/images/meditation.svg
+    - assets/images/writing.svg
+    - assets/images/prompt.svg
+    - assets/images/mood.svg

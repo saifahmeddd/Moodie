@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:moodie_v2/screens/home_page.dart'; // Import the actual HomePage from home_page.dart
 
 void main() {
   runApp(const MoodCheckinApp());
@@ -78,6 +79,15 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
     });
   }
 
+  void _navigateToHomePage() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ), // Navigate to the actual HomePage
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,6 +135,7 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                         duration: Duration(seconds: 2),
                       ),
                     );
+                    _navigateToHomePage(); // Navigate to HomePage
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
