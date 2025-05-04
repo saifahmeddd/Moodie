@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'profile_screen.dart'; // Import the ProfileScreen
+import 'mood_tracker.dart'; // Import the MoodTracker screen
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,26 +15,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreenContent(),
-    Center(
-      child: Text(
-        'Tracker',
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-      ),
-    ),
-    Center(
+  static final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreenContent(),
+    const MoodTrackerApp(),
+    const Center(
       child: Text(
         'Exercises',
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          letterSpacing: -0.8,
+        ),
       ),
     ),
-    Center(
-      child: Text(
-        'Profile',
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-      ),
-    ),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -41,38 +37,57 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white, // Changed AppBar background to white
-        elevation: 0,
-        title: null,
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Quicksand',
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(
+            fontWeight: FontWeight.bold,
+            letterSpacing: -0.8,
+          ),
+          bodyMedium: TextStyle(
+            fontWeight: FontWeight.bold,
+            letterSpacing: -0.8,
+          ),
+          titleLarge: TextStyle(
+            fontWeight: FontWeight.bold,
+            letterSpacing: -0.8,
+          ),
+        ),
       ),
-      body: _widgetOptions[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.track_changes_outlined),
-            label: 'Tracker',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center_outlined),
-            label: 'Exercises',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.indigo,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: true,
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: null,
+        ),
+        body: _widgetOptions[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.track_changes_outlined),
+              label: 'Tracker',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.fitness_center_outlined),
+              label: 'Exercises',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.indigo,
+          unselectedItemColor: Colors.grey,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: true,
+        ),
       ),
     );
   }
@@ -149,7 +164,12 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 children: [
                   Text(
                     text,
-                    style: const TextStyle(fontSize: 12, color: Colors.black87),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: -1.0,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Row(
@@ -159,7 +179,8 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.indigo,
-                          fontSize: 12, // Increased font size
+                          fontSize: 12,
+                          letterSpacing: -0.8,
                         ),
                       ),
                       const SizedBox(width: 4),
@@ -188,26 +209,33 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ✨ Simple Good Morning Text ✨
           Text(
             'Good Morning, ${_userName ?? 'User'}',
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
               color: Colors.black,
+              letterSpacing: -0.8,
             ),
           ),
           const SizedBox(height: 16),
-
           const Text(
             '"Your mind matters. Every day, in every way."',
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.8,
+            ),
           ),
           const SizedBox(height: 24),
-
           const Text(
             'Recommended for today',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.8,
+            ),
           ),
           const SizedBox(height: 12),
           buildTile(
@@ -219,7 +247,11 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ),
           const Text(
             'Take a deep breath',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.8,
+            ),
           ),
           const SizedBox(height: 12),
           buildTile(
@@ -230,7 +262,11 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ),
           const Text(
             'Explore yourself',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.8,
+            ),
           ),
           const SizedBox(height: 12),
           buildTile(
@@ -242,7 +278,11 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ),
           const Text(
             'Daily Prompts',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.8,
+            ),
           ),
           const SizedBox(height: 12),
           buildTile(
@@ -253,7 +293,11 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ),
           const Text(
             'Mood Check-In',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.8,
+            ),
           ),
           const SizedBox(height: 12),
           buildTile(

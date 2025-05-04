@@ -20,14 +20,21 @@ class SignupLoginScreen extends StatelessWidget {
               'Welcome to moodie',
               style: TextStyle(
                 fontSize: 28,
+                fontFamily: 'quicksand',
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
+                letterSpacing: -2.5,
               ),
             ),
             const SizedBox(height: 10),
             const Text(
               'This is your space—let\'s make it feel like home. You won\'t even need an email, just sign up and get started',
-              style: TextStyle(fontSize: 16, color: Colors.black54),
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+                fontFamily: 'quicksand',
+                letterSpacing: -1.0,
+              ),
             ),
             const SizedBox(height: 30),
             Image.asset('assets/images/img3.png', height: 364, width: 364),
@@ -73,7 +80,7 @@ class SignupLoginScreen extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ),
@@ -107,7 +114,7 @@ class SignupLoginScreen extends StatelessWidget {
                   style: TextStyle(
                     color: Color(0xFF7C84F8),
                     fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ),

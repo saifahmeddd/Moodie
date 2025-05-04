@@ -176,6 +176,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gif_view:
+    dependency: "direct main"
+    description:
+      name: gif_view
+      sha256: fa6881f39a6e367e8c75ca20c0e357bcb228b1e709aa28317c9076005c5943f1
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   http:
     dependency: transitive
     description:

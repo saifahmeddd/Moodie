@@ -8,10 +8,11 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF7C84F8),
+      backgroundColor: const Color(0xFF7D7DDE),
       body: SafeArea(
         child: Column(
           children: [
+            // Header Section
             const Expanded(
               flex: 2,
               child: Column(
@@ -25,31 +26,42 @@ class SplashScreen extends StatelessWidget {
                         fontSize: 60,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        //fontFamily: 'Monospace',
+                        fontFamily: 'quicksand',
+                        letterSpacing: -3.0,
                       ),
                     ),
                   ),
-                  SizedBox(height: 2),
+                  SizedBox(height: 8),
                   Text(
                     'Stay in touch—with yourself',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'quicksand',
+                      letterSpacing: -1.0,
                     ),
                   ),
                 ],
               ),
             ),
+
+            // Image Section
             Expanded(
               flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 23.0),
                 child: Center(
-                  child: Image.asset('assets/images/img2.png', height: 325),
+                  child: Image.asset(
+                    'assets/images/img2.png',
+                    height: 325,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
+
+            // Button Section
             Expanded(
               flex: 1,
               child: Center(
@@ -75,7 +87,7 @@ class SplashScreen extends StatelessWidget {
                     child: const Text(
                       'Get Started',
                       style: TextStyle(
-                        color: Color.fromARGB(255, 71, 77, 159),
+                        color: Color(0xFF474D9F),
                         fontSize: 14,
                         fontWeight: FontWeight.normal,
                       ),
