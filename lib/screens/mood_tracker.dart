@@ -83,7 +83,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
               _buildAppBar(),
               const SizedBox(height: 20),
               if (_selectedMood != 0)
-                Expanded(child: _buildSelectedMoodGif(), flex: 2),
+                Expanded(flex: 2, child: _buildSelectedMoodGif()),
               const SizedBox(height: 10),
               Expanded(flex: 3, child: _buildMoodSelection()),
               const SizedBox(height: 20),

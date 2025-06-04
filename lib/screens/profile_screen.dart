@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -191,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       "Anxiety / Overthinking",
                       "Focus & Productivity",
                       "Emotional Regulation",
-                    ].map(_buildFocusAreaCheckbox).toList(),
+                    ].map(_buildFocusAreaCheckbox),
                   ],
                 ),
               ),

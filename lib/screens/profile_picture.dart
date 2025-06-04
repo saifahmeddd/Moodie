@@ -7,12 +7,12 @@ class ProfilePicture extends StatelessWidget {
   final Color iconColor;
 
   const ProfilePicture({
-    Key? key,
+    super.key,
     this.size = 80.0,
     this.imagePath,
     this.backgroundColor = const Color(0xFFBFD7FF),
     this.iconColor = const Color(0xFF2E7D32), // Green[800]
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

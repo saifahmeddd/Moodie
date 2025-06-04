@@ -8,13 +8,13 @@ class DropdownOverlay extends StatelessWidget {
   final Offset position;
 
   const DropdownOverlay({
-    Key? key,
+    super.key,
     required this.options,
     required this.selected,
     required this.onSelect,
     required this.width,
     required this.position,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

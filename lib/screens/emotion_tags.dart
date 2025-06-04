@@ -76,7 +76,7 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
                       children: [
                         ...emotionCategories.entries.map((entry) {
                           return _buildCategorySection(entry.key, entry.value);
-                        }).toList(),
+                        }),
                         const SizedBox(height: 20),
                       ],
                     ),
@@ -152,12 +152,15 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
   }
 
   Color _getTagColor(String category, int index) {
-    if (category == 'Stress Level' && index == 1)
+    if (category == 'Stress Level' && index == 1) {
       return const Color(0xFF8F7EFF);
-    if (category == 'Lowness & Annoyance' && index == 0)
+    }
+    if (category == 'Lowness & Annoyance' && index == 0) {
       return const Color(0xFF8F7EFF);
-    if (category == 'Calm & Positive' && (index == 0 || index == 1))
+    }
+    if (category == 'Calm & Positive' && (index == 0 || index == 1)) {
       return const Color(0xFF8F7EFF);
+    }
     if (category == 'Vibes' && index == 2) return const Color(0xFF8F7EFF);
     if (category == 'Others' && index == 0) return const Color(0xFF8F7EFF);
     return Colors.grey[100]!;
@@ -209,11 +212,11 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
         onPressed: () {
           final selectedEmotions = <String>[];
           emotionCategories.forEach((category, emotions) {
-            emotions.forEach((emotion) {
+            for (var emotion in emotions) {
               if (emotion['selected']) {
                 selectedEmotions.add(emotion['label']);
               }
-            });
+            }
           });
 
           print('Selected emotions: $selectedEmotions');
@@ -231,9 +234,9 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Text(
               'Next Step',
               style: TextStyle(

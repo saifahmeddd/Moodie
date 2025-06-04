@@ -5,10 +5,10 @@ class JournalReminderDropdown extends StatefulWidget {
   final Function(String) onChanged;
 
   const JournalReminderDropdown({
-    Key? key,
+    super.key,
     required this.initialValue,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<JournalReminderDropdown> createState() =>
