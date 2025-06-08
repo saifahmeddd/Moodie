@@ -86,27 +86,29 @@ class _OnboardingQuestionThreeScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+        leading: BackButton(
+          color: Colors.black87,
           onPressed: _navigateToPreviousScreen,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 126.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CircleAvatar(
+            const CircleAvatar(
               radius: 24.0,
-              backgroundColor: Colors.grey[200],
-              child: const Text(
+              backgroundColor: Color(0xFFE0E0E0),
+              child: Text(
                 '3',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
+                  fontFamily: 'quicksand',
+                  letterSpacing: -1.5,
                 ),
               ),
             ),
@@ -117,26 +119,55 @@ class _OnboardingQuestionThreeScreenState
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
+                fontFamily: 'quicksand',
+                letterSpacing: -1.5,
               ),
             ),
-            //const SizedBox(height: 24.0),
-            // const Text(
-            //   'Additional Context',
-            //   style: TextStyle(fontSize: 16.0, color: Colors.black54),
-            // ),
-            const SizedBox(height: 8.0),
-            TextField(
-              controller: _additionalContextController,
-              maxLines: 4,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide.none,
+            const SizedBox(height: 32.0),
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.04),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: TextField(
+                controller: _additionalContextController,
+                maxLines: 4,
+                style: const TextStyle(
+                  fontFamily: 'quicksand',
+                  letterSpacing: -1.5,
                 ),
-                filled: true,
-                fillColor: Colors.grey[200],
-                hintText: 'What are your likes and dislikes?',
-                hintStyle: TextStyle(color: Colors.grey[400]),
+                decoration: InputDecoration(
+                  hintText: 'What are your likes and dislikes?',
+                  hintStyle: const TextStyle(
+                    color: Color.fromARGB(137, 146, 139, 139),
+                    fontFamily: 'quicksand',
+                    letterSpacing: -1.5,
+                  ),
+                  contentPadding: const EdgeInsets.all(16.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: const BorderSide(color: Colors.transparent),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: const BorderSide(
+                      color: Color(0xFF9F7AEA),
+                      width: 2.0,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                ),
               ),
             ),
             const Spacer(),
@@ -146,7 +177,10 @@ class _OnboardingQuestionThreeScreenState
                 onPressed: _isLoading ? null : _handleFinish,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple[300],
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -162,6 +196,9 @@ class _OnboardingQuestionThreeScreenState
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.0,
+                                fontFamily: 'quicksand',
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: -1.5,
                               ),
                             ),
                             SizedBox(width: 8.0),

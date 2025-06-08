@@ -77,6 +77,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
+                    fontFamily: 'Quicksand',
                   ),
                 ),
                 const SizedBox(height: 24.0),
@@ -94,15 +95,28 @@ class _SuccessScreenState extends State<SuccessScreen> {
                         ),
                       );
                     },
-                    icon: const Icon(Icons.lightbulb_outline),
-                    label: const Text("Start Your Journey"),
+                    icon: const Icon(
+                      Icons.lightbulb_outline,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                    label: const Text(
+                      "Start Your Journey",
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.white,
+                        fontFamily: 'Quicksand',
+                      ),
+                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple[300],
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12.0,
+                        horizontal: 16.0,
                       ),
-                      textStyle: const TextStyle(fontSize: 16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ),
                 ),

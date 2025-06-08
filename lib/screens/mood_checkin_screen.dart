@@ -15,10 +15,10 @@ class MoodCheckinApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        fontFamily: 'Inter',
+        fontFamily: 'quicksand',
         textTheme: const TextTheme(
-          bodyMedium: TextStyle(fontFamily: 'Inter'),
-          labelMedium: TextStyle(fontFamily: 'Inter'),
+          bodyMedium: TextStyle(fontFamily: 'quicksand', letterSpacing: -1.5),
+          labelMedium: TextStyle(fontFamily: 'quicksand', letterSpacing: -1.5),
         ),
       ),
       home: const MoodCheckinScreen(),

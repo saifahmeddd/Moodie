@@ -73,7 +73,7 @@ class _OnboardingQuestionOneScreenState
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 126.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -86,6 +86,8 @@ class _OnboardingQuestionOneScreenState
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
+                  fontFamily: 'quicksand',
+                  letterSpacing: -1.5,
                 ),
               ),
             ),
@@ -96,17 +98,20 @@ class _OnboardingQuestionOneScreenState
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
+                fontFamily: 'quicksand',
+                letterSpacing: -1.5,
               ),
             ),
             const SizedBox(height: 24.0),
+            const SizedBox(height: 32.0),
             _buildOption(index: 0, text: 'Reflect quietly'),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 16.0),
             _buildOption(index: 1, text: 'Reach out'),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 16.0),
             _buildOption(index: 2, text: 'Power through'),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 16.0),
             _buildOption(index: 3, text: 'Distract yourself'),
-            const Spacer(),
+            const SizedBox(height: 32.0),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -114,7 +119,10 @@ class _OnboardingQuestionOneScreenState
                     _selectedValue == -1 ? null : _saveResponseAndContinue,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple[300],
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -124,7 +132,13 @@ class _OnboardingQuestionOneScreenState
                   children: <Widget>[
                     Text(
                       'Next',
-                      style: TextStyle(color: Colors.white, fontSize: 18.0),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontFamily: 'quicksand',
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: -1.5,
+                      ),
                     ),
                     SizedBox(width: 8.0),
                     Icon(Icons.arrow_forward, color: Colors.white),
@@ -149,10 +163,20 @@ class _OnboardingQuestionOneScreenState
       },
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: isSelected ? Colors.deepPurple[300] : Colors.grey[200],
           borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color:
+                  isSelected
+                      ? Colors.deepPurpleAccent.withOpacity(0.5)
+                      : Colors.grey.withOpacity(0.3),
+              blurRadius: isSelected ? 12.0 : 8.0,
+              spreadRadius: isSelected ? 1.5 : 1.0,
+            ),
+          ],
         ),
         child: Row(
           children: <Widget>[
@@ -166,6 +190,9 @@ class _OnboardingQuestionOneScreenState
               style: TextStyle(
                 fontSize: 16.0,
                 color: isSelected ? Colors.white : Colors.black87,
+                fontFamily: 'quicksand',
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                letterSpacing: -1.5,
               ),
             ),
           ],
