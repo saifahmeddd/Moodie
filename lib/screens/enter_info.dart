@@ -98,7 +98,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.04),
                       blurRadius: 8,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(12.0),
@@ -113,7 +113,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                       fontFamily: 'quicksand',
                     ),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
+                    contentPadding: const EdgeInsets.symmetric(
                       vertical: 8.0,
                       horizontal: 12.0,
                     ),
@@ -123,11 +123,11 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.transparent),
+                      borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Color(0xFF9F7AEA),
                         width: 2.0,
                       ),
@@ -155,7 +155,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.04),
                       blurRadius: 8,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(12.0),
@@ -171,7 +171,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                       fontFamily: 'quicksand',
                     ),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
+                    contentPadding: const EdgeInsets.symmetric(
                       vertical: 8.0,
                       horizontal: 12.0,
                     ),
@@ -181,11 +181,11 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.transparent),
+                      borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Color(0xFF9F7AEA),
                         width: 2.0,
                       ),
@@ -213,7 +213,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.04),
                       blurRadius: 8,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ],
                   borderRadius: BorderRadius.circular(12.0),
@@ -228,7 +228,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                       fontFamily: 'quicksand',
                     ),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
+                    contentPadding: const EdgeInsets.symmetric(
                       vertical: 8.0,
                       horizontal: 12.0,
                     ),
@@ -238,11 +238,11 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Colors.transparent),
+                      borderSide: const BorderSide(color: Colors.transparent),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Color(0xFF9F7AEA),
                         width: 2.0,
                       ),
@@ -253,8 +253,8 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                 ),
               ),
               const SizedBox(height: 4.0),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(Icons.info_outline, size: 16.0, color: Colors.black38),
                   SizedBox(width: 4.0),
                   Expanded(
@@ -276,13 +276,13 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                 width: double.infinity,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: Color(0xFF9F7AEA),
+                    color: const Color(0xFF9F7AEA),
                     borderRadius: BorderRadius.circular(12.0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.deepPurple.withOpacity(0.12),
                         blurRadius: 8,
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                       ),
                     ],
                   ),

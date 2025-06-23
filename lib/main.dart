@@ -24,7 +24,7 @@ class MoodieApp extends StatelessWidget {
       title: 'Moodie App',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        fontFamily: 'Roboto',
+        fontFamily: 'Quicksand',
         scaffoldBackgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
