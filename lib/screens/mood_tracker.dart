@@ -138,7 +138,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
         gifPath = 'assets/gifs/pouting-face.gif';
         break;
     }
-
+print('gif path: $gifPath');
     return Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),

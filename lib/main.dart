@@ -8,6 +8,7 @@ import 'screens/mood_checkin_screen.dart';
 import 'screens/home_page.dart' as Home;
 import 'screens/profile_screen.dart'; // Import the ProfileScreen
 import 'screens/mood_tracker.dart'; // Import the MoodTracker screen
+import 'screens/chatbot_screen.dart'; // Import the ChatbotScreen
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +44,8 @@ class MoodieApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const ProfileScreen());
           case '/mood-tracker': // Route for MoodTracker screen
             return MaterialPageRoute(builder: (_) => const MoodTrackerApp());
+          case '/chatbot':
+            return MaterialPageRoute(builder: (_) => const ChatbotScreen());
           case '/success':
             final args = settings.arguments as Map<String, dynamic>?;
             if (args != null && args.containsKey('userAnswers')) {

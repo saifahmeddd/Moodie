@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'box_breathing_walkthrough.dart';
 
 class BreathingExercisesScreen extends StatelessWidget {
   const BreathingExercisesScreen({super.key});
@@ -14,7 +15,7 @@ class BreathingExercisesScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.only(
                 top: 40,
-                left: 24,
+                left: 12,
                 right: 24,
                 bottom: 32,
               ),
@@ -25,79 +26,116 @@ class BreathingExercisesScreen extends StatelessWidget {
                   bottomRight: Radius.circular(40),
                 ),
               ),
-              child: const Text(
-                'Breathing Exercises',
-                style: TextStyle(
-                  fontFamily: 'Quicksand',
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: -0.5,
-                ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                    ),
+                  ),
+                  const Center(
+                    child: Text(
+                      'Breathing Exercises',
+                      style: TextStyle(
+                        fontFamily: 'Quicksand',
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
                 ),
-                child: ListView(
-                  padding: const EdgeInsets.fromLTRB(16, 40, 16, 24),
-                  children: [
-                    _ExerciseCard(
-                      title: 'Box Breathing',
-                      duration: '4 minutes',
-                      focusArea: 'Stress & Anxiety',
-                      imageAsset: 'assets/images/meditation.svg',
+                child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
                     ),
-                    const SizedBox(height: 24),
-                    _ExerciseCard(
-                      title: '4-7-8 Breathing',
-                      duration: '3 minutes',
-                      focusArea: 'Sleep & Panic Relief',
-                      imageAsset: 'assets/images/meditation.svg',
-                    ),
-                    const SizedBox(height: 24),
-                    _ExerciseCard(
-                      title: 'Tactical Breathing',
-                      duration: '5 minutes',
-                      focusArea: 'High-Stress Situations',
-                      imageAsset: 'assets/images/meditation.svg',
-                    ),
-                    const SizedBox(height: 24),
-                    _ExerciseCard(
-                      title: 'Double Inhale and Sigh',
-                      duration: '2 minutes',
-                      focusArea: 'Quick Reset',
-                      imageAsset: 'assets/images/meditation.svg',
-                    ),
-                    const SizedBox(height: 24),
-                    _ExerciseCard(
-                      title: 'Diaphragmatic Breathing',
-                      duration: '5 minutes',
-                      focusArea: 'Relaxation',
-                      imageAsset: 'assets/images/meditation.svg',
-                    ),
-                    const SizedBox(height: 24),
-                    _ExerciseCard(
-                      title: '3-3-3 Breathing',
-                      duration: '3 minutes',
-                      focusArea: 'Grounding',
-                      imageAsset: 'assets/images/meditation.svg',
-                    ),
-                    const SizedBox(height: 24),
-                    _ExerciseCard(
-                      title: 'Coherent Breathing',
-                      duration: '6 minutes',
-                      focusArea: 'Balance & Calm',
-                      imageAsset: 'assets/images/meditation.svg',
-                    ),
-                  ],
+                  ),
+                  child: ListView(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                    children: [
+                      const SizedBox(height: 24),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => BoxBreathingWalkthroughScreen(),
+                            ),
+                          );
+                        },
+                        child: _ExerciseCard(
+                          title: 'Box Breathing',
+                          duration: '4 minutes',
+                          focusArea: 'Stress & Anxiety',
+                          imageAsset: 'assets/images/meditation.svg',
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      _ExerciseCard(
+                        title: '4-7-8 Breathing',
+                        duration: '3 minutes',
+                        focusArea: 'Sleep & Panic Relief',
+                        imageAsset: 'assets/images/meditation.svg',
+                      ),
+                      const SizedBox(height: 24),
+                      _ExerciseCard(
+                        title: 'Tactical Breathing',
+                        duration: '5 minutes',
+                        focusArea: 'High-Stress Situations',
+                        imageAsset: 'assets/images/meditation.svg',
+                      ),
+                      const SizedBox(height: 24),
+                      _ExerciseCard(
+                        title: 'Double Inhale and Sigh',
+                        duration: '2 minutes',
+                        focusArea: 'Quick Reset',
+                        imageAsset: 'assets/images/meditation.svg',
+                      ),
+                      const SizedBox(height: 24),
+                      _ExerciseCard(
+                        title: 'Diaphragmatic Breathing',
+                        duration: '5 minutes',
+                        focusArea: 'Relaxation',
+                        imageAsset: 'assets/images/meditation.svg',
+                      ),
+                      const SizedBox(height: 24),
+                      _ExerciseCard(
+                        title: '3-3-3 Breathing',
+                        duration: '3 minutes',
+                        focusArea: 'Grounding',
+                        imageAsset: 'assets/images/meditation.svg',
+                      ),
+                      const SizedBox(height: 24),
+                      _ExerciseCard(
+                        title: 'Coherent Breathing',
+                        duration: '6 minutes',
+                        focusArea: 'Balance & Calm',
+                        imageAsset: 'assets/images/meditation.svg',
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

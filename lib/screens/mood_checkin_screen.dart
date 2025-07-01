@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:moodie_v2/screens/home_page.dart'; // Import the actual HomePage from home_page.dart
+import 'package:moodie_v2/screens/home_page.dart'; 
 
 void main() {
   runApp(const MoodCheckinApp());
