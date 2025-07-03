@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BoxBreathingStepScreen extends StatefulWidget {
-  final int totalSeconds; // e.g., 4 * 60 for 4 minutes
+  final int totalSeconds;
   const BoxBreathingStepScreen({super.key, this.totalSeconds = 240});
 
   @override
@@ -88,7 +88,6 @@ class _BoxBreathingStepScreenState extends State<BoxBreathingStepScreen>
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // Animated Circles
             AnimatedBuilder(
               animation: _scaleAnimation,
               builder: (context, child) {
@@ -98,7 +97,6 @@ class _BoxBreathingStepScreenState extends State<BoxBreathingStepScreen>
                 );
               },
             ),
-            // Timer
             Positioned(
               top: 64,
               left: 0,
@@ -115,7 +113,6 @@ class _BoxBreathingStepScreenState extends State<BoxBreathingStepScreen>
                 ),
               ),
             ),
-            // Instruction Card
             if (!_completed)
               Positioned(
                 bottom: 120,

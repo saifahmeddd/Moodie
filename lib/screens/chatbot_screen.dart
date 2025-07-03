@@ -10,7 +10,6 @@ class ChatbotScreen extends StatefulWidget {
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _controller = TextEditingController();
 
-  // Sample static messages for demonstration
   final List<_ChatMessage> _messages = [
     _ChatMessage(text: "I just... feel like I'm never enough", isUser: true),
     _ChatMessage(
@@ -166,7 +165,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   radius: 26,
                   child: IconButton(
                     icon: const Icon(Icons.stop, color: Colors.white),
-                    onPressed: () {}, // Placeholder for stop/send action
+                    onPressed: () {}, 
                   ),
                 ),
               ],

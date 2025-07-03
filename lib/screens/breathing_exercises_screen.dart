@@ -241,12 +241,11 @@ class _ExerciseCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          // Replace with SvgPicture.asset(imageAsset) if using SVGs
           SizedBox(
             height: 90,
             width: 90,
             child: Image.asset(
-              'assets/images/img1.png', // Placeholder, replace with your asset
+              'assets/images/img1.png', //placeholder asst
               fit: BoxFit.contain,
             ),
           ),

@@ -183,7 +183,6 @@ class _BoxBreathingWalkthroughScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // No backgroundColor, let the walkthrough page color fill the screen
       body: PageView.builder(
         controller: _controller,
         physics: const NeverScrollableScrollPhysics(),

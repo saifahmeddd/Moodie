@@ -91,7 +91,6 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                 ),
               ),
               const SizedBox(height: 4.0),
-              // Name field with shadow
               Container(
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -148,7 +147,6 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                 ),
               ),
               const SizedBox(height: 4.0),
-              // Age field with shadow
               Container(
                 decoration: BoxDecoration(
                   boxShadow: [
