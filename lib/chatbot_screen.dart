@@ -9,30 +9,7 @@ class ChatbotScreen extends StatefulWidget {
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _controller = TextEditingController();
-
-  final List<_ChatMessage> _messages = [
-    _ChatMessage(text: "I just... feel like I'm never enough", isUser: true),
-    _ChatMessage(
-      text:
-          "That sounds really heavy to carry. Can you tell me what's making you feel this way today?",
-      isUser: false,
-    ),
-    _ChatMessage(
-      text:
-          "I try so hard. But it's like... it's never good enough. For anyone",
-      isUser: true,
-    ),
-    _ChatMessage(
-      text:
-          "I hear you. That feeling, that no matter what you do, it still falls short, can be incredibly painful. You're trying so hard, and that matters.",
-      isUser: false,
-    ),
-    _ChatMessage(
-      text: "I just want to feel like I'm doing okay. Like I'm not failing",
-      isUser: true,
-    ),
-    _ChatMessage(text: "...", isUser: false, isTyping: true),
-  ];
+  final List<_ChatMessage> _messages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +23,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
             Icons.arrow_back_ios_new_rounded,
             color: Color(0xFF3A3075),
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {},
         ),
         title: const Text(
           'Safe Space',
@@ -108,7 +85,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                   height: 18,
                                   child: Center(
                                     child: Text(
-                                      '... ',
+                                      '...',
                                       style: TextStyle(
                                         color: Color(0xFF6A5AE0),
                                         fontSize: 22,
@@ -165,7 +142,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   radius: 26,
                   child: IconButton(
                     icon: const Icon(Icons.stop, color: Colors.white),
-                    onPressed: () {}, 
+                    onPressed: () {},
                   ),
                 ),
               ],
