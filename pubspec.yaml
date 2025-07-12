@@ -17,12 +17,14 @@ dependencies:
   gif_view: ^1.0.2
   http: ^1.3.0
   flutter_dotenv: ^5.2.1
+  uuid: ^4.3.3
+
+  flutter_svg: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1
-  flutter_svg: ^2.1.0
 
 flutter:
   uses-material-design: true
@@ -47,6 +49,8 @@ flutter:
     - assets/images/writing.svg
     - assets/images/prompt.svg
     - assets/images/mood.svg
+    - assets/images/serene.svg
+    - assets/images/relaxing-at-home.svg
     - assets/gifs/bad.gif
     - assets/gifs/good.gif
     - assets/gifs/great.gif
