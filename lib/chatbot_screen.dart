@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'services/chatbot.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);
@@ -9,7 +12,111 @@ class ChatbotScreen extends StatefulWidget {
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   final List<_ChatMessage> _messages = [];
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Add a welcome message
+    _messages.add(_ChatMessage(
+      text: "Hi! I'm here to listen and support you. Feel free to share what's on your mind.",
+      isUser: false,
+    ));
+  }
+
+  void _sendMessage() async {
+    final userMessage = _controller.text.trim();
+    if (userMessage.isEmpty || _isLoading) return;
+
+    // Add user message to chat
+    setState(() {
+      _messages.add(_ChatMessage(text: userMessage, isUser: true));
+      _controller.clear();
+      _isLoading = true;
+      // Add typing indicator
+      _messages.add(_ChatMessage(text: "", isUser: false, isTyping: true));
+    });
+    _scrollToBottom();
+
+    try {
+      // Call the chatbot API
+      final result = await callRunpodEndpoint(userMessage);
+      
+      // Remove typing indicator
+      setState(() {
+        _messages.removeLast();
+      });
+
+      if (result['status'] == 'COMPLETED' && result['output'] != null) {
+        // Extract the AI response from the output
+        final output = result['output'][0];
+        final response = output['choices'][0]['tokens'][0];
+        
+        // Add AI response to chat
+        setState(() {
+          _messages.add(_ChatMessage(text: response.trim(), isUser: false));
+        });
+        _scrollToBottom();
+      } else {
+        // Handle unexpected response format
+        setState(() {
+          _messages.add(_ChatMessage(
+            text: "I'm sorry, I'm having trouble responding right now. Please try again.",
+            isUser: false,
+          ));
+        });
+        _scrollToBottom();
+      }
+    } catch (e) {
+      // Remove typing indicator
+      setState(() {
+        _messages.removeLast();
+      });
+      
+      // Handle error
+      setState(() {
+        _messages.add(_ChatMessage(
+          text: "I'm sorry, there was an issue connecting. Please check your connection and try again.",
+          isUser: false,
+        ));
+      });
+      _scrollToBottom();
+      print('Chatbot API error: $e');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      Future.delayed(Duration(milliseconds: 100), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      });
+    }
+  }
+
+  Widget _buildTypingDot(int delay) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 600),
+      curve: Curves.easeInOut,
+      child: Container(
+        width: 4,
+        height: 4,
+        decoration: BoxDecoration(
+          color: Color(0xFF6868B9),
+          shape: BoxShape.circle,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +130,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
             Icons.arrow_back_ios_new_rounded,
             color: Color(0xFF3A3075),
           ),
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Safe Space',
@@ -35,10 +142,18 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
           ),
         ),
         centerTitle: true,
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Icon(Icons.chat_bubble_outline, color: Color(0xFF3A3075)),
+            padding: const EdgeInsets.only(right: 16.0),
+            child: SvgPicture.asset(
+              'assets/icons/chatbubble.svg',
+              width: 24,
+              height: 24,
+              colorFilter: const ColorFilter.mode(
+                Color(0xFF3A3075),
+                BlendMode.srcIn,
+              ),
+            ),
           ),
         ],
       ),
@@ -46,6 +161,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         children: [
           Expanded(
             child: ListView.builder(
+              controller: _scrollController,
               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
               itemCount: _messages.length,
               itemBuilder: (context, index) {
@@ -65,9 +181,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     ),
                     decoration: BoxDecoration(
                       color:
-                          msg.isUser
-                              ? const Color(0xFF6A5AE0)
-                              : const Color(0xFFF6F5FB),
+                                                msg.isUser
+                          ? const Color(0xFF6868B9)
+                          : const Color(0xFFF6F5FB),
                       borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(20),
                         topRight: const Radius.circular(20),
@@ -81,16 +197,16 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SizedBox(
-                                  width: 18,
-                                  height: 18,
+                                  width: 40,
+                                  height: 20,
                                   child: Center(
-                                    child: Text(
-                                      '...',
-                                      style: TextStyle(
-                                        color: Color(0xFF6A5AE0),
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        _buildTypingDot(0),
+                                        _buildTypingDot(200),
+                                        _buildTypingDot(400),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -120,8 +236,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
+                    onSubmitted: (_) => _sendMessage(),
                     decoration: InputDecoration(
-                      hintText: "",
+                      hintText: "Share what's on your mind...",
                       hintStyle: const TextStyle(color: Colors.grey),
                       filled: true,
                       fillColor: const Color(0xFFF5F5FA),
@@ -138,11 +255,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 ),
                 const SizedBox(width: 8),
                 CircleAvatar(
-                  backgroundColor: const Color(0xFF6A5AE0),
+                  backgroundColor: _isLoading ? Colors.grey : const Color(0xFF6868B9),
                   radius: 26,
                   child: IconButton(
-                    icon: const Icon(Icons.stop, color: Colors.white),
-                    onPressed: () {},
+                    icon: Icon(
+                      _isLoading ? Icons.hourglass_empty : Icons.send,
+                      color: Colors.white,
+                    ),
+                    onPressed: _isLoading ? null : _sendMessage,
                   ),
                 ),
               ],

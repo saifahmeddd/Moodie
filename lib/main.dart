@@ -1,6 +1,8 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'firebase_options.dart';
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/success_screen.dart';
@@ -8,12 +10,15 @@ import 'screens/mood_checkin_screen.dart';
 import 'screens/home_page.dart' as Home;
 import 'screens/profile_screen.dart';
 import 'screens/mood_tracker.dart';
-//import 'screens/chatbot_screen.dart';
+import 'chatbot_screen.dart';
 import 'screens/journaling_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MoodieApp());
 }
 
@@ -45,8 +50,8 @@ class MoodieApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const ProfileScreen());
           case '/mood-tracker': // Route for MoodTracker screen
             return MaterialPageRoute(builder: (_) => const MoodTrackerApp());
-          //case '/chatbot':
-          //turn MaterialPageRoute(builder: (_) => const ChatbotScreen());
+          case '/chatbot':
+            return MaterialPageRoute(builder: (_) => const ChatbotScreen());
           case '/journaling':
             return MaterialPageRoute(builder: (_) => JournalingScreen());
           case '/success':
