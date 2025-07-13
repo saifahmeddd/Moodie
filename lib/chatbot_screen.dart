@@ -574,116 +574,118 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
       body: Stack(
         children: [
           // Main chat content
-          Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
-                  itemCount: _messages.length,
-                  itemBuilder: (context, index) {
-                    final msg = _messages[index];
-                    return Align(
-                      alignment:
-                          msg.isUser ? Alignment.centerRight : Alignment.centerLeft,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          top: index == 0 ? 0 : 12,
-                          left: msg.isUser ? 60 : 0,
-                          right: msg.isUser ? 0 : 60,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 16,
-                        ),
-                        decoration: BoxDecoration(
-                          color: msg.isUser
-                              ? const Color(0xFF6868B9)
-                              : const Color(0xFFF6F5FB),
-                          borderRadius: BorderRadius.only(
-                            topLeft: const Radius.circular(20),
-                            topRight: const Radius.circular(20),
-                            bottomLeft: Radius.circular(msg.isUser ? 20 : 4),
-                            bottomRight: Radius.circular(msg.isUser ? 4 : 20),
+          Positioned.fill(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+                    itemCount: _messages.length,
+                    itemBuilder: (context, index) {
+                      final msg = _messages[index];
+                      return Align(
+                        alignment:
+                            msg.isUser ? Alignment.centerRight : Alignment.centerLeft,
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            top: index == 0 ? 0 : 12,
+                            left: msg.isUser ? 60 : 0,
+                            right: msg.isUser ? 0 : 60,
                           ),
-                        ),
-                        child: msg.isTyping
-                            ? Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    width: 40,
-                                    height: 20,
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          _buildTypingDot(0),
-                                          _buildTypingDot(200),
-                                          _buildTypingDot(400),
-                                        ],
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color: msg.isUser
+                                ? const Color(0xFF6868B9)
+                                : const Color(0xFFF6F5FB),
+                            borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(20),
+                              topRight: const Radius.circular(20),
+                              bottomLeft: Radius.circular(msg.isUser ? 20 : 4),
+                              bottomRight: Radius.circular(msg.isUser ? 4 : 20),
+                            ),
+                          ),
+                          child: msg.isTyping
+                              ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      width: 40,
+                                      height: 20,
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            _buildTypingDot(0),
+                                            _buildTypingDot(200),
+                                            _buildTypingDot(400),
+                                          ],
+                                        ),
                                       ),
                                     ),
+                                  ],
+                                )
+                              : Text(
+                                  msg.text,
+                                  style: TextStyle(
+                                    color: msg.isUser
+                                        ? Colors.white
+                                        : const Color(0xFF3A3075),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                ],
-                              )
-                            : Text(
-                                msg.text,
-                                style: TextStyle(
-                                  color: msg.isUser
-                                      ? Colors.white
-                                      : const Color(0xFF3A3075),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
                                 ),
-                              ),
-                      ),
-                    );
-                  },
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _controller,
-                        onSubmitted: (_) => _sendMessage(),
-                        enabled: !_isSidebarOpen,
-                        decoration: InputDecoration(
-                          hintText: "Share what's on your mind...",
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          filled: true,
-                          fillColor: const Color(0xFFF5F5FA),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(24),
-                            borderSide: BorderSide.none,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _controller,
+                          onSubmitted: (_) => _sendMessage(),
+                          enabled: !_isSidebarOpen,
+                          decoration: InputDecoration(
+                            hintText: "Share what's on your mind...",
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            filled: true,
+                            fillColor: const Color(0xFFF5F5FA),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: BorderSide.none,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    CircleAvatar(
-                      backgroundColor: _isLoading ? Colors.grey : const Color(0xFF6868B9),
-                      radius: 26,
-                      child: IconButton(
-                        icon: Icon(
-                          _isLoading ? Icons.hourglass_empty : Icons.send,
-                          color: Colors.white,
+                      const SizedBox(width: 8),
+                      CircleAvatar(
+                        backgroundColor: _isLoading ? Colors.grey : const Color(0xFF6868B9),
+                        radius: 26,
+                        child: IconButton(
+                          icon: Icon(
+                            _isLoading ? Icons.hourglass_empty : Icons.send,
+                            color: Colors.white,
+                          ),
+                          onPressed: (_isLoading || _isSidebarOpen) ? null : _sendMessage,
                         ),
-                        onPressed: (_isLoading || _isSidebarOpen) ? null : _sendMessage,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           
           // Overlay
