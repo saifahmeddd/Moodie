@@ -77,12 +77,20 @@ class ChatSessionService {
     final querySnapshot = await _firestore
         .collection(_collectionName)
         .where('userId', isEqualTo: user.uid)
-        .orderBy('updatedAt', descending: true)
         .get();
 
-    return querySnapshot.docs
+    final sessions = querySnapshot.docs
         .map((doc) => ChatSession.fromFirestore(doc))
         .toList();
+
+    // Sort by updatedAt in memory (descending - newest first)
+    sessions.sort((a, b) {
+      final aTime = a.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      final bTime = b.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      return bTime.compareTo(aTime);
+    });
+
+    return sessions;
   }
 
   // Delete a chat session
@@ -125,11 +133,21 @@ class ChatSessionService {
     return _firestore
         .collection(_collectionName)
         .where('userId', isEqualTo: user.uid)
-        .orderBy('updatedAt', descending: true)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => ChatSession.fromFirestore(doc))
-            .toList());
+        .map((snapshot) {
+          final sessions = snapshot.docs
+              .map((doc) => ChatSession.fromFirestore(doc))
+              .toList();
+          
+          // Sort by updatedAt in memory (descending - newest first)
+          sessions.sort((a, b) {
+            final aTime = a.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+            final bTime = b.updatedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+            return bTime.compareTo(aTime);
+          });
+          
+          return sessions;
+        });
   }
 }
 
