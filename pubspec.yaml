@@ -15,6 +15,10 @@ dependencies:
   firebase_auth: ^4.17.7
   cloud_firestore: ^4.15.5
   gif_view: ^1.0.2
+  http: ^1.3.0
+  flutter_dotenv: ^5.2.1
+  uuid: ^4.3.3
+  intl: ^0.18.1
   flutter_svg: ^2.1.0
 
 dev_dependencies:
@@ -25,6 +29,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - .env
     - assets/images/img1.png
     - assets/images/img2.png
     - assets/images/img3.png
@@ -41,12 +46,18 @@ flutter:
     - assets/icons/leaf-light.svg
     - assets/icons/Vector.svg
     - assets/icons/fire-light.svg
+    - assets/icons/chatbubble.svg
+    - assets/icons/plus.svg
+    - assets/icons/close-sidebar.svg
+    - assets/icons/Trash.svg
     - assets/icons/arrow-left.svg
     - assets/images/robot.svg
     - assets/images/meditation.svg
     - assets/images/writing.svg
     - assets/images/prompt.svg
     - assets/images/mood.svg
+    - assets/images/serene.svg
+    - assets/images/relaxing-at-home.svg
     - assets/gifs/bad.gif
     - assets/gifs/good.gif
     - assets/gifs/great.gif
