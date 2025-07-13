@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'onboarding_q3.dart'; // Import the next screen
 import '../widgets/custom_back_button.dart';
 
 class OnboardingQuestionTwoScreen extends StatefulWidget {
-  final int answer1; // Parameter to accept the answer from Question 1
+  final String answer1; // Changed from int to String
+  final String userId; // Add userId parameter
 
   const OnboardingQuestionTwoScreen({
     super.key,
     required this.answer1,
-    required String userId, // Mark it as required
+    required this.userId, // Mark it as required
   });
 
   @override
@@ -19,6 +21,47 @@ class OnboardingQuestionTwoScreen extends StatefulWidget {
 class _OnboardingQuestionTwoScreenState
     extends State<OnboardingQuestionTwoScreen> {
   int _selectedValue = -1; // Track the selected option
+
+  // Map of index to actual text responses
+  final Map<int, String> _responses = {
+    0: 'Personal growth',
+    1: 'Helping others',
+    2: 'Achieving goals',
+    3: 'Finding balance',
+  };
+
+  void _saveResponseAndContinue() async {
+    if (_selectedValue == -1) return;
+
+    try {
+      // Save the actual text response to Firestore instead of the index
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.userId)
+          .collection('responses')
+          .doc('question2')
+          .set({'answer': _responses[_selectedValue]});
+
+      // Navigate to the next onboarding question
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder:
+              (context) => OnboardingQuestionThreeScreen(
+                answer1:
+                    widget.answer1, // Pass the actual text response from Q1
+                answer2:
+                    _responses[_selectedValue]!, // Pass the actual text response from Q2
+                userId: widget.userId, // Pass the UID
+              ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error saving response: ${e.toString()}')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,20 +120,7 @@ class _OnboardingQuestionTwoScreenState
                           _selectedValue == -1
                               ? null // Disable the button if no option is selected
                               : () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder:
-                                        (
-                                          context,
-                                        ) => OnboardingQuestionThreeScreen(
-                                          answer1:
-                                              widget.answer1, // Pass answer1
-                                          answer2:
-                                              _selectedValue, // Pass answer2
-                                        ),
-                                  ),
-                                );
+                                _saveResponseAndContinue();
                               },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF7D7DDE),

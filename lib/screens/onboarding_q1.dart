@@ -30,17 +30,25 @@ class _OnboardingQuestionOneScreenState
     extends State<OnboardingQuestionOneScreen> {
   int _selectedValue = -1;
 
+  // Map of index to actual text responses
+  final Map<int, String> _responses = {
+    0: 'Reflect quietly',
+    1: 'Reach out',
+    2: 'Power through',
+    3: 'Distract yourself',
+  };
+
   void _saveResponseAndContinue() async {
     if (_selectedValue == -1) return;
 
     try {
-      // Save the response to Firestore under the same UID
+      // Save the actual text response to Firestore instead of the index
       await FirebaseFirestore.instance
           .collection('users')
           .doc(widget.userId)
           .collection('responses')
           .doc('question1')
-          .set({'answer': _selectedValue});
+          .set({'answer': _responses[_selectedValue]});
 
       // Navigate to the next onboarding question
       Navigator.push(
@@ -48,7 +56,8 @@ class _OnboardingQuestionOneScreenState
         MaterialPageRoute(
           builder:
               (context) => OnboardingQuestionTwoScreen(
-                answer1: _selectedValue,
+                answer1:
+                    _responses[_selectedValue]!, // Pass the actual text response
                 userId: widget.userId, // Pass the UID
               ),
         ),

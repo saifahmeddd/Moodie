@@ -5,13 +5,15 @@ import 'package:moodie_v2/screens/success_screen.dart';
 import '../widgets/custom_back_button.dart';
 
 class OnboardingQuestionThreeScreen extends StatefulWidget {
-  final int answer1;
-  final int answer2;
+  final String answer1; // Changed from int to String
+  final String answer2; // Changed from int to String
+  final String userId; // Add userId parameter
 
   const OnboardingQuestionThreeScreen({
     super.key,
     required this.answer1,
     required this.answer2,
+    required this.userId,
   });
 
   @override
@@ -46,10 +48,10 @@ class _OnboardingQuestionThreeScreenState
 
       String additionalText = _additionalContextController.text;
 
-      // ✅ Save data to Firestore using the same UID
+      // ✅ Save data to Firestore using the same UID with actual text responses
       await FirebaseFirestore.instance.collection('user_answers').doc(uid).set({
-        'answer1': widget.answer1,
-        'answer2': widget.answer2,
+        'answer1': widget.answer1, // Save actual text response from Q1
+        'answer2': widget.answer2, // Save actual text response from Q2
         'additional_context': additionalText,
         'timestamp': FieldValue.serverTimestamp(),
       });
@@ -61,8 +63,8 @@ class _OnboardingQuestionThreeScreenState
           builder:
               (context) => SuccessScreen(
                 userAnswers: {
-                  'answer1': widget.answer1.toString(),
-                  'answer2': widget.answer2.toString(),
+                  'answer1': widget.answer1, // Pass actual text response
+                  'answer2': widget.answer2, // Pass actual text response
                   'additional_context': additionalText,
                 },
               ),
