@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_back_button.dart';
 
 class BoxBreathingStepScreen extends StatefulWidget {
   final int totalSeconds;
@@ -88,6 +89,11 @@ class _BoxBreathingStepScreenState extends State<BoxBreathingStepScreen>
         child: Stack(
           alignment: Alignment.center,
           children: [
+            Positioned(
+              top: 16,
+              left: 8,
+              child: CustomBackButton(iconColor: Colors.white, iconSize: 24),
+            ),
             AnimatedBuilder(
               animation: _scaleAnimation,
               builder: (context, child) {

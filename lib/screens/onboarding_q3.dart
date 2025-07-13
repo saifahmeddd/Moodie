@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moodie_v2/screens/success_screen.dart';
+import '../widgets/custom_back_button.dart';
 
 class OnboardingQuestionThreeScreen extends StatefulWidget {
   final int answer1;
@@ -55,7 +56,6 @@ class _OnboardingQuestionThreeScreenState
 
       print("✅ Saved answers for UID: $uid");
 
-      // ✅ Navigate to SuccessScreen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder:
@@ -69,7 +69,7 @@ class _OnboardingQuestionThreeScreenState
         ),
       );
     } catch (e) {
-      print('❌ Error saving data: $e');
+      print('Error saving data: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Something went wrong. Please try again.'),
@@ -86,10 +86,7 @@ class _OnboardingQuestionThreeScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-          color: Colors.black87,
-          onPressed: _navigateToPreviousScreen,
-        ),
+        leading: CustomBackButton(iconColor: Colors.black87, iconSize: 24),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -116,7 +113,7 @@ class _OnboardingQuestionThreeScreenState
             const Text(
               'Anything else you\'d like to tell?',
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: 25.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
                 fontFamily: 'quicksand',
@@ -170,13 +167,13 @@ class _OnboardingQuestionThreeScreenState
                 ),
               ),
             ),
-            const Spacer(),
+            const SizedBox(height: 32.0),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _handleFinish,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple[300],
+                  backgroundColor: const Color(0xFF7D7DDE),
                   padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
                     horizontal: 16.0,

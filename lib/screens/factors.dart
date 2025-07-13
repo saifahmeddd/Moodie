@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_back_button.dart';
 
 class FactorsScreen extends StatefulWidget {
   const FactorsScreen({super.key});
@@ -37,6 +38,16 @@ class _FactorsScreenState extends State<FactorsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
+                ),
+                child: CustomBackButton(
+                  iconColor: Colors.black87,
+                  iconSize: 24,
+                ),
+              ),
               const SizedBox(height: 20),
               Expanded(
                 child: SingleChildScrollView(

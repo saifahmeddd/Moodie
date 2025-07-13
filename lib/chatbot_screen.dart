@@ -5,6 +5,7 @@ import 'services/chatbot.dart';
 import 'services/chat_session_service.dart';
 import 'screens/chat_sidebar.dart';
 import 'package:intl/intl.dart';
+import 'widgets/custom_back_button.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'journal_entry_screen.dart';
+import '../widgets/custom_back_button.dart';
 
 class JournalingScreen extends StatefulWidget {
   JournalingScreen({Key? key}) : super(key: key);
@@ -66,16 +67,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
               ),
               child: Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      size: 20,
-                      color: Colors.black87,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
+                  CustomBackButton(iconColor: Colors.black87, iconSize: 20),
                 ],
               ),
             ),

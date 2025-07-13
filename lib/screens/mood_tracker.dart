@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gif_view/gif_view.dart';
 import 'emotion_tags.dart'; // Import the correct EmotionTagsScreen
+import '../widgets/custom_back_button.dart';
 
 void main() {
   runApp(const MoodTrackerApp());
@@ -100,8 +101,8 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
     return Container(
       padding: const EdgeInsets.only(top: 40, bottom: 20),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          CustomBackButton(iconColor: Colors.grey[800], iconSize: 24),
           Expanded(
             child: Text(
               'How would you describe your mood today?',
@@ -114,6 +115,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
               textAlign: TextAlign.center,
             ),
           ),
+          const SizedBox(width: 48), // Balance the back button
         ],
       ),
     );
@@ -138,7 +140,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
         gifPath = 'assets/gifs/pouting-face.gif';
         break;
     }
-print('gif path: $gifPath');
+    print('gif path: $gifPath');
     return Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),

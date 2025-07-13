@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:moodie_v2/screens/home_page.dart'; 
+import 'package:moodie_v2/screens/home_page.dart';
+import '../widgets/custom_back_button.dart';
 
 void main() {
   runApp(const MoodCheckinApp());
@@ -92,7 +93,11 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F4F4),
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: CustomBackButton(iconColor: Colors.black87, iconSize: 24),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
