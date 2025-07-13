@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_back_button.dart';
 
 class JournalEntryScreen extends StatefulWidget {
   final String prompt;
@@ -24,16 +25,7 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  size: 28,
-                  color: Colors.black87,
-                ),
-                onPressed: () => Navigator.of(context).pop(),
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
-              ),
+              child: CustomBackButton(iconColor: Colors.black87, iconSize: 28),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

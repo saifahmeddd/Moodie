@@ -1,5 +1,6 @@
 // lib/screens/splash_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'signup_login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -52,9 +53,10 @@ class SplashScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 23.0),
                 child: Center(
-                  child: Image.asset(
-                    'assets/images/img2.png',
-                    height: 325,
+                  child: SvgPicture.asset(
+                    'assets/images/growth2.svg',
+                    height: 313,
+                    width: 313,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -66,7 +68,7 @@ class SplashScreen extends StatelessWidget {
               flex: 1,
               child: Center(
                 child: SizedBox(
-                  width: 330,
+                  width: 314,
                   height: 48,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -90,6 +92,7 @@ class SplashScreen extends StatelessWidget {
                         color: Color(0xFF474D9F),
                         fontSize: 14,
                         fontWeight: FontWeight.normal,
+                        fontFamily: 'GeneralSans',
                       ),
                     ),
                   ),

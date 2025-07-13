@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../widgets/custom_back_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -124,6 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: Colors.white,
           elevation: 1,
           automaticallyImplyLeading: false, // Removed the default back button
+          leading: CustomBackButton(iconColor: Colors.grey[800], iconSize: 24),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),

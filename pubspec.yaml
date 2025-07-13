@@ -15,12 +15,12 @@ dependencies:
   firebase_auth: ^4.17.7
   cloud_firestore: ^4.15.5
   gif_view: ^1.0.2
+  flutter_svg: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1
-  flutter_svg: ^2.1.0
 
 flutter:
   uses-material-design: true
@@ -29,15 +29,19 @@ flutter:
     - assets/images/img2.png
     - assets/images/img3.png
     - assets/images/img4.png
+    - assets/images/personal-growth.svg
+    - assets/images/growth2.svg
     - assets/icons/icon-google.png
     - assets/icons/icon-github.png
     - assets/icons/icon-apple.png
+    - assets/icons/arrow-left.svg
     - assets/icons/cloud-rain-light.svg
     - assets/icons/cloud-sun-light.svg
     - assets/icons/head-circuit-light.svg
     - assets/icons/leaf-light.svg
     - assets/icons/Vector.svg
     - assets/icons/fire-light.svg
+    - assets/icons/arrow-left.svg
     - assets/images/robot.svg
     - assets/images/meditation.svg
     - assets/images/writing.svg

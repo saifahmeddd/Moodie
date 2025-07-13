@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'factors.dart'; // Ensure this import points to your actual factors.dart location
+import '../widgets/custom_back_button.dart';
 
 class EmotionTagsScreen extends StatefulWidget {
   const EmotionTagsScreen({super.key});
@@ -92,15 +93,23 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
   }
 
   Widget _buildHeader() {
-    return const Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Text(
-        'Emotion Tags',
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Roboto',
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        children: [
+          CustomBackButton(iconColor: Colors.black87, iconSize: 24),
+          const Expanded(
+            child: Text(
+              'Emotion Tags',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Roboto',
+              ),
+            ),
+          ),
+          const SizedBox(width: 48), // Balance the back button
+        ],
       ),
     );
   }

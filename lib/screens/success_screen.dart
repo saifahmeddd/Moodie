@@ -106,6 +106,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                         fontSize: 14.0,
                         color: Colors.white,
                         fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(

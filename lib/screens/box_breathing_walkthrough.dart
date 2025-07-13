@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'box_breathing_step_screen.dart';
+import '../widgets/custom_back_button.dart';
 
 class BoxBreathingWalkthroughScreen extends StatefulWidget {
   const BoxBreathingWalkthroughScreen({Key? key}) : super(key: key);
@@ -203,9 +204,9 @@ class _BoxBreathingWalkthroughScreenState
                   Positioned(
                     top: 16,
                     left: 8,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios),
-                      color: data.textColor,
+                    child: CustomBackButton(
+                      iconColor: data.textColor,
+                      iconSize: 24,
                       onPressed: () {
                         if (_currentPage == 0) {
                           Navigator.of(context).pop();

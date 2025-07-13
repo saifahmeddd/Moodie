@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'box_breathing_walkthrough.dart';
+import '../widgets/custom_back_button.dart';
 
 class BreathingExercisesScreen extends StatelessWidget {
   const BreathingExercisesScreen({super.key});
@@ -31,15 +32,9 @@ class BreathingExercisesScreen extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                        size: 24,
-                      ),
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
+                    child: CustomBackButton(
+                      iconColor: Colors.white,
+                      iconSize: 24,
                     ),
                   ),
                   const Center(

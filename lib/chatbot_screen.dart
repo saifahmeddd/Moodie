@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/custom_back_button.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);
@@ -18,12 +19,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Color(0xFF3A3075),
-          ),
-          onPressed: () {},
+        leading: CustomBackButton(
+          iconColor: const Color(0xFF3A3075),
+          iconSize: 24,
         ),
         title: const Text(
           'Safe Space',
