@@ -125,6 +125,12 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     required TextStyle textStyle,
     BoxBorder? border,
   }) {
+    final bool isBreathingTile =
+        label == 'Exercises' && svgPath == 'assets/images/meditation.svg';
+    final bool isJournalingTile =
+        label == 'Journaling' && svgPath == 'assets/images/writing.svg';
+    final bool isPromptsTile =
+        label == 'Prompts' && svgPath == 'assets/images/prompt.svg';
     return SizedBox(
       width: 364,
       height: 236,
@@ -138,41 +144,124 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ),
           padding: const EdgeInsets.all(20.0),
           margin: const EdgeInsets.only(bottom: 20),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(text, style: textStyle),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Text(
-                          label,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 14,
-                            letterSpacing: -0.5,
-                          ),
+          child:
+              isBreathingTile
+                  ? Row(
+                    children: [
+                      SvgPicture.asset(svgPath, height: 130, width: 130),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(text, style: textStyle),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Text(
+                                  label,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    letterSpacing: -0.5,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.black,
+                                  size: 18,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 8),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          size: 18,
+                      ),
+                    ],
+                  )
+                  : isPromptsTile
+                  ? Row(
+                    children: [
+                      SvgPicture.asset(svgPath, height: 130, width: 130),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(text, style: textStyle),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Text(
+                                  label,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    letterSpacing: -0.5,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.black,
+                                  size: 18,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              SvgPicture.asset(svgPath, height: 100, width: 100),
-            ],
-          ),
+                      ),
+                    ],
+                  )
+                  : Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(text, style: textStyle),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Text(
+                                  label,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        isJournalingTile
+                                            ? Colors.black
+                                            : Colors.white,
+                                    fontSize: 14,
+                                    letterSpacing: -0.5,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color:
+                                      isJournalingTile
+                                          ? Colors.black
+                                          : Colors.white,
+                                  size: 18,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      SvgPicture.asset(
+                        svgPath,
+                        height: isJournalingTile ? 150 : 130,
+                        width: isJournalingTile ? 150 : 130,
+                      ),
+                    ],
+                  ),
         ),
       ),
     );
@@ -202,24 +291,24 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 8),
                 Text(
                   'Welcome, ${_userName ?? 'User'}',
                   style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    letterSpacing: -0.8,
+                    letterSpacing: -0.7,
                   ),
                 ),
                 const SizedBox(height: 10),
                 const Text(
                   '"Your mind matters. Every day, in every way."',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 13,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: -0.5,
+                    letterSpacing: 0,
                   ),
                 ),
               ],
@@ -258,12 +347,13 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                     label: 'Chat with Nova',
                     svgPath: 'assets/images/robot.svg',
                     onTap: () => Navigator.pushNamed(context, '/chatbot'),
-                    color: const Color(0xFF3A3075),
+                    color: const Color(0xFF2A2A4A),
                     textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: '.SF Pro Text',
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: -0.5,
+                      fontSize: 12,
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: 0.2,
                       color: Colors.white,
                     ),
                   ),
@@ -271,7 +361,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                     'Take a deep breath',
                     style: TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       letterSpacing: -0.5,
                       color: Colors.black,
                     ),
@@ -291,10 +381,10 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                         ),
                     color: Colors.white,
                     textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: '.SF Pro Text',
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: -0.5,
+                      fontSize: 12,
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.2,
                       color: Colors.black,
                     ),
                     border: Border.all(
@@ -319,10 +409,11 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                     onTap: () => Navigator.pushNamed(context, '/journaling'),
                     color: const Color.fromRGBO(229, 229, 248, 1),
                     textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: '.SF Pro Text',
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: -0.5,
+                      fontSize: 12,
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.2,
+                      color: Colors.black,
                     ),
                   ),
                   const Text(
@@ -342,10 +433,10 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                     onTap: () => Navigator.pushNamed(context, '/prompts'),
                     color: const Color.fromARGB(255, 255, 255, 255),
                     textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: '.SF Pro Text',
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: -0.5,
+                      fontSize: 12,
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.2,
                       color: Colors.black,
                     ),
                     border: Border.all(
@@ -370,10 +461,10 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                     onTap: () => Navigator.pushNamed(context, '/mood'),
                     color: const Color.fromRGBO(229, 229, 248, 1),
                     textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontFamily: '.SF Pro Text',
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: -0.5,
+                      fontSize: 12,
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.2,
                     ),
                   ),
                 ],
