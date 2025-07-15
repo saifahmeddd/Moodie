@@ -1,11 +1,42 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'user_data_service.dart';
+
+final UserDataService _userDataService = UserDataService();
+
+// Get user data for currently signed in user
+Future<Map<String, dynamic>> getUserData() async {
+  final response = await _userDataService.getUserData();
+  final userData = {
+    'name': response['name'],
+    'age': response['age'],
+    'occupation': response['occupation']
+  };
+  return userData;
+}
+
+// Get onboarding responses for currently signed in user
+Future<List<Map<String, dynamic>>> getOnboardingResponses() async {
+  final response = await _userDataService.getOnboardingResponses();
+  final onboardingResponses = [
+    {'question': 'When life gets overwhelming, you usually...', 'answer': response['answers']['answer1']},
+    {'question': 'What motivates you the most right now?', 'answer': response['answers']['answer2']},
+    {'additional context about user': response['answers']['additional_context']}
+  ];
+  return onboardingResponses;
+}
 
 final apiKey = dotenv.env['RUNPOD_API_KEY'];
 
 const systemPrompt = """
 You are a compassionate and professional mental health counselor. Your role is to provide empathetic support by actively listening to users' thoughts, feelings, and concerns, helping them explore and process their emotions through structured therapeutic conversation.
+
+Use the following data to personalize your responses:
+- User's data: {userData}
+
+- Personal Questions: 
+ {onboardingResponses}
 
 **Core Approach:**
 - **Active Listening**: Reflect back what users share, validating their emotions to show understanding
@@ -17,7 +48,6 @@ You are a compassionate and professional mental health counselor. Your role is t
 - Reflect back what you hear to demonstrate understanding
 - Encourage self-reflection and personal growth through gentle guidance
 - Keep responses concise (2-3 sentences) while maintaining emotional depth
-- Use open-ended questions to guide emotional exploration ("What's been weighing on you?" "How does that make you feel?")
 - Avoid judgmental, dismissive, or prescriptive language
 
 **Boundaries:**
@@ -26,13 +56,6 @@ You are a compassionate and professional mental health counselor. Your role is t
 - For non-mental health topics, respond: "I'm here as your supportive mental health counselor. I can only discuss your thoughts, feelings, or emotional concerns."
 - Only respond based on what users explicitly share - do not infer personal details
 - Use text only - no emojis or special symbols
-
-**Response Structure:**
-- Greet warmly and guide toward emotional check-ins
-- Acknowledge the emotion presented
-- Explore deeper with thoughtful questions
-- Encourage reflection and self-awareness
-- Suggest gentle therapeutic techniques (mindfulness, reframing) only when appropriate
 
 Your goal is creating a safe space for emotional exploration and self-discovery through empathetic, structured conversation.
 """;
@@ -101,6 +124,19 @@ List<ChatMessage> _trimChatHistory(List<ChatMessage> history) {
   return history.sublist(history.length - maxHistoryLength);
 }
 
+Future<String> _formatSystemPrompt() async {
+  final userData = await getUserData();
+  final onboardingResponses = await getOnboardingResponses();
+  // format json as string
+  final userDataString = jsonEncode(userData);
+  final onboardingResponsesString = jsonEncode(onboardingResponses);
+
+  final finalPrompt = systemPrompt.replaceAll('{userData}', userDataString)
+      .replaceAll('{onboardingResponses}', onboardingResponsesString);
+
+  return finalPrompt;
+}
+
 Future<Map<String, dynamic>> callRunpodEndpoint(
   String userMessage,
   List<ChatMessage> chatHistory,
@@ -110,8 +146,9 @@ Future<Map<String, dynamic>> callRunpodEndpoint(
   // Trim chat history to keep only the 20 most recent exchanges
   final trimmedHistory = _trimChatHistory(chatHistory);
 
-  // Format chat history
   final historyContext = _formatChatHistory(trimmedHistory);
+
+  final systemPrompt = await _formatSystemPrompt();
 
   // Combine system prompt, history, and current user message
   final combinedPrompt =

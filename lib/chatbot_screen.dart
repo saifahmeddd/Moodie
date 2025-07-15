@@ -5,7 +5,7 @@ import 'services/chatbot.dart';
 import 'services/chat_session_service.dart';
 import 'screens/chat_sidebar.dart';
 import 'package:intl/intl.dart';
-import 'widgets/custom_back_button.dart';
+import 'services/user_data_service.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);
@@ -68,20 +68,12 @@ class _ChatbotScreenState extends State<ChatbotScreen>
 
   Future<void> _loadChatSessions() async {
     try {
-      print('Loading chat sessions...');
       final sessions = await _chatSessionService.getUserChatSessions();
-      print('Found ${sessions.length} chat sessions');
-      for (var session in sessions) {
-        print(
-          'Session ID: ${session.sessionId}, Updated: ${session.updatedAt}, Messages: ${session.messages.length}',
-        );
-      }
       setState(() {
         _chatSessions = sessions;
       });
     } catch (e) {
-      print('Error loading chat sessions: $e');
-      print('Stack trace: ${e.toString()}');
+      // Handle error silently or show user-friendly error
     }
   }
 
@@ -169,21 +161,16 @@ class _ChatbotScreenState extends State<ChatbotScreen>
       );
 
       if (shouldDelete == true) {
-        print('Deleting conversation with session ID: $sessionId');
-
         // Delete from Firebase
         await _chatSessionService.deleteChatSession(sessionId);
-        print('Successfully deleted conversation from Firebase');
 
         // If we're deleting the current session, reset the current session ID
         if (_currentSessionId == sessionId) {
           _currentSessionId = null;
-          print('Deleted current session, reset session ID');
         }
 
         // Refresh the sidebar to show updated list
         await _loadChatSessions();
-        print('Refreshed chat sessions list');
 
         // Show success message
         if (mounted) {
@@ -223,7 +210,6 @@ class _ChatbotScreenState extends State<ChatbotScreen>
 
   Future<void> _loadConversation(String sessionId) async {
     try {
-      print('Loading conversation with session ID: $sessionId');
       _closeSidebar(); // Close sidebar when a conversation is tapped
 
       setState(() {
@@ -266,17 +252,17 @@ class _ChatbotScreenState extends State<ChatbotScreen>
         });
 
         _scrollToBottom();
-        print('Successfully loaded conversation.');
       } else {
+        print('Could not find session with ID: $sessionId');
         setState(() {
           _isLoading = false;
           _messages.add(
             _ChatMessage(text: "Could not load conversation.", isUser: false),
           );
         });
-        print('Could not find session with ID: $sessionId');
       }
     } catch (e) {
+      print('Error loading conversation: $e');
       setState(() {
         _isLoading = false;
         _messages.add(
@@ -286,7 +272,6 @@ class _ChatbotScreenState extends State<ChatbotScreen>
           ),
         );
       });
-      print('Error loading conversation: $e');
     }
   }
 
@@ -309,12 +294,14 @@ class _ChatbotScreenState extends State<ChatbotScreen>
   }
 
   Future<void> _initializeChatSession() async {
+    final userData = await getUserData();
+    String userName = userData['name'];
     try {
       // Add welcome message to UI
       _messages.add(
         _ChatMessage(
           text:
-              "Hi! I'm here to listen and support you. Feel free to share what's on your mind.",
+              "Hi $userName! I'm here to listen and support you. Feel free to share what's on your mind.",
           isUser: false,
         ),
       );
@@ -323,20 +310,17 @@ class _ChatbotScreenState extends State<ChatbotScreen>
       final welcomeMessage = ChatMessage(
         role: "assistant",
         content:
-            "Hi! I'm here to listen and support you. Feel free to share what's on your mind.",
+            "Hi $userName! I'm here to listen and support you. Feel free to share what's on your mind.",
       );
       _chatHistory.add(welcomeMessage);
       _trimChatHistory();
 
       // Note: Session will be created when first user message is sent
-      print(
-        'Initialized chat with welcome message. Session will be created on first user interaction.',
-      );
 
       setState(() {});
     } catch (e) {
-      print('Error initializing chat: $e');
-      print('Stack trace: ${e.toString()}');
+        print('Error initializing chat: $e');
+        print('Stack trace: ${e.toString()}');
     }
   }
 
@@ -362,31 +346,22 @@ class _ChatbotScreenState extends State<ChatbotScreen>
     // Create session if this is the first user message (conversation length > 1)
     if (_currentSessionId == null && _chatHistory.length > 1) {
       try {
-        print('Creating new chat session for first user message...');
         _currentSessionId = await _chatSessionService.createChatSession();
-        print('Chat session created with ID: $_currentSessionId');
       } catch (e) {
-        print('Error creating chat session: $e');
-        print('Stack trace: ${e.toString()}');
+        // Handle error silently
       }
     }
 
     // Save user message to session if session exists and conversation has more than 1 message
     if (_currentSessionId != null && _chatHistory.length > 1) {
       try {
-        print('Saving user message to session: $_currentSessionId');
         await _chatSessionService.addMessageToSession(
           _currentSessionId!,
           userChatMessage,
         );
-        print('Successfully saved user message to session');
       } catch (e) {
-        print('Error saving user message to session: $e');
+        // Handle error silently
       }
-    } else if (_chatHistory.length <= 1) {
-      print(
-        'Skipping user message save - conversation has ${_chatHistory.length} messages (need > 1)',
-      );
     }
 
     try {

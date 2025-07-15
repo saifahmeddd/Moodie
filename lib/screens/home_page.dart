@@ -64,8 +64,8 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 _selectedIndex == 1
-                    ? 'assets/icons/nav-icons/heartbeat-fill.svg'
-                    : 'assets/icons/nav-icons/heartbeat.svg',
+                    ? 'assets/icons/nav-icons/smiley-fill.svg'
+                    : 'assets/icons/nav-icons/smiley.svg',
                 height: 28,
                 width: 28,
                 color:
@@ -76,8 +76,8 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 _selectedIndex == 2
-                    ? 'assets/icons/nav-icons/smiley-fill.svg'
-                    : 'assets/icons/nav-icons/smiley.svg',
+                    ? 'assets/icons/nav-icons/heartbeat-fill.svg'
+                    : 'assets/icons/nav-icons/heartbeat.svg',
                 height: 28,
                 width: 28,
                 color:

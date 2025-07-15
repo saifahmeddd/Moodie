@@ -155,7 +155,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 20),
 
               _buildEditableInfoSection("Name", name ?? 'Loading...', 'name'),
+              const SizedBox(height: 8),
               _buildEditableInfoSection("Age", age ?? 'Loading...', 'age'),
+              const SizedBox(height: 8),
               _buildEditableInfoSection(
                 "Occupation",
                 occupation ?? 'Loading...',
