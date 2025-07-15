@@ -13,6 +13,7 @@ import 'screens/mood_tracker.dart';
 import 'chatbot_screen.dart';
 import 'screens/journaling_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'screens/breathing_exercises_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,6 +68,10 @@ class MoodieApp extends StatelessWidget {
           default:
             return _errorRoute("No route defined for ${settings.name}");
         }
+      },
+      routes: {
+        '/mood': (context) => const MoodTrackerApp(),
+        '/exercises': (context) => const BreathingExercisesScreen(),
       },
     );
   }

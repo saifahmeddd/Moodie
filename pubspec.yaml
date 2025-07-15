@@ -66,6 +66,15 @@ flutter:
     - assets/fonts/General Sans/GeneralSans-Bold.otf
     - assets/fonts/Playpen/PlaypenSans-Bold.ttf
     - assets/fonts/quicksand/Quicksand_Bold.otf
+    # Nav bar SVG icons
+    - assets/icons/nav-icons/house.svg
+    - assets/icons/nav-icons/house-fill.svg
+    - assets/icons/nav-icons/heartbeat.svg
+    - assets/icons/nav-icons/heartbeat-fill.svg
+    - assets/icons/nav-icons/smiley.svg
+    - assets/icons/nav-icons/smiley-fill.svg
+    - assets/icons/nav-icons/user-circle.svg
+    - assets/icons/nav-icons/user-circle-fill.svg
 
   fonts:
     - family: General Sans
