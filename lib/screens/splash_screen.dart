@@ -2,9 +2,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'signup_login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:moodie_v2/screens/home_page.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _navigateAfterDelay();
+  }
+
+  void _navigateAfterDelay() async {
+    await Future.delayed(const Duration(seconds: 2));
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const SignupLoginScreen()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

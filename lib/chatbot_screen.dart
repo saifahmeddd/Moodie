@@ -14,28 +14,29 @@ class ChatbotScreen extends StatefulWidget {
   State<ChatbotScreen> createState() => _ChatbotScreenState();
 }
 
-class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateMixin {
+class _ChatbotScreenState extends State<ChatbotScreen>
+    with TickerProviderStateMixin {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final List<_ChatMessage> _messages = []; // UI messages
   final List<ChatMessage> _chatHistory = []; // Chat history for AI context
   bool _isLoading = false;
-  
+
   // Chat session management
   final ChatSessionService _chatSessionService = ChatSessionService();
   String? _currentSessionId;
-  
+
   // Sidebar management
   late AnimationController _sidebarController;
   late Animation<double> _sidebarAnimation;
   late Animation<double> _overlayAnimation;
   bool _isSidebarOpen = false;
   List<ChatSession> _chatSessions = [];
-  
+
   // Manage chat history size - keep only the 20 most recent exchanges
   void _trimChatHistory() {
     const int maxHistoryLength = 20;
-    
+
     if (_chatHistory.length > maxHistoryLength) {
       // Remove the oldest messages to keep only the 20 most recent
       _chatHistory.removeRange(0, _chatHistory.length - maxHistoryLength);
@@ -49,37 +50,31 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
     _initializeSidebar();
     _loadChatSessions();
   }
-  
+
   void _initializeSidebar() {
     _sidebarController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    
-    _sidebarAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.0,
-    ).animate(CurvedAnimation(
-      parent: _sidebarController,
-      curve: Curves.easeInOut,
-    ));
-    
-    _overlayAnimation = Tween<double>(
-      begin: 0.0,
-      end: 0.5,
-    ).animate(CurvedAnimation(
-      parent: _sidebarController,
-      curve: Curves.easeInOut,
-    ));
+
+    _sidebarAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(parent: _sidebarController, curve: Curves.easeInOut),
+    );
+
+    _overlayAnimation = Tween<double>(begin: 0.0, end: 0.5).animate(
+      CurvedAnimation(parent: _sidebarController, curve: Curves.easeInOut),
+    );
   }
-  
+
   Future<void> _loadChatSessions() async {
     try {
       print('Loading chat sessions...');
       final sessions = await _chatSessionService.getUserChatSessions();
       print('Found ${sessions.length} chat sessions');
       for (var session in sessions) {
-        print('Session ID: ${session.sessionId}, Updated: ${session.updatedAt}, Messages: ${session.messages.length}');
+        print(
+          'Session ID: ${session.sessionId}, Updated: ${session.updatedAt}, Messages: ${session.messages.length}',
+        );
       }
       setState(() {
         _chatSessions = sessions;
@@ -89,12 +84,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
       print('Stack trace: ${e.toString()}');
     }
   }
-  
+
   void _toggleSidebar() {
     setState(() {
       _isSidebarOpen = !_isSidebarOpen;
     });
-    
+
     if (_isSidebarOpen) {
       _sidebarController.forward();
       // Refresh chat sessions when sidebar opens
@@ -103,20 +98,20 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
       _sidebarController.reverse();
     }
   }
-  
+
   void _closeSidebar() {
     setState(() {
       _isSidebarOpen = false;
     });
     _sidebarController.reverse();
   }
-  
+
   String _formatSessionDate(DateTime? date) {
     if (date == null) return 'Unknown date';
-    
+
     final now = DateTime.now();
     final difference = now.difference(date);
-    
+
     if (difference.inDays == 0) {
       return 'Today';
     } else if (difference.inDays == 1) {
@@ -144,9 +139,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
             ),
             content: const Text(
               'Are you sure you want to delete this conversation? This action cannot be undone.',
-              style: TextStyle(
-                fontFamily: 'General Sans',
-              ),
+              style: TextStyle(fontFamily: 'General Sans'),
             ),
             actions: [
               TextButton(
@@ -177,21 +170,21 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
 
       if (shouldDelete == true) {
         print('Deleting conversation with session ID: $sessionId');
-        
+
         // Delete from Firebase
         await _chatSessionService.deleteChatSession(sessionId);
         print('Successfully deleted conversation from Firebase');
-        
+
         // If we're deleting the current session, reset the current session ID
         if (_currentSessionId == sessionId) {
           _currentSessionId = null;
           print('Deleted current session, reset session ID');
         }
-        
+
         // Refresh the sidebar to show updated list
         await _loadChatSessions();
         print('Refreshed chat sessions list');
-        
+
         // Show success message
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -210,7 +203,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
     } catch (e) {
       print('Error deleting conversation: $e');
       print('Stack trace: ${e.toString()}');
-      
+
       // Show error message
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -227,12 +220,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
       }
     }
   }
-  
+
   Future<void> _loadConversation(String sessionId) async {
     try {
       print('Loading conversation with session ID: $sessionId');
       _closeSidebar(); // Close sidebar when a conversation is tapped
-      
+
       setState(() {
         _isLoading = true;
         _messages.clear();
@@ -241,44 +234,57 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
       _scrollToBottom(); // Scroll to bottom to show loading indicator if needed
 
       final session = await _chatSessionService.getChatSession(sessionId);
-      
+
       if (session != null) {
         _currentSessionId = session.sessionId;
 
-        final loadedMessages = session.messages.map((msg) => 
-          _ChatMessage(
-            text: msg.content,
-            isUser: msg.role == 'user',
-          )
-        ).toList();
-        
-        final loadedHistory = session.messages.map((msg) =>
-          ChatMessage(
-            role: msg.role,
-            content: msg.content,
-            timestamp: msg.timestamp,
-          )
-        ).toList();
-        
+        final loadedMessages =
+            session.messages
+                .map(
+                  (msg) => _ChatMessage(
+                    text: msg.content,
+                    isUser: msg.role == 'user',
+                  ),
+                )
+                .toList();
+
+        final loadedHistory =
+            session.messages
+                .map(
+                  (msg) => ChatMessage(
+                    role: msg.role,
+                    content: msg.content,
+                    timestamp: msg.timestamp,
+                  ),
+                )
+                .toList();
+
         setState(() {
           _messages.addAll(loadedMessages);
           _chatHistory.addAll(loadedHistory);
           _isLoading = false;
         });
-        
+
         _scrollToBottom();
         print('Successfully loaded conversation.');
       } else {
         setState(() {
           _isLoading = false;
-          _messages.add(_ChatMessage(text: "Could not load conversation.", isUser: false));
+          _messages.add(
+            _ChatMessage(text: "Could not load conversation.", isUser: false),
+          );
         });
         print('Could not find session with ID: $sessionId');
       }
     } catch (e) {
       setState(() {
         _isLoading = false;
-        _messages.add(_ChatMessage(text: "An error occurred while loading the conversation.", isUser: false));
+        _messages.add(
+          _ChatMessage(
+            text: "An error occurred while loading the conversation.",
+            isUser: false,
+          ),
+        );
       });
       print('Error loading conversation: $e');
     }
@@ -295,7 +301,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
     });
     _initializeChatSession(); // Re-initialize with welcome message
   }
-  
+
   @override
   void dispose() {
     _sidebarController.dispose();
@@ -305,22 +311,28 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
   Future<void> _initializeChatSession() async {
     try {
       // Add welcome message to UI
-      _messages.add(_ChatMessage(
-        text: "Hi! I'm here to listen and support you. Feel free to share what's on your mind.",
-        isUser: false,
-      ));
-      
+      _messages.add(
+        _ChatMessage(
+          text:
+              "Hi! I'm here to listen and support you. Feel free to share what's on your mind.",
+          isUser: false,
+        ),
+      );
+
       // Add welcome message to chat history
       final welcomeMessage = ChatMessage(
         role: "assistant",
-        content: "Hi! I'm here to listen and support you. Feel free to share what's on your mind.",
+        content:
+            "Hi! I'm here to listen and support you. Feel free to share what's on your mind.",
       );
       _chatHistory.add(welcomeMessage);
       _trimChatHistory();
-      
+
       // Note: Session will be created when first user message is sent
-      print('Initialized chat with welcome message. Session will be created on first user interaction.');
-      
+      print(
+        'Initialized chat with welcome message. Session will be created on first user interaction.',
+      );
+
       setState(() {});
     } catch (e) {
       print('Error initializing chat: $e');
@@ -343,10 +355,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
     _scrollToBottom();
 
     // Add user message to chat history
-    final userChatMessage = ChatMessage(
-      role: "user",
-      content: userMessage,
-    );
+    final userChatMessage = ChatMessage(role: "user", content: userMessage);
     _chatHistory.add(userChatMessage);
     _trimChatHistory();
 
@@ -366,20 +375,24 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
     if (_currentSessionId != null && _chatHistory.length > 1) {
       try {
         print('Saving user message to session: $_currentSessionId');
-        await _chatSessionService.addMessageToSession(_currentSessionId!, userChatMessage);
+        await _chatSessionService.addMessageToSession(
+          _currentSessionId!,
+          userChatMessage,
+        );
         print('Successfully saved user message to session');
       } catch (e) {
         print('Error saving user message to session: $e');
       }
     } else if (_chatHistory.length <= 1) {
-      print('Skipping user message save - conversation has ${_chatHistory.length} messages (need > 1)');
+      print(
+        'Skipping user message save - conversation has ${_chatHistory.length} messages (need > 1)',
+      );
     }
-
 
     try {
       // Call the chatbot API with chat history
       final result = await callRunpodEndpoint(userMessage, _chatHistory);
-      
+
       // Remove typing indicator from UI
       setState(() {
         _messages.removeLast();
@@ -389,13 +402,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
         // Extract the AI response from the output
         final output = result['output'][0];
         final response = output['choices'][0]['tokens'][0];
-        final cleanResponse = response.trim();
-        
+        // Clean up the response: remove '[/INST]' and trim whitespace
+        final cleanResponse = response.replaceAll('[/INST]', '').trim();
+
         // Add AI response to UI
         setState(() {
           _messages.add(_ChatMessage(text: cleanResponse, isUser: false));
         });
-        
+
         // Add AI response to chat history
         final assistantChatMessage = ChatMessage(
           role: "assistant",
@@ -407,32 +421,36 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
         // Save only successful assistant message to session if session exists and conversation has more than 1 message
         if (_currentSessionId != null && _chatHistory.length > 1) {
           try {
-            print('Attempting to save assistant message to session: $_currentSessionId');
+            print(
+              'Attempting to save assistant message to session: $_currentSessionId',
+            );
             print('Message content: $cleanResponse');
-            await _chatSessionService.addMessageToSession(_currentSessionId!, assistantChatMessage);
+            await _chatSessionService.addMessageToSession(
+              _currentSessionId!,
+              assistantChatMessage,
+            );
             print('Successfully saved assistant message to session');
           } catch (e) {
             print('Error saving assistant message to session: $e');
             print('Stack trace: ${e.toString()}');
           }
         } else if (_chatHistory.length <= 1) {
-          print('Skipping assistant message save - conversation has ${_chatHistory.length} messages (need > 1)');
+          print(
+            'Skipping assistant message save - conversation has ${_chatHistory.length} messages (need > 1)',
+          );
         } else {
           print('No current session ID available');
         }
 
-        
         _scrollToBottom();
       } else {
         // Handle unexpected response format
-        const errorMessage = "I'm sorry, I'm having trouble responding right now. Please try again.";
+        const errorMessage =
+            "I'm sorry, I'm having trouble responding right now. Please try again.";
         setState(() {
-          _messages.add(_ChatMessage(
-            text: errorMessage,
-            isUser: false,
-          ));
+          _messages.add(_ChatMessage(text: errorMessage, isUser: false));
         });
-        
+
         // Add error message to chat history
         final errorChatMessage = ChatMessage(
           role: "assistant",
@@ -440,9 +458,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
         );
         _chatHistory.add(errorChatMessage);
         _trimChatHistory();
-        
+
         // Note: Not saving error message to session to avoid wasting space
-        
+
         _scrollToBottom();
       }
     } catch (e) {
@@ -450,16 +468,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
       setState(() {
         _messages.removeLast();
       });
-      
+
       // Handle error
-      const errorMessage = "I'm sorry, there was an issue connecting. Please check your connection and try again.";
+      const errorMessage =
+          "I'm sorry, there was an issue connecting. Please check your connection and try again.";
       setState(() {
-        _messages.add(_ChatMessage(
-          text: errorMessage,
-          isUser: false,
-        ));
+        _messages.add(_ChatMessage(text: errorMessage, isUser: false));
       });
-      
+
       // Add error message to chat history
       final errorChatMessage = ChatMessage(
         role: "assistant",
@@ -467,9 +483,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
       );
       _chatHistory.add(errorChatMessage);
       _trimChatHistory();
-      
+
       // Note: Not saving error message to session to avoid wasting space
-      
+
       _scrollToBottom();
       print('Chatbot API error: $e');
     } finally {
@@ -580,13 +596,18 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
                 Expanded(
                   child: ListView.builder(
                     controller: _scrollController,
-                    padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 24,
+                      horizontal: 12,
+                    ),
                     itemCount: _messages.length,
                     itemBuilder: (context, index) {
                       final msg = _messages[index];
                       return Align(
                         alignment:
-                            msg.isUser ? Alignment.centerRight : Alignment.centerLeft,
+                            msg.isUser
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
                         child: Container(
                           margin: EdgeInsets.only(
                             top: index == 0 ? 0 : 12,
@@ -598,9 +619,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
                             vertical: 16,
                           ),
                           decoration: BoxDecoration(
-                            color: msg.isUser
-                                ? const Color(0xFF6868B9)
-                                : const Color(0xFFF6F5FB),
+                            color:
+                                msg.isUser
+                                    ? const Color(0xFF6868B9)
+                                    : const Color(0xFFF6F5FB),
                             borderRadius: BorderRadius.only(
                               topLeft: const Radius.circular(20),
                               topRight: const Radius.circular(20),
@@ -608,43 +630,49 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
                               bottomRight: Radius.circular(msg.isUser ? 4 : 20),
                             ),
                           ),
-                          child: msg.isTyping
-                              ? Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    SizedBox(
-                                      width: 40,
-                                      height: 20,
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            _buildTypingDot(0),
-                                            _buildTypingDot(200),
-                                            _buildTypingDot(400),
-                                          ],
+                          child:
+                              msg.isTyping
+                                  ? Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      SizedBox(
+                                        width: 40,
+                                        height: 20,
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              _buildTypingDot(0),
+                                              _buildTypingDot(200),
+                                              _buildTypingDot(400),
+                                            ],
+                                          ),
                                         ),
                                       ),
+                                    ],
+                                  )
+                                  : Text(
+                                    msg.text,
+                                    style: TextStyle(
+                                      color:
+                                          msg.isUser
+                                              ? Colors.white
+                                              : const Color(0xFF3A3075),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                  ],
-                                )
-                              : Text(
-                                  msg.text,
-                                  style: TextStyle(
-                                    color: msg.isUser
-                                        ? Colors.white
-                                        : const Color(0xFF3A3075),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
                                   ),
-                                ),
                         ),
                       );
                     },
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   color: Colors.white,
                   child: Row(
                     children: [
@@ -671,14 +699,18 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
                       ),
                       const SizedBox(width: 8),
                       CircleAvatar(
-                        backgroundColor: _isLoading ? Colors.grey : const Color(0xFF6868B9),
+                        backgroundColor:
+                            _isLoading ? Colors.grey : const Color(0xFF6868B9),
                         radius: 26,
                         child: IconButton(
                           icon: Icon(
                             _isLoading ? Icons.hourglass_empty : Icons.send,
                             color: Colors.white,
                           ),
-                          onPressed: (_isLoading || _isSidebarOpen) ? null : _sendMessage,
+                          onPressed:
+                              (_isLoading || _isSidebarOpen)
+                                  ? null
+                                  : _sendMessage,
                         ),
                       ),
                     ],
@@ -687,7 +719,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
               ],
             ),
           ),
-          
+
           // Overlay
           if (_isSidebarOpen)
             AnimatedBuilder(
@@ -698,30 +730,31 @@ class _ChatbotScreenState extends State<ChatbotScreen> with TickerProviderStateM
                     color: Colors.black.withOpacity(_overlayAnimation.value),
                     child: GestureDetector(
                       onTap: _closeSidebar,
-                      child: Container(
-                        color: Colors.transparent,
-                      ),
+                      child: Container(color: Colors.transparent),
                     ),
                   ),
                 );
               },
             ),
-          
+
           // Sidebar
           AnimatedBuilder(
             animation: _sidebarAnimation,
             builder: (context, child) {
               return Positioned(
                 top: 0,
-                right: MediaQuery.of(context).size.width * _sidebarAnimation.value * -1,
+                right:
+                    MediaQuery.of(context).size.width *
+                    _sidebarAnimation.value *
+                    -1,
                 bottom: 0,
                 child: ChatSidebar(
                   onClose: _closeSidebar,
                   onNewChat: _startNewChat,
                   onConversationTap: _loadConversation,
-                                      onConversationDelete: (String sessionId) {
-                      _deleteConversation(sessionId);
-                    },
+                  onConversationDelete: (String sessionId) {
+                    _deleteConversation(sessionId);
+                  },
                   chatSessions: _chatSessions,
                 ),
               );
@@ -737,7 +770,7 @@ class _ChatMessage {
   final String text;
   final bool isUser;
   final bool isTyping;
-  
+
   _ChatMessage({
     required this.text,
     required this.isUser,

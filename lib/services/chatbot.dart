@@ -43,11 +43,8 @@ class ChatMessage {
   final String content;
   final DateTime timestamp;
 
-  ChatMessage({
-    required this.role,
-    required this.content,
-    DateTime? timestamp,
-  }) : timestamp = timestamp ?? DateTime.now();
+  ChatMessage({required this.role, required this.content, DateTime? timestamp})
+    : timestamp = timestamp ?? DateTime.now();
 
   // Convert to JSON for potential Firestore storage later
   Map<String, dynamic> toJson() {
@@ -77,10 +74,10 @@ class ChatMessage {
 // Format chat history for the AI model
 String _formatChatHistory(List<ChatMessage> history) {
   if (history.isEmpty) return "";
-  
+
   StringBuffer formatted = StringBuffer();
   formatted.writeln("\n\nPrevious conversation:");
-  
+
   for (ChatMessage message in history) {
     if (message.role == "user") {
       formatted.writeln("User: ${message.content}");
@@ -88,56 +85,60 @@ String _formatChatHistory(List<ChatMessage> history) {
       formatted.writeln("Assistant: ${message.content}");
     }
   }
-  
+
   return formatted.toString();
 }
 
 // Manage chat history size - keep only the 20 most recent exchanges
 List<ChatMessage> _trimChatHistory(List<ChatMessage> history) {
   const int maxHistoryLength = 20;
-  
+
   if (history.length <= maxHistoryLength) {
     return history;
   }
-  
+
   // Keep only the most recent 20 messages
   return history.sublist(history.length - maxHistoryLength);
 }
 
-Future<Map<String, dynamic>> callRunpodEndpoint(String userMessage, List<ChatMessage> chatHistory) async {
+Future<Map<String, dynamic>> callRunpodEndpoint(
+  String userMessage,
+  List<ChatMessage> chatHistory,
+) async {
   final url = Uri.parse('https://api.runpod.ai/v2/vyryntp7ca7j6p/runsync');
-  
+
   // Trim chat history to keep only the 20 most recent exchanges
   final trimmedHistory = _trimChatHistory(chatHistory);
-  
+
   // Format chat history
   final historyContext = _formatChatHistory(trimmedHistory);
-  
+
   // Combine system prompt, history, and current user message
-  final combinedPrompt = "$systemPrompt$historyContext\n\nUser: $userMessage\nAssistant:";
-  
+  final combinedPrompt =
+      "$systemPrompt$historyContext\n\nUser: $userMessage\nAssistant:";
+
   final payload = {
     "input": {
       "prompt": combinedPrompt,
       "sampling_params": {
         "max_tokens": 200,
         "stop": [
-          "</s>",           // Mistral EOS
-          "[/INST]",        // Mistral instruction end
+          "</s>", // Mistral EOS
+          "[/INST]", // Mistral instruction end
           "<|end_of_text|>", // Llama 3 EOS
-          "<|eot_id|>",     // Llama 3 end of turn
-          "Contact:",       // Prevent contact info
-          "http://",        // Prevent URLs
-          "User: " ,
-          "[/]"         // Prevent user prompt continuation
-          " (", 
+          "<|eot_id|>", // Llama 3 end of turn
+          "Contact:", // Prevent contact info
+          "http://", // Prevent URLs
+          "User: ",
+          "[/]" // Prevent user prompt continuation
+              " (",
         ],
         "stop_token_ids": [2, 128001, 128009],
-        "temperature": 0.3
-      }
-    }
+        "temperature": 0.3,
+      },
+    },
   };
-  
+
   final response = await http.post(
     url,
     headers: {
@@ -146,9 +147,9 @@ Future<Map<String, dynamic>> callRunpodEndpoint(String userMessage, List<ChatMes
     },
     body: jsonEncode(payload),
   );
-  
+
   if (response.statusCode == 200) {
-    return jsonDecode(response.body);
+    return jsonDecode(utf8.decode(response.bodyBytes));
   } else {
     throw Exception('Error: ${response.statusCode} ${response.body}');
   }

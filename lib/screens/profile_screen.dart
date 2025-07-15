@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/custom_back_button.dart';
+import 'signup_login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -201,7 +202,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ElevatedButton.icon(
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacementNamed(context, '/home');
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (_) => const SignupLoginScreen(),
+                    ),
+                    (route) => false,
+                  );
                 },
                 icon: const Icon(Icons.logout),
                 label: const Text("Log Out"),

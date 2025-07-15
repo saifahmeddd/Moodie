@@ -12,13 +12,12 @@ import 'screens/profile_screen.dart';
 import 'screens/mood_tracker.dart';
 import 'chatbot_screen.dart';
 import 'screens/journaling_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MoodieApp());
 }
 
@@ -35,7 +34,8 @@ class MoodieApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/splash',
+      // Use AuthGate as the home widget
+      home: const AuthGate(),
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/splash':
@@ -78,6 +78,31 @@ class MoodieApp extends StatelessWidget {
             appBar: AppBar(title: const Text('Error')),
             body: Center(child: Text(message)),
           ),
+    );
+  }
+}
+
+// Add AuthGate widget
+class AuthGate extends StatelessWidget {
+  const AuthGate({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Show splash while waiting for auth state
+          return const SplashScreen();
+        }
+        if (snapshot.hasData && snapshot.data != null) {
+          // User is logged in
+          return const Home.HomePage();
+        } else {
+          // Not logged in
+          return const SplashScreen();
+        }
+      },
     );
   }
 }
