@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreenContent(),
-    const MoodTrackerApp(),
+    const MoodTrackerScreen(),
     const Center(
       child: Text(
         'Exercises',
@@ -56,7 +56,8 @@ class _HomePageState extends State<HomePage> {
                     : 'assets/icons/nav-icons/house.svg',
                 height: 28,
                 width: 28,
-                color: _selectedIndex == 0 ? Colors.indigo : Colors.grey,
+                color:
+                    _selectedIndex == 0 ? const Color(0xFF7D7DDE) : Colors.grey,
               ),
               label: 'Home',
             ),
@@ -67,7 +68,8 @@ class _HomePageState extends State<HomePage> {
                     : 'assets/icons/nav-icons/heartbeat.svg',
                 height: 28,
                 width: 28,
-                color: _selectedIndex == 1 ? Colors.indigo : Colors.grey,
+                color:
+                    _selectedIndex == 1 ? const Color(0xFF7D7DDE) : Colors.grey,
               ),
               label: 'Tracker',
             ),
@@ -78,7 +80,8 @@ class _HomePageState extends State<HomePage> {
                     : 'assets/icons/nav-icons/smiley.svg',
                 height: 28,
                 width: 28,
-                color: _selectedIndex == 2 ? Colors.indigo : Colors.grey,
+                color:
+                    _selectedIndex == 2 ? const Color(0xFF7D7DDE) : Colors.grey,
               ),
               label: 'Exercises',
             ),
@@ -89,13 +92,14 @@ class _HomePageState extends State<HomePage> {
                     : 'assets/icons/nav-icons/user-circle.svg',
                 height: 28,
                 width: 28,
-                color: _selectedIndex == 3 ? Colors.indigo : Colors.grey,
+                color:
+                    _selectedIndex == 3 ? const Color(0xFF7D7DDE) : Colors.grey,
               ),
               label: 'Profile',
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.indigo,
+          selectedItemColor: const Color(0xFF7D7DDE),
           unselectedItemColor: Colors.grey,
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,

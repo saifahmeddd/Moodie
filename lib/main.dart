@@ -50,7 +50,7 @@ class MoodieApp extends StatelessWidget {
           case '/profile': // Route for ProfileScreen
             return MaterialPageRoute(builder: (_) => const ProfileScreen());
           case '/mood-tracker': // Route for MoodTracker screen
-            return MaterialPageRoute(builder: (_) => const MoodTrackerApp());
+            return MaterialPageRoute(builder: (_) => const MoodTrackerScreen());
           case '/chatbot':
             return MaterialPageRoute(builder: (_) => const ChatbotScreen());
           case '/journaling':
@@ -70,7 +70,7 @@ class MoodieApp extends StatelessWidget {
         }
       },
       routes: {
-        '/mood': (context) => const MoodTrackerApp(),
+        '/mood': (context) => const MoodTrackerScreen(),
         '/exercises': (context) => const BreathingExercisesScreen(),
       },
     );

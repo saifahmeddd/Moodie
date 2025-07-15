@@ -2,39 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gif_view/gif_view.dart';
 import 'emotion_tags.dart'; // Import the correct EmotionTagsScreen
 import '../widgets/custom_back_button.dart';
-
-void main() {
-  runApp(const MoodTrackerApp());
-}
-
-class MoodTrackerApp extends StatelessWidget {
-  const MoodTrackerApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mood Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-        fontFamily: 'Nunito',
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontFamily: 'Nunito'),
-          bodyMedium: TextStyle(fontFamily: 'Nunito'),
-          displayLarge: TextStyle(fontFamily: 'Nunito'),
-          displayMedium: TextStyle(fontFamily: 'Nunito'),
-          displaySmall: TextStyle(fontFamily: 'Nunito'),
-          headlineLarge: TextStyle(fontFamily: 'Nunito'),
-          headlineMedium: TextStyle(fontFamily: 'Nunito'),
-          headlineSmall: TextStyle(fontFamily: 'Nunito'),
-          labelLarge: TextStyle(fontFamily: 'Nunito'),
-          labelMedium: TextStyle(fontFamily: 'Nunito'),
-          labelSmall: TextStyle(fontFamily: 'Nunito'),
-        ),
-      ),
-      home: const MoodTrackerScreen(),
-    );
-  }
-}
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MoodTrackerScreen extends StatefulWidget {
   const MoodTrackerScreen({super.key});
@@ -50,7 +18,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
   late GifController _badMoodController;
   late GifController _veryBadMoodController;
 
-  int _selectedMood = 0;
+  int _selectedMood = 2; // Default to 'Good'
 
   @override
   void initState() {
@@ -75,21 +43,20 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F4F4),
+      backgroundColor: Colors.white, // Match navbar color
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: <Widget>[
               _buildAppBar(),
-              const SizedBox(height: 20),
-              if (_selectedMood != 0)
-                Expanded(flex: 2, child: _buildSelectedMoodGif()),
-              const SizedBox(height: 10),
-              Expanded(flex: 3, child: _buildMoodSelection()),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40), // More space below app bar
+              _buildSelectedMoodGif(),
+              const SizedBox(height: 32), // More space below GIF
+              _buildMoodSelection(),
+              const Spacer(), // Pushes the button to the bottom
               _buildContinueButton(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 20), // Optional: keep for bottom padding
             ],
           ),
         ),
@@ -101,21 +68,31 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
     return Container(
       padding: const EdgeInsets.only(top: 40, bottom: 20),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          CustomBackButton(iconColor: Colors.grey[800], iconSize: 24),
+          CustomBackButton(
+            iconColor: Colors.grey[800],
+            iconSize: 24,
+            onPressed: () {
+              Navigator.of(
+                context,
+                rootNavigator: true,
+              ).pushReplacementNamed('/home');
+            },
+          ),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               'How would you describe your mood today?',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[800],
                 fontFamily: 'quicksand',
               ),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
             ),
           ),
-          const SizedBox(width: 48), // Balance the back button
         ],
       ),
     );
@@ -140,7 +117,6 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
         gifPath = 'assets/gifs/pouting-face.gif';
         break;
     }
-    print('gif path: $gifPath');
     return Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
@@ -150,146 +126,130 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
   }
 
   Widget _buildMoodSelection() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _buildMoodColumn(
-            mood: 1,
-            title: 'Great',
-            gifController: _greatMoodController,
-            gifPath: 'assets/gifs/great.gif',
-          ),
-          const SizedBox(width: 10),
-          _buildMoodColumn(
-            mood: 2,
-            title: 'Good',
-            gifController: _goodMoodController,
-            gifPath: 'assets/gifs/good.gif',
-          ),
-          const SizedBox(width: 10),
-          _buildMoodColumn(
-            mood: 3,
-            title: 'So-so',
-            gifController: _soSoMoodController,
-            gifPath: 'assets/gifs/neutral-face.gif',
-          ),
-          const SizedBox(width: 10),
-          _buildMoodColumn(
-            mood: 4,
-            title: 'Bad',
-            gifController: _badMoodController,
-            gifPath: 'assets/gifs/bad.gif',
-          ),
-          const SizedBox(width: 10),
-          _buildMoodColumn(
-            mood: 5,
-            title: 'Very Bad',
-            gifController: _veryBadMoodController,
-            gifPath: 'assets/gifs/pouting-face.gif',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMoodColumn({
-    required int mood,
-    required String title,
-    required GifController gifController,
-    required String gifPath,
-  }) {
-    final isSelected = _selectedMood == mood;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedMood = mood;
-        });
+    // Mood data with SVG asset paths
+    final moods = [
+      {
+        'mood': 1,
+        'title': 'Great',
+        'svg': 'assets/emojis/mood-scale/great.svg',
       },
-      child: Container(
-        width: 65,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: isSelected ? const Color(0xFFEDE7F6) : Colors.transparent,
+      {'mood': 2, 'title': 'Good', 'svg': 'assets/emojis/mood-scale/good.svg'},
+      {
+        'mood': 3,
+        'title': 'So-so',
+        'svg': 'assets/emojis/mood-scale/so-so.svg',
+      },
+      {'mood': 4, 'title': 'Bad', 'svg': 'assets/emojis/mood-scale/bad.svg'},
+      {
+        'mood': 5,
+        'title': 'Very Bad',
+        'svg': 'assets/emojis/mood-scale/very-bad.svg',
+      },
+    ];
+
+    final selectedMood = moods.firstWhere((m) => m['mood'] == _selectedMood);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Show selected mood text above the bar
+        Text(
+          selectedMood['title'] as String,
+          style: const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontFamily: 'quicksand',
+          ),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(
-              height: 60,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: GifView.asset(
-                  gifPath,
-                  controller: gifController,
-                  height: 60,
-                  width: 60,
-                  loop: true,
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 150, // More height for better balance and padding
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              // Gradient bar
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 24, // Bar is lower, more space below emojis
+                child: Container(
+                  height: 14, // Slightly thicker bar
+                  margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.07,
+                  ), // Responsive horizontal padding
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xFF4CAF50), // Green
+                        Color(0xFFFFEB3B), // Yellow
+                        Color(0xFFFF9800), // Orange
+                        Color(0xFFF44336), // Red
+                      ],
+                      stops: [0.0, 0.33, 0.66, 1.0],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: isSelected ? const Color(0xFF5E35B1) : Colors.grey[600],
+              // Emojis/icons above the bar
+              Positioned.fill(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.09,
+                  ), // Responsive, not too close to edge
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children:
+                        moods.map((moodData) {
+                          final isSelected = _selectedMood == moodData['mood'];
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedMood = moodData['mood'] as int;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              curve: Curves.easeInOut,
+                              margin: EdgeInsets.only(
+                                bottom: isSelected ? 64 : 72,
+                              ), // 40px above bar for clear separation
+                              padding: EdgeInsets.all(isSelected ? 7 : 0),
+                              decoration:
+                                  isSelected
+                                      ? BoxDecoration(
+                                        color: const Color(0xFFEDE7F6),
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.purple.withOpacity(
+                                              0.15,
+                                            ),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                      )
+                                      : null,
+                              child: SvgPicture.asset(
+                                moodData['svg'] as String,
+                                height: 44,
+                                width: 44,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                  ),
+                ),
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            _buildMoodBar(mood: mood),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildMoodBar({required int mood}) {
-    Color startColor;
-    Color endColor;
-
-    switch (mood) {
-      case 1:
-        startColor = const Color(0xFF4CAF50);
-        endColor = const Color(0xFF81C784);
-        break;
-      case 2:
-        startColor = const Color(0xFF66BB6A);
-        endColor = const Color(0xFFA5D6A7);
-        break;
-      case 3:
-        startColor = const Color(0xFFFFC107);
-        endColor = const Color(0xFFFFD54F);
-        break;
-      case 4:
-        startColor = const Color(0xFFF44336);
-        endColor = const Color(0xFFE57373);
-        break;
-      case 5:
-        startColor = const Color(0xFFD32F2F);
-        endColor = const Color(0xFFF44336);
-        break;
-      default:
-        startColor = Colors.grey[300]!;
-        endColor = Colors.grey[300]!;
-    }
-
-    return Container(
-      height: 6,
-      width: 40,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [startColor, endColor],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        borderRadius: BorderRadius.circular(3),
-      ),
+      ],
     );
   }
 
@@ -315,13 +275,17 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 135, 88, 228),
+          backgroundColor: const Color(0xFF7D7DDE),
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           padding: const EdgeInsets.symmetric(vertical: 12),
-          textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(
+            fontFamilyFallback: ['General Sans'],
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
         ),
-        child: const Text('Continue'),
+        child: const Text('Select Mood'),
       ),
     );
   }

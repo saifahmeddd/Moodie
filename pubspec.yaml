@@ -75,6 +75,11 @@ flutter:
     - assets/icons/nav-icons/smiley-fill.svg
     - assets/icons/nav-icons/user-circle.svg
     - assets/icons/nav-icons/user-circle-fill.svg
+    - assets/emojis/mood-scale/great.svg
+    - assets/emojis/mood-scale/good.svg
+    - assets/emojis/mood-scale/so-so.svg
+    - assets/emojis/mood-scale/bad.svg
+    - assets/emojis/mood-scale/very-bad.svg
 
   fonts:
     - family: General Sans
