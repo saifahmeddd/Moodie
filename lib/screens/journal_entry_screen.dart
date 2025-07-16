@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_back_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class JournalEntryScreen extends StatefulWidget {
   final String prompt;
@@ -37,7 +39,7 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
                 style: const TextStyle(
                   fontFamily: 'quicksand',
                   fontWeight: FontWeight.bold,
-                  fontSize: 24,
+                  fontSize: 18, // Changed from 24 to 18
                   color: Colors.black,
                   letterSpacing: -0.5,
                 ),
@@ -81,25 +83,61 @@ class _JournalEntryScreenState extends State<JournalEntryScreen> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    // Placeholder for save action
-                    FocusScope.of(context).unfocus();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Entry saved!')),
-                    );
+                  onPressed: () async {
+                    final user = FirebaseAuth.instance.currentUser;
+                    if (user == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'You must be logged in to save entries.',
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+                    final entryText = _controller.text.trim();
+                    if (entryText.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Entry cannot be empty.')),
+                      );
+                      return;
+                    }
+                    try {
+                      await FirebaseFirestore.instance
+                          .collection('journal_entries')
+                          .add({
+                            'userId': user.uid,
+                            'entry': entryText,
+                            'prompt': widget.prompt,
+                            'timestamp': FieldValue.serverTimestamp(),
+                          });
+                      FocusScope.of(context).unfocus();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Entry saved!')),
+                      );
+                      _controller.clear();
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Failed to save entry: \\${e.toString()}',
+                          ),
+                        ),
+                      );
+                    }
                   },
                   icon: const Icon(Icons.bookmark_border),
                   label: const Text('Save Entry'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF8C88F8),
+                    backgroundColor: const Color(0xFF7D7DDE),
                     foregroundColor: Colors.white,
                     textStyle: const TextStyle(
                       fontFamily: 'quicksand',
                       fontWeight: FontWeight.w600,
-                      fontSize: 18,
+                      fontSize: 14,
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(6),
                     ),
                   ),
                 ),
