@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'journal_entry_screen.dart';
 import '../widgets/custom_back_button.dart';
+import 'journal_scratch_entry_screen.dart';
 
 class JournalingScreen extends StatefulWidget {
   JournalingScreen({Key? key}) : super(key: key);
@@ -93,20 +94,28 @@ class _JournalingScreenState extends State<JournalingScreen> {
                           'Reflect & Renew',
                           style: TextStyle(
                             fontFamily: 'quicksand',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 32,
                             color: Colors.black,
+                            letterSpacing: -0.7,
                           ),
                         ),
                         const SizedBox(height: 18),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => JournalScratchEntryScreen(),
+                                ),
+                              );
+                            },
                             icon: const Icon(Icons.edit_outlined, size: 18),
                             label: const Text('Write from scratch'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF8C88F8),
+                              backgroundColor: const Color(0xFF7D7DDE),
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               shape: RoundedRectangleBorder(
@@ -147,11 +156,11 @@ class _JournalingScreenState extends State<JournalingScreen> {
                         ),
                         const SizedBox(height: 18),
                         const Text(
-                          'Prompts you can try..',
+                          'Prompts',
                           style: TextStyle(
-                            fontFamily: 'GeneralSans',
+                            fontFamily: 'quicksand',
                             fontWeight: FontWeight.w600,
-                            fontSize: 16,
+                            fontSize: 18,
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -207,7 +216,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                                               style: const TextStyle(
                                                 fontFamily: 'quicksand',
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 16,
+                                                fontSize: 18,
                                                 letterSpacing: -0.5,
                                               ),
                                             ),
@@ -215,11 +224,11 @@ class _JournalingScreenState extends State<JournalingScreen> {
                                             Text(
                                               prompt['desc']!,
                                               style: const TextStyle(
-                                                fontFamily: 'quicksand',
+                                                fontFamily: 'General Sans',
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 12,
                                                 color: Colors.black87,
-                                                letterSpacing: -0.5,
+                                                letterSpacing: 0.5,
                                               ),
                                             ),
                                           ],
