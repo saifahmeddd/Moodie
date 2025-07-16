@@ -80,7 +80,37 @@ flutter:
     - assets/emojis/mood-scale/so-so.svg
     - assets/emojis/mood-scale/bad.svg
     - assets/emojis/mood-scale/very-bad.svg
-
+    - assets/emojis/annoyance/Confounded face.svg
+    - assets/emojis/annoyance/Pensive face.svg
+    - assets/emojis/annoyance/Pouting face.svg
+    - assets/emojis/annoyance/Tired face.svg
+    - assets/emojis/annoyance/Unamused face.svg
+    - assets/emojis/energy/Beaming face with smiling eyes.svg
+    - assets/emojis/energy/Grinning face with big eyes.svg
+    - assets/emojis/energy/Nerd face.svg
+    - assets/emojis/energy/Sleepy face.svg
+    - assets/emojis/energy/Star-struck.svg
+    - assets/emojis/others/Low.svg
+    - assets/emojis/others/Numb.svg
+    - assets/emojis/others/loved.svg
+    - assets/emojis/others/stressed.svg
+    - assets/emojis/positive/Content.svg
+    - assets/emojis/positive/Face exhaling.svg
+    - assets/emojis/positive/Grinning face with smiling eyes.svg
+    - assets/emojis/positive/Smiling face with sunglasses.svg
+    - assets/emojis/positive/Winking face.svg
+    - assets/emojis/stressed/Anxious face with sweat.svg
+    - assets/emojis/stressed/Face in clouds.svg
+    - assets/emojis/stressed/Knocked-out face.svg
+    - assets/emojis/stressed/Sad but relieved face.svg
+    - assets/emojis/vibes/1F602_Tears_of_Joy_Smileys_Still 2.svg
+    - assets/emojis/vibes/Face with rolling eyes.svg
+    - assets/emojis/vibes/Partying face.svg
+    - assets/emojis/vibes/Thinking face.svg
+    - assets/emojis/vibes/Winking face with tongue.svg
+    - assets/emojis/positive/263A FE0F_SmilingFace_1024px_01_01 1.svg
+    - assets/emojis/positive/263A FE0F_SmilingFace_1024px_01_01 1.png
+    - assets/emojis/positive/1F604_GrinningFaceWithSmilingEyes_1024px_01_04 1.svg
   fonts:
     - family: General Sans
       fonts:
