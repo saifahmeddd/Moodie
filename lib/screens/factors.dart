@@ -175,7 +175,7 @@ class _FactorsScreenState extends State<FactorsScreen> {
       height: 45,
       width: 364,
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFF8F7EFF) : Colors.white,
+        color: isSelected ? const Color(0xFF6868B9) : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: const Color(0xFFBBB3FF), // Changed to #BBB3FF
@@ -260,7 +260,7 @@ class _FactorsScreenState extends State<FactorsScreen> {
         );
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF8F7EFF),
+        backgroundColor: const Color(0xFF7D7DDE),
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         minimumSize: const Size(double.infinity, 50),

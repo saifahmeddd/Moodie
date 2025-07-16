@@ -50,7 +50,7 @@ class MoodCheckinCompleteScreen extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, '/home');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF8F7EFF),
+                    backgroundColor: const Color(0xFF7D7DDE),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
@@ -62,7 +62,7 @@ class MoodCheckinCompleteScreen extends StatelessWidget {
                       Text(
                         'Return Home',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 12,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'General Sans',
                         ),
