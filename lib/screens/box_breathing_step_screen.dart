@@ -92,7 +92,12 @@ class _BoxBreathingStepScreenState extends State<BoxBreathingStepScreen>
             Positioned(
               top: 16,
               left: 8,
-              child: CustomBackButton(iconColor: Colors.white, iconSize: 24),
+              child: CustomBackButton(
+                iconColor: Colors.white,
+                iconSize: 24,
+                onPressed:
+                    () => Navigator.of(context, rootNavigator: true).pop(),
+              ),
             ),
             AnimatedBuilder(
               animation: _scaleAnimation,

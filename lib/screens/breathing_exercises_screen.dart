@@ -32,13 +32,7 @@ class _BreathingExercisesScreenState extends State<BreathingExercisesScreen> {
         top: true,
         child: Container(
           width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Color(0xFF535394),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-            ),
-          ),
+          decoration: const BoxDecoration(color: Color(0xFF535394)),
           child: Column(
             children: [
               Padding(

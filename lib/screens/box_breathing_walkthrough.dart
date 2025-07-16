@@ -44,6 +44,7 @@ class _BoxBreathingWalkthroughScreenState
 • Exhale slowly through your mouth for 4 seconds
 • Hold your breath again for 4 seconds
 • Repeat this cycle for 4 minutes''',
+
       imageAsset: 'assets/images/serene.svg',
     ),
     _WalkthroughData(
@@ -56,10 +57,10 @@ class _BoxBreathingWalkthroughScreenState
             children: [
               Center(
                 child: SizedBox(
-                  height: 258,
-                  width: 406,
+                  height: 394,
+                  width: 358,
                   child: SvgPicture.asset(
-                    'assets/images/nature-benefits.svg',
+                    'assets/images/Meditation-pana.svg',
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -102,14 +103,14 @@ class _BoxBreathingWalkthroughScreenState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 244),
+                const SizedBox(height: 148),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Text(
                     'Environment',
                     style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                   ),
@@ -119,15 +120,21 @@ class _BoxBreathingWalkthroughScreenState
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Text(
                     'Sit upright in a quiet space with minimal distractions',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 32),
                 Center(
                   child: SizedBox(
-                    height: 180,
+                    height: 349,
+                    width: 349,
                     child: SvgPicture.asset(
-                      'assets/images/Meditation-pana.svg',
+                      'assets/images/Breathing exercise-cuate.svg',
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -137,14 +144,14 @@ class _BoxBreathingWalkthroughScreenState
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 32.0),
                     child: SizedBox(
-                      width: 280,
+                      width: 348,
                       height: 48,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Color(0xFF28254A),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(6),
                           ),
                           elevation: 0,
                         ),
@@ -164,8 +171,10 @@ class _BoxBreathingWalkthroughScreenState
                             Text(
                               "Let's Start",
                               style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
+                                fontFamily: 'General Sans',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                letterSpacing: -0.5,
                                 color: Color(0xFF28254A),
                               ),
                             ),
@@ -247,7 +256,22 @@ class _BoxBreathingWalkthroughScreenState
                         const SizedBox(height: 32),
                         if (data.imageAsset != null)
                           SizedBox(
-                            height: 180,
+                            height:
+                                data.imageAsset ==
+                                        'assets/images/nature-benefits.svg'
+                                    ? 255
+                                    : data.imageAsset ==
+                                        'assets/images/serene.svg'
+                                    ? 342
+                                    : 180,
+                            width:
+                                data.imageAsset ==
+                                        'assets/images/nature-benefits.svg'
+                                    ? 406
+                                    : data.imageAsset ==
+                                        'assets/images/serene.svg'
+                                    ? 364
+                                    : null,
                             child:
                                 data.imageAsset!.endsWith('.svg')
                                     ? SvgPicture.asset(
