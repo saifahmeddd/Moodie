@@ -33,10 +33,10 @@ class _BoxBreathingWalkthroughScreenState
       textColor: Colors.black,
       content:
           'Inhale, hold, exhale, hold—each for 4 seconds. A calming rhythm to centre your mind.',
-      imageAsset: 'assets/images/relaxing-at-home.svg',
+      imageAsset: 'assets/images/nature-benefits.svg',
     ),
     _WalkthroughData(
-      backgroundColor: Color(0xFF6A5AE0),
+      backgroundColor: Color(0xFFB8B8FF),
       textColor: Colors.white,
       content: '''
 • Inhale through your nose for 4 seconds
@@ -56,9 +56,10 @@ class _BoxBreathingWalkthroughScreenState
             children: [
               Center(
                 child: SizedBox(
-                  height: 180,
+                  height: 258,
+                  width: 406,
                   child: SvgPicture.asset(
-                    'assets/images/serene.svg',
+                    'assets/images/nature-benefits.svg',
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -81,7 +82,12 @@ class _BoxBreathingWalkthroughScreenState
                 padding: EdgeInsets.symmetric(horizontal: 32.0),
                 child: Text(
                   'Maintain a steady pace; visualise tracing a square with each phase.',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -121,7 +127,7 @@ class _BoxBreathingWalkthroughScreenState
                   child: SizedBox(
                     height: 180,
                     child: SvgPicture.asset(
-                      'assets/images/serene.svg',
+                      'assets/images/Meditation-pana.svg',
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -232,7 +238,8 @@ class _BoxBreathingWalkthroughScreenState
                             style: TextStyle(
                               color: data.textColor,
                               fontSize: 18,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Quicksand',
                             ),
                             textAlign: TextAlign.left,
                           ),
@@ -264,7 +271,10 @@ class _BoxBreathingWalkthroughScreenState
                           'Tap anywhere to continue',
                           style: TextStyle(
                             color: data.textColor.withOpacity(0.7),
-                            fontSize: 16,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Quicksand',
+                            letterSpacing: -0.5,
                           ),
                         ),
                       ),

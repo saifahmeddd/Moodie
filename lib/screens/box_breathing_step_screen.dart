@@ -138,7 +138,9 @@ class _BoxBreathingStepScreenState extends State<BoxBreathingStepScreen>
                     child: Text(
                       _instructions[_currentStep],
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontFamily: 'Quicksand',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
                         color: Colors.black87,
                       ),
                       textAlign: TextAlign.center,

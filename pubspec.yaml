@@ -19,7 +19,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   uuid: ^4.3.3
   intl: ^0.18.1
-  flutter_svg: ^2.1.0
+  flutter_svg: ^2.0.10
 
 dev_dependencies:
   flutter_test:
@@ -57,8 +57,14 @@ flutter:
     - assets/images/prompt.svg
     - assets/images/mood.svg
     - assets/images/serene.svg
-    - 'assets/images/growing.svg'
+    - assets/images/growing.svg
     - assets/images/relaxing-at-home.svg
+    - assets/images/positive-thinking.svg
+    - assets/images/breathing.svg
+    - assets/images/happy-earth.svg
+    - assets/images/self-love.svg
+    - assets/images/nature-benefits.svg
+    - assets/images/Meditation-pana.svg
     - assets/gifs/bad.gif
     - assets/gifs/good.gif
     - assets/gifs/great.gif
