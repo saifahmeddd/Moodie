@@ -57,6 +57,7 @@ flutter:
     - assets/images/prompt.svg
     - assets/images/mood.svg
     - assets/images/serene.svg
+    - 'assets/images/growing.svg'
     - assets/images/relaxing-at-home.svg
     - assets/gifs/bad.gif
     - assets/gifs/good.gif

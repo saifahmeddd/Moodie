@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_back_button.dart';
+import 'mood_checkin_complete_screen.dart'; // Added import for MoodCheckinCompleteScreen
 
 class FactorsScreen extends StatefulWidget {
   const FactorsScreen({super.key});
@@ -57,13 +58,15 @@ class _FactorsScreenState extends State<FactorsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const SizedBox(height: 16),
                         const Text(
                           'What are the causes of your current emotions?',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
                             color: Colors.black,
                             fontFamily: 'Quicksand',
+                            letterSpacing: -0.5,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -92,24 +95,28 @@ class _FactorsScreenState extends State<FactorsScreen> {
                         const Text(
                           'Something Else?',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                             fontFamily: 'Quicksand',
+                            letterSpacing: -0.5,
                           ),
                         ),
                         const SizedBox(height: 8),
                         const Text(
                           'Let\'s identify factors affecting your mood',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 14,
                             color: Colors.black87,
-                            fontFamily: 'Quicksand',
+                            fontFamily: 'General Sans',
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                         const SizedBox(height: 12),
 
                         Container(
+                          height: 104, // updated from 80
+                          width: 364, // updated from 292
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
@@ -130,7 +137,7 @@ class _FactorsScreenState extends State<FactorsScreen> {
                               hintStyle: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 13,
-                                fontFamily: 'Quicksand',
+                                fontFamily: 'General Sans',
                               ),
                               contentPadding: EdgeInsets.all(14),
                               border: InputBorder.none,
@@ -165,29 +172,40 @@ class _FactorsScreenState extends State<FactorsScreen> {
     Function(bool) onChanged,
   ) {
     return Container(
+      height: 45,
+      width: 364,
       decoration: BoxDecoration(
         color: isSelected ? const Color(0xFF8F7EFF) : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isSelected ? const Color(0xFF8F7EFF) : const Color(0xFFD7D2FF),
-          width: 1.5,
+          color: const Color(0xFFBBB3FF), // Changed to #BBB3FF
+          width: 2,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF8F7EFF).withOpacity(0.15),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: InkWell(
         onTap: () => onChanged(!isSelected),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
           child: Row(
             children: [
               Container(
-                width: 22,
-                height: 22,
+                width: 15,
+                height: 15,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: isSelected ? Colors.white : const Color(0xFF8F7EFF),
                   border: Border.all(
-                    color: isSelected ? Colors.white : const Color(0xFF8F7EFF),
+                    color: const Color(
+                      0xFF8F7EFF,
+                    ), // Always purple border for circle
                     width: 2,
                   ),
                 ),
@@ -195,7 +213,7 @@ class _FactorsScreenState extends State<FactorsScreen> {
                     isSelected
                         ? const Icon(
                           Icons.check,
-                          size: 16,
+                          size: 11,
                           color: Color(0xFF8F7EFF),
                         )
                         : null,
@@ -205,10 +223,10 @@ class _FactorsScreenState extends State<FactorsScreen> {
                 child: Text(
                   text,
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: isSelected ? Colors.white : Colors.black,
-                    fontFamily: 'Quicksand',
+                    fontFamily: 'General Sans',
                   ),
                 ),
               ),
@@ -233,12 +251,18 @@ class _FactorsScreenState extends State<FactorsScreen> {
           selectedFactors.add(customFactor);
         }
 
-        print('Selected factors: $selectedFactors');
+        // Navigate to the completion screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MoodCheckinCompleteScreen(),
+          ),
+        );
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF8F7EFF),
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         minimumSize: const Size(double.infinity, 50),
       ),
       child: const Row(
@@ -247,9 +271,9 @@ class _FactorsScreenState extends State<FactorsScreen> {
           Text(
             'Complete Mood Checkin',
             style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Quicksand',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'General Sans',
             ),
           ),
           SizedBox(width: 8),

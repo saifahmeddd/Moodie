@@ -210,28 +210,33 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                left: 8,
+                left: 15,
                 top: 8,
                 right: 8,
                 bottom: 0,
               ),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomBackButton(iconColor: Colors.black87, iconSize: 24),
-                  const SizedBox(width: 8),
-                  const Text(
-                    'Emotion Tags',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Quicksand',
-                      letterSpacing: -0.5,
+                  const SizedBox(height: 6),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Emotion Tags',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Quicksand',
+                        letterSpacing: -0.5,
+                      ),
+                      textAlign: TextAlign.left,
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
@@ -264,7 +269,7 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
         Text(
           title,
           style: const TextStyle(
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: FontWeight.w600,
             fontFamily: 'Quicksand',
             letterSpacing: -0.5,
@@ -356,7 +361,7 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
       padding: const EdgeInsets.fromLTRB(18, 0, 18, 24),
       child: SizedBox(
         width: double.infinity,
-        height: 54,
+        height: 46,
         child: ElevatedButton(
           onPressed: () {
             final selectedEmotions = <String>[];
@@ -377,12 +382,12 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
             backgroundColor: const Color(0xFF7D7DDE),
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(6),
             ),
             textStyle: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Quicksand',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'General Sans',
               letterSpacing: -0.5,
             ),
             elevation: 0,
