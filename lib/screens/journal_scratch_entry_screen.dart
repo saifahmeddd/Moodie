@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_back_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class JournalScratchEntryScreen extends StatefulWidget {
   const JournalScratchEntryScreen({Key? key}) : super(key: key);
@@ -104,14 +106,46 @@ class _JournalScratchEntryScreenState extends State<JournalScratchEntryScreen> {
           width: double.infinity,
           height: 48,
           child: ElevatedButton.icon(
-            onPressed: () {
-              setState(() {
-                _saved = true;
-              });
-              FocusScope.of(context).unfocus();
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(const SnackBar(content: Text('Entry saved!')));
+            onPressed: () async {
+              final user = FirebaseAuth.instance.currentUser;
+              if (user == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('You must be logged in to save entries.'),
+                  ),
+                );
+                return;
+              }
+              final entryText = _controller.text.trim();
+              if (entryText.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Entry cannot be empty.')),
+                );
+                return;
+              }
+              try {
+                await FirebaseFirestore.instance
+                    .collection('journal_entries')
+                    .add({
+                      'userId': user.uid,
+                      'entry': entryText,
+                      'timestamp': FieldValue.serverTimestamp(),
+                    });
+                setState(() {
+                  _saved = true;
+                });
+                FocusScope.of(context).unfocus();
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('Entry saved!')));
+                _controller.clear();
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Failed to save entry: \\${e.toString()}'),
+                  ),
+                );
+              }
             },
             icon: const Icon(Icons.bookmark_border),
             label: const Text('Save Entry', style: TextStyle(fontSize: 14)),
