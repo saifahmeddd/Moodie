@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/custom_back_button.dart';
 import 'signup_login_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -16,9 +17,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String? age;
   String? occupation;
   String chatbotName = "Nova";
-  bool motivationalQuotes = true;
+  bool motivationalQuotes = false;
   String journalPromptFrequency = "Weekly";
   List<String> focusAreas = ["Academic Stress", "Focus & Productivity"];
+
+  final List<String> journalPromptOptions = [
+    "Daily",
+    "Weekly",
+    "Monthly",
+    "Off",
+  ];
 
   @override
   void initState() {
@@ -118,113 +126,128 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushReplacementNamed(context, '/home');
-        return false; // Prevent default back navigation
+        return false;
       },
       child: Scaffold(
-        backgroundColor: Colors.grey.shade100,
+        backgroundColor: const Color(0xFFF7F6FB),
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 1,
-          automaticallyImplyLeading: false, // Removed the default back button
-          leading: CustomBackButton(iconColor: Colors.grey[800], iconSize: 24),
+          automaticallyImplyLeading: false,
+          leading: CustomBackButton(
+            iconColor: Colors.grey[800],
+            iconSize: 24,
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/home');
+            },
+          ),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Profile Header at top
-              Column(
-                children: [
-                  const CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Color(0xFFBFD7FF),
-                    child: Icon(Icons.person, size: 60, color: Colors.green),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    name ?? 'Loading...',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 20),
-
-              _buildEditableInfoSection("Name", name ?? 'Loading...', 'name'),
+              // Avatar and Name at the top
               const SizedBox(height: 8),
-              _buildEditableInfoSection("Age", age ?? 'Loading...', 'age'),
-              const SizedBox(height: 8),
-              _buildEditableInfoSection(
-                "Occupation",
-                occupation ?? 'Loading...',
-                'occupation',
-              ),
-
-              const SizedBox(height: 20),
-
-              _buildSectionHeader("App Preferences"),
-
-              _buildToggleTile(
-                title: "Motivational Quotes",
-                subtitle: "Show on login?",
-                value: motivationalQuotes,
-                onChanged: (val) => setState(() => motivationalQuotes = val),
-              ),
-
-              const SizedBox(height: 16),
-
-              _buildSectionHeader("Focus Areas"),
-
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.only(bottom: 24),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
+              Center(
                 child: Column(
                   children: [
-                    ...[
-                      "Academic Stress",
-                      "Work Burnout",
-                      "Anxiety / Overthinking",
-                      "Focus & Productivity",
-                      "Emotional Regulation",
-                    ].map(_buildFocusAreaCheckbox),
+                    Container(
+                      width: 96,
+                      height: 96,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Color(0xFFB1AFFF), width: 2),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.06),
+                            blurRadius: 8,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: const CircleAvatar(
+                        radius: 48,
+                        backgroundColor: Color(0xFFE6E6FA),
+                        child: Icon(
+                          Icons.person,
+                          size: 60,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      name ?? 'Loading...',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
                   ],
                 ),
               ),
-
-              ElevatedButton.icon(
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (_) => const SignupLoginScreen(),
+              const SizedBox(height: 24),
+              // Editable Profile Fields
+              _buildProfileFieldsCard(),
+              const SizedBox(height: 28),
+              // App Preferences
+              _buildSectionTitle("App preferences"),
+              const SizedBox(height: 8),
+              _buildNotificationsCard(),
+              const SizedBox(height: 24),
+              // Chatbot Name
+              _buildSectionTitle("Chatbot Name"),
+              const SizedBox(height: 8),
+              _buildChatbotNameCard(),
+              const SizedBox(height: 24),
+              // Focus Areas
+              _buildSectionTitle("Focus Areas"),
+              const SizedBox(height: 8),
+              _buildFocusAreasCard(),
+              const SizedBox(height: 24),
+              // Privacy & Data
+              _buildSectionTitle("Privacy & Data"),
+              const SizedBox(height: 8),
+              _buildPrivacyDataCard(),
+              const SizedBox(height: 32),
+              // Logout Button
+              Center(
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (_) => const SignupLoginScreen(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                  icon: const Icon(Icons.logout),
+                  label: const Text(
+                    "Log Out",
+                    style: TextStyle(
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
                     ),
-                    (route) => false,
-                  );
-                },
-                icon: const Icon(Icons.logout),
-                label: const Text("Log Out"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 28,
-                    vertical: 12,
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF7D7DDE),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 148,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -232,60 +255,284 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12, bottom: 8),
-      child: Row(
+  Widget _buildProfileFieldsCard() {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 16,
+      ), // reduced vertical padding
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.settings, color: Colors.indigo, size: 20),
-          const SizedBox(width: 8),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          _buildEditableFieldRow("Name", name ?? 'Loading...', 'name'),
+          const SizedBox(height: 8), // reduced spacing
+          _buildEditableFieldRow("Age", age ?? 'Loading...', 'age'),
+          const SizedBox(height: 8), // reduced spacing
+          _buildEditableFieldRow(
+            "Occupation",
+            occupation ?? 'Loading...',
+            'occupation',
           ),
         ],
       ),
     );
   }
 
-  Widget _buildEditableInfoSection(String label, String value, String field) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      tileColor: Colors.white,
-      title: Text(label),
-      subtitle: Text(value),
-      trailing: IconButton(
-        icon: const Icon(Icons.edit, color: Colors.indigo),
-        onPressed: () => _showEditDialog(field, value),
+  Widget _buildEditableFieldRow(String label, String value, String field) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontFamily: 'General Sans',
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 2), // reduced spacing
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ), // reduced vertical padding
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF7F6FB),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Text(value, style: const TextStyle(fontSize: 15)),
+              ),
+            ),
+            TextButton(
+              onPressed: () => _showEditDialog(field, value),
+              child: const Text(
+                "Change",
+                style: TextStyle(
+                  fontFamily: 'General Sans',
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Center(
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
       ),
     );
   }
 
-  Widget _buildToggleTile({
-    required String title,
-    required String subtitle,
-    required bool value,
-    required Function(bool) onChanged,
-  }) {
-    return SwitchListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-      title: Text(title),
-      subtitle: Text(subtitle),
-      value: value,
-      onChanged: onChanged,
-      activeColor: Colors.indigo,
-      tileColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  Widget _buildNotificationsCard() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Motivational quotes",
+                    style: TextStyle(
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                      letterSpacing: 0.2,
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    "Show on login?",
+                    style: TextStyle(
+                      fontFamily: 'General Sans',
+                      fontSize: 10,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+              Switch(
+                value: motivationalQuotes,
+                onChanged: (val) => setState(() => motivationalQuotes = val),
+                activeColor: Colors.indigo,
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Journal prompt reminder",
+                style: TextStyle(
+                  fontFamily: 'General Sans',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 4,
+                  vertical: 2,
+                ), // reduced padding
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF7F6FB),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: DropdownButton<String>(
+                  value: journalPromptFrequency,
+                  underline: const SizedBox(),
+                  borderRadius: BorderRadius.circular(8),
+                  isDense: true, // make dropdown more compact
+                  style: const TextStyle(
+                    fontFamily: 'General Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
+                  items:
+                      journalPromptOptions.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              fontFamily: 'General Sans',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      if (newValue != null) journalPromptFrequency = newValue;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildChatbotNameCard() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                "Current Name",
+                style: TextStyle(
+                  fontFamily: 'General Sans',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 6,
+            ), // reduced padding
+            decoration: BoxDecoration(
+              color: const Color(0xFFF7F6FB),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey.shade300),
+            ),
+            child: Text(
+              chatbotName,
+              style: const TextStyle(
+                fontFamily: 'General Sans',
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFocusAreasCard() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        children: [
+          ...[
+            "Academic Stress",
+            "Work Burnout",
+            "Anxiety / Overthinking",
+            "Focus & Productivity",
+            "Emotional Regulation",
+          ].map(_buildFocusAreaCheckbox),
+        ],
+      ),
     );
   }
 
   Widget _buildFocusAreaCheckbox(String label) {
     bool isChecked = focusAreas.contains(label);
-
     return CheckboxListTile(
       contentPadding: EdgeInsets.zero,
-      title: Text(label, style: const TextStyle(fontSize: 10)), // Smaller text
+      title: Text(
+        label,
+        style: const TextStyle(
+          fontFamily: 'General Sans',
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
       value: isChecked,
       onChanged: (val) {
         setState(() {
@@ -296,12 +543,100 @@ class _ProfileScreenState extends State<ProfileScreen> {
           } else {
             focusAreas.remove(label);
           }
-          _updateFocusAreas(focusAreas); // Update in Firestore
+          _updateFocusAreas(focusAreas);
         });
       },
       activeColor: Colors.indigo,
       controlAffinity: ListTileControlAffinity.leading,
       dense: true,
+    );
+  }
+
+  Widget _buildPrivacyDataCard() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Clear History",
+                style: TextStyle(
+                  fontFamily: 'General Sans',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFF7F6FB),
+                  foregroundColor: Colors.indigo,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 8,
+                  ),
+                ),
+                child: const Text(
+                  "Clear",
+                  style: TextStyle(
+                    fontFamily: 'General Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Reset mood tracker",
+                style: TextStyle(
+                  fontFamily: 'General Sans',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFF7F6FB),
+                  foregroundColor: Colors.indigo,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 8,
+                  ),
+                ),
+                child: const Text(
+                  "Reset",
+                  style: TextStyle(
+                    fontFamily: 'General Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
