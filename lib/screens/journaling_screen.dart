@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'journal_entry_screen.dart';
 import '../widgets/custom_back_button.dart';
 import 'journal_scratch_entry_screen.dart';
+import 'saved_prompts_screen.dart';
 
 class JournalingScreen extends StatefulWidget {
   JournalingScreen({Key? key}) : super(key: key);
@@ -133,7 +134,14 @@ class _JournalingScreenState extends State<JournalingScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: OutlinedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => SavedPromptsScreen(),
+                                ),
+                              );
+                            },
                             icon: const Icon(Icons.bookmark_border, size: 18),
                             label: const Text('View Saved Prompts'),
                             style: OutlinedButton.styleFrom(
@@ -178,9 +186,7 @@ class _JournalingScreenState extends State<JournalingScreen> {
                                       builder:
                                           (_) => JournalEntryScreen(
                                             prompt:
-                                                prompt['title']! +
-                                                '\n' +
-                                                prompt['desc']!,
+                                                prompt['title']!, // Only the title
                                             tips: [
                                               'Write without judging or editing your thoughts',
                                               'Focus on feelings, not just events.',
