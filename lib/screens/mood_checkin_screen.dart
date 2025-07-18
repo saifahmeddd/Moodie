@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:moodie_v2/screens/home_page.dart';
 import '../widgets/custom_back_button.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MoodCheckinApp());
@@ -17,6 +18,7 @@ class MoodCheckinApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         fontFamily: 'quicksand',
+        scaffoldBackgroundColor: Colors.white,
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontFamily: 'quicksand', letterSpacing: -1.5),
           labelMedium: TextStyle(fontFamily: 'quicksand', letterSpacing: -1.5),
@@ -94,9 +96,17 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        shadowColor: Colors.transparent,
+        foregroundColor: Colors.black,
         elevation: 0,
-        leading: CustomBackButton(iconColor: Colors.black87, iconSize: 24),
+        leading: const CustomBackButton(iconColor: Colors.black87, iconSize: 24),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -124,7 +134,7 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                 letterSpacing: 0,
               ),
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 30),
             Expanded(
               child: ListView.builder(
                 itemCount: _moodOptions.length,
@@ -159,7 +169,7 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                   backgroundColor: const Color.fromRGBO(125, 125, 222, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -179,7 +189,7 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 98),
+            const SizedBox(height: 24),
           ],
         ),
       ),
@@ -196,9 +206,11 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         margin: const EdgeInsets.symmetric(vertical: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+        ), // Only vertical padding
         height: 64, // Fixed height
-        width: 364, // Fixed width
+        width: double.infinity, // Fill available width
         decoration: BoxDecoration(
           gradient: null,
           color:

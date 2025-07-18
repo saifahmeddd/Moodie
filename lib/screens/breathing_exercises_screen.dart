@@ -35,8 +35,8 @@ class _BreathingExercisesScreenState extends State<BreathingExercisesScreen> {
           decoration: const BoxDecoration(color: Color(0xFF535394)),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
+              const Padding(
+                padding: EdgeInsets.only(
                   top: 40,
                   left: 0,
                   right: 24,
@@ -46,14 +46,14 @@ class _BreathingExercisesScreenState extends State<BreathingExercisesScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 0, right: 0),
+                      padding: EdgeInsets.only(left: 0, right: 0),
                       child: CustomBackButton(
                         iconColor: Colors.white,
                         iconSize: 24,
                       ),
                     ),
-                    const SizedBox(width: 2),
-                    const Text(
+                    SizedBox(width: 2),
+                    Text(
                       'Breathing Exercises',
                       style: TextStyle(
                         fontFamily: 'Quicksand',
@@ -91,11 +91,11 @@ class _BreathingExercisesScreenState extends State<BreathingExercisesScreen> {
                               MaterialPageRoute(
                                 builder:
                                     (context) =>
-                                        BoxBreathingWalkthroughScreen(),
+                                        const BoxBreathingWalkthroughScreen(),
                               ),
                             );
                           },
-                          child: _ExerciseCard(
+                          child: const _ExerciseCard(
                             title: 'Box Breathing',
                             duration: '4 minutes',
                             focusArea: 'Stress & Anxiety',
@@ -103,42 +103,42 @@ class _BreathingExercisesScreenState extends State<BreathingExercisesScreen> {
                           ),
                         ),
                         const SizedBox(height: 24),
-                        _ExerciseCard(
+                        const _ExerciseCard(
                           title: '4-7-8 Breathing',
                           duration: '3 minutes',
                           focusArea: 'Sleep & Panic Relief',
                           imageAsset: 'assets/images/personal-growth.svg',
                         ),
                         const SizedBox(height: 24),
-                        _ExerciseCard(
+                        const _ExerciseCard(
                           title: 'Tactical Breathing',
                           duration: '5 minutes',
                           focusArea: 'High-Stress Situations',
                           imageAsset: 'assets/images/breathing.svg',
                         ),
                         const SizedBox(height: 24),
-                        _ExerciseCard(
+                        const _ExerciseCard(
                           title: 'Double Inhale and Sigh',
                           duration: '2 minutes',
                           focusArea: 'Quick Reset',
                           imageAsset: 'assets/images/meditation.svg',
                         ),
                         const SizedBox(height: 24),
-                        _ExerciseCard(
+                        const _ExerciseCard(
                           title: 'Diaphragmatic Breathing',
                           duration: '5 minutes',
                           focusArea: 'Relaxation',
                           imageAsset: 'assets/images/positive-thinking.svg',
                         ),
                         const SizedBox(height: 24),
-                        _ExerciseCard(
+                        const _ExerciseCard(
                           title: '3-3-3 Breathing',
                           duration: '3 minutes',
                           focusArea: 'Grounding',
                           imageAsset: 'assets/images/happy-earth.svg',
                         ),
                         const SizedBox(height: 24),
-                        _ExerciseCard(
+                        const _ExerciseCard(
                           title: 'Coherent Breathing',
                           duration: '6 minutes',
                           focusArea: 'Balance & Calm',
@@ -177,7 +177,7 @@ class _ExerciseCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: Color(0xFFD1C4E9), width: 2),
+        border: Border.all(color: const Color(0xFFD1C4E9), width: 2),
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
@@ -254,8 +254,8 @@ class _ExerciseCard extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           SizedBox(
-            height: 120,
-            width: 120,
+            height: 110,
+            width: 110,
             child:
                 imageAsset.endsWith('.svg')
                     ? SvgPicture.asset(imageAsset, fit: BoxFit.contain)

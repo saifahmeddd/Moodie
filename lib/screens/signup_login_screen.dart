@@ -44,7 +44,7 @@ class SignupLoginScreen extends StatelessWidget {
               height: 364,
               width: 364,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 18),
 
             // Create account button with anonymous login
             SizedBox(
@@ -133,7 +133,7 @@ class SignupLoginScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 32),
+            const SizedBox(height: 16),
 
             const Center(
               child: Padding(

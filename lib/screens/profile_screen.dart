@@ -238,7 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     backgroundColor: const Color(0xFF7D7DDE),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 148,
+                      horizontal: 120,
                       vertical: 12,
                     ),
                     shape: RoundedRectangleBorder(

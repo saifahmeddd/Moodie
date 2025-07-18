@@ -16,11 +16,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateAfterDelay();
+    // Removed automatic navigation - splash screen will stay until user presses Get Started
   }
 
-  void _navigateAfterDelay() async {
-    await Future.delayed(const Duration(seconds: 2));
+  void _handleGetStarted() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       Navigator.of(
@@ -78,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Expanded(
               flex: 3,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 23.0),
+                padding: const EdgeInsets.only(bottom: 64.0),
                 child: Center(
                   child: SvgPicture.asset(
                     'assets/images/growth2.svg',
@@ -105,20 +104,13 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       elevation: 3,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const SignupLoginScreen(),
-                        ),
-                      );
-                    },
+                    onPressed: _handleGetStarted,
                     child: const Text(
                       'Get Started',
                       style: TextStyle(
-                        color: Color(0xFF474D9F),
+                        color: Color(0xFF2B2930),
                         fontSize: 14,
-                        fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.w500,
                         fontFamily: 'GeneralSans',
                       ),
                     ),

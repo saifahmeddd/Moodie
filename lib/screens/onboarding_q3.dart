@@ -92,122 +92,126 @@ class _OnboardingQuestionThreeScreenState
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 126.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const CircleAvatar(
-              radius: 24.0,
-              backgroundColor: Color(0xFFE5E5F8),
-              child: Text(
-                '3',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
-                  fontFamily: 'quicksand',
-                  letterSpacing: -0.5,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 66.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const CircleAvatar(
+                radius: 24.0,
+                backgroundColor: Color(0xFFE5E5F8),
+                child: Text(
+                  '3',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                    fontFamily: 'quicksand',
+                    letterSpacing: -0.5,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 16.0),
-            const Text(
-              'Anything else you\'d like to tell?',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-                fontFamily: 'quicksand',
-                letterSpacing: -1.5,
-              ),
-            ),
-            const SizedBox(height: 48.0),
-            Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: TextField(
-                controller: _additionalContextController,
-                maxLines: 4,
-                style: const TextStyle(
+              const SizedBox(height: 16.0),
+              const Text(
+                'Anything else you\'d like to tell?',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
                   fontFamily: 'quicksand',
                   letterSpacing: -1.5,
                 ),
-                decoration: InputDecoration(
-                  hintText: 'What are your likes and dislikes?',
-                  hintStyle: const TextStyle(
-                    color: Color.fromARGB(137, 146, 139, 139),
+              ),
+              const SizedBox(height: 48.0),
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: TextField(
+                  controller: _additionalContextController,
+                  maxLines: 4,
+                  style: const TextStyle(
                     fontFamily: 'General Sans',
-                    letterSpacing: 0,
-                    fontSize: 12.0,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: -0.5,
                   ),
-                  contentPadding: const EdgeInsets.all(16.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide.none,
+                  decoration: InputDecoration(
+                    hintText: 'What are your likes and dislikes?',
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(137, 146, 139, 139),
+                      fontFamily: 'General Sans',
+                      letterSpacing: 0,
+                      fontSize: 12.0,
+                    ),
+                    contentPadding: const EdgeInsets.all(16.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: const BorderSide(color: Colors.transparent),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF9F7AEA),
+                        width: 2.0,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey[200],
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(color: Colors.transparent),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(
-                      color: Color(0xFF9F7AEA),
-                      width: 2.0,
+                ),
+              ),
+              const SizedBox(height: 48.0),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _isLoading ? null : _handleFinish,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF7D7DDE),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                ),
-              ),
-            ),
-            const SizedBox(height: 48.0),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _handleFinish,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF7D7DDE),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 16.0,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                child:
-                    _isLoading
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Finish',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.0,
-                                fontFamily: 'General Sans',
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0,
+                  child:
+                      _isLoading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Finish',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14.0,
+                                  fontFamily: 'General Sans',
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 8.0),
-                            Icon(Icons.check, color: Colors.white),
-                          ],
-                        ),
+                              SizedBox(width: 8.0),
+                              Icon(Icons.check, color: Colors.white),
+                            ],
+                          ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
