@@ -135,7 +135,7 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                 },
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 32),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -159,7 +159,7 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   backgroundColor: const Color.fromRGBO(125, 125, 222, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -211,7 +211,7 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                 isSelected
                     ? const Color.fromARGB(255, 96, 96, 211)
                     : const Color(0xFFBBB3FF),
-            width: isSelected ? 2 : 2, 
+            width: isSelected ? 2 : 2,
           ),
           boxShadow: [
             if (!isSelected)
