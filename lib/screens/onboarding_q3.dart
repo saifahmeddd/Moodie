@@ -99,15 +99,15 @@ class _OnboardingQuestionThreeScreenState
           children: <Widget>[
             const CircleAvatar(
               radius: 24.0,
-              backgroundColor: Color(0xFFE0E0E0),
+              backgroundColor: Color(0xFFE5E5F8),
               child: Text(
                 '3',
                 style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
                   color: Colors.black87,
                   fontFamily: 'quicksand',
-                  letterSpacing: -1.5,
+                  letterSpacing: -0.5,
                 ),
               ),
             ),
@@ -115,14 +115,14 @@ class _OnboardingQuestionThreeScreenState
             const Text(
               'Anything else you\'d like to tell?',
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: 24.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
                 fontFamily: 'quicksand',
                 letterSpacing: -1.5,
               ),
             ),
-            const SizedBox(height: 32.0),
+            const SizedBox(height: 48.0),
             Container(
               decoration: BoxDecoration(
                 boxShadow: [
@@ -145,8 +145,9 @@ class _OnboardingQuestionThreeScreenState
                   hintText: 'What are your likes and dislikes?',
                   hintStyle: const TextStyle(
                     color: Color.fromARGB(137, 146, 139, 139),
-                    fontFamily: 'quicksand',
-                    letterSpacing: -1.5,
+                    fontFamily: 'General Sans',
+                    letterSpacing: 0,
+                    fontSize: 12.0,
                   ),
                   contentPadding: const EdgeInsets.all(16.0),
                   border: OutlineInputBorder(
@@ -169,7 +170,7 @@ class _OnboardingQuestionThreeScreenState
                 ),
               ),
             ),
-            const SizedBox(height: 32.0),
+            const SizedBox(height: 48.0),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -194,10 +195,10 @@ class _OnboardingQuestionThreeScreenState
                               'Finish',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.0,
-                                fontFamily: 'quicksand',
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: -1.5,
+                                fontSize: 14.0,
+                                fontFamily: 'General Sans',
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0,
                               ),
                             ),
                             SizedBox(width: 8.0),

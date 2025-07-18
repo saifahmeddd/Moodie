@@ -109,12 +109,12 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                     const Text(
                       'Let\'s get you set up with a secure account to keep your journey private and personal.',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 12,
                         color: Color(0xFF4A5568),
-                        fontFamily: 'quicksand',
+                        fontFamily: 'General Sans',
                         height: 1.4,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: -1.5,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0,
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -129,11 +129,11 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                             const Text(
                               'Email Address',
                               style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
                                 color: Color(0xFF4A5568),
-                                fontFamily: 'quicksand',
-                                letterSpacing: -1.5,
+                                fontFamily: 'General Sans',
+                                letterSpacing: 0.2,
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -153,15 +153,18 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 style: const TextStyle(
-                                  fontFamily: 'quicksand',
-                                  fontSize: 16,
+                                  fontFamily: 'General Sans',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
                                 ),
                                 decoration: InputDecoration(
                                   hintText: 'you@example.com',
                                   hintStyle: TextStyle(
                                     color: Colors.grey[400],
-                                    fontFamily: 'quicksand',
-                                    letterSpacing: -1.5,
+                                    fontFamily: 'General Sans',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    letterSpacing: 0.2,
                                   ),
                                   prefixIcon: const Icon(
                                     Icons.email_outlined,
@@ -182,7 +185,7 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFF9F7AEA),
+                                      color: Color(0xFFBBB3FF),
                                       width: 2,
                                     ),
                                   ),
@@ -208,11 +211,11 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                             const Text(
                               'Password',
                               style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
                                 color: Color(0xFF4A5568),
-                                fontFamily: 'quicksand',
-                                letterSpacing: -1.5,
+                                fontFamily: 'General Sans',
+                                letterSpacing: 0.2,
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -232,15 +235,18 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                                 controller: _passwordController,
                                 obscureText: true,
                                 style: const TextStyle(
-                                  fontFamily: 'quicksand',
-                                  fontSize: 16,
+                                  fontFamily: 'General Sans',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
                                 ),
                                 decoration: InputDecoration(
                                   hintText: 'Create a strong password',
                                   hintStyle: TextStyle(
                                     color: Colors.grey[400],
-                                    fontFamily: 'quicksand',
-                                    letterSpacing: -1.5,
+                                    fontFamily: 'General Sans',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    letterSpacing: 0.2,
                                   ),
                                   prefixIcon: const Icon(
                                     Icons.lock_outline,
@@ -261,7 +267,7 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFF9F7AEA),
+                                      color: Color(0xFFBBB3FF),
                                       width: 2,
                                     ),
                                   ),
@@ -284,10 +290,11 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                                   Text(
                                     'Use at least 8 characters with letters and numbers',
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 10,
                                       color: Colors.grey[600],
-                                      fontFamily: 'quicksand',
-                                      letterSpacing: -1.5,
+                                      fontFamily: 'General Sans',
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: 0.2,
                                     ),
                                   ),
                                 ],
@@ -329,10 +336,11 @@ class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
                           child: const Text(
                             'Continue Your Journey',
                             style: TextStyle(
+                              fontFamily: 'General Sans',
                               color: Colors.white,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: -1.5,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0,
                             ),
                           ),
                         ),

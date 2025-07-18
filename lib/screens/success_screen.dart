@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'mood_checkin_screen.dart'; // Import the MoodCheckinScreen
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SuccessScreen extends StatefulWidget {
   final Map<String, dynamic> userAnswers; // Pass answers from onboarding
@@ -44,9 +45,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
             'timestamp': Timestamp.now(),
           });
 
-      print('✅ Data saved for UID: $uid');
+      print('Data saved for UID: $uid');
     } catch (e) {
-      print('❌ Error saving data: $e');
+      print('Error saving data: $e');
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Failed to save answers: $e")));
@@ -74,14 +75,15 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   "That was brave.\nWell Done!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w600,
                     color: Colors.black87,
-                    fontFamily: 'Quicksand',
+                    fontFamily: 'quicksand',
+                    letterSpacing: -0.7,
                   ),
                 ),
                 const SizedBox(height: 24.0),
-                Image.asset('assets/images/img4.png', height: 324, width: 324),
+                SvgPicture.asset('assets/images/Self confidence-pana.svg', height: 324, width: 324),
                 const SizedBox(height: 32.0),
                 SizedBox(
                   width: double.infinity,
@@ -103,14 +105,15 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     label: const Text(
                       "Start Your Journey",
                       style: TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 12.0,
                         color: Colors.white,
-                        fontFamily: 'Quicksand',
-                        fontWeight: FontWeight.bold,
+                        fontFamily: 'General Sans',
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0,
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple[300],
+                      backgroundColor: const Color(0xFF7D7DDE),
                       padding: const EdgeInsets.symmetric(
                         vertical: 12.0,
                         horizontal: 16.0,

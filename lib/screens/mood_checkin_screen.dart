@@ -92,7 +92,7 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F4F4),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -106,17 +106,25 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
             const Text(
               "What's the vibe today?",
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 24,
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
+                fontFamily: 'quicksand',
+                letterSpacing: -0.5,
               ),
             ),
             const SizedBox(height: 8),
             const Text(
               'Choose one or more options that resonate with you',
-              style: TextStyle(fontSize: 14, color: Colors.black54),
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+                fontFamily: 'General Sans',
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0,
+              ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 48),
             Expanded(
               child: ListView.builder(
                 itemCount: _moodOptions.length,
@@ -152,9 +160,9 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 15),
-                  backgroundColor: const Color.fromARGB(255, 190, 137, 255),
+                  backgroundColor: const Color.fromRGBO(125, 125, 222, 1),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   elevation: 5,
                   shadowColor: Colors.black.withOpacity(0.3),
@@ -162,14 +170,16 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                 child: const Text(
                   'Check In',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontFamily: 'General Sans',
+                    letterSpacing: 0,
+                    fontSize: 14,
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 98),
           ],
         ),
       ),
@@ -186,53 +196,60 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         margin: const EdgeInsets.symmetric(vertical: 8),
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        height: 64, // Fixed height
+        width: 364, // Fixed width
         decoration: BoxDecoration(
-          gradient:
+          gradient: null,
+          color:
               isSelected
-                  ? const LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 229, 207, 255),
-                      Color.fromARGB(255, 229, 207, 255),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  )
-                  : null,
+                  ? const Color(0xFFE5E5F8)
+                  : Colors.white, // Selected: light purple, Unselected: white
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color:
                 isSelected
-                    ? const Color.fromARGB(255, 112, 0, 150)
-                    : const Color.fromARGB(255, 195, 165, 210),
-            width: 2,
+                    ? const Color.fromARGB(255, 96, 96, 211)
+                    : const Color(0xFFBBB3FF),
+            width: isSelected ? 2 : 2, 
           ),
           boxShadow: [
-            if (isSelected)
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
+            if (!isSelected)
+              const BoxShadow(
+                color: Color.fromRGBO(
+                  187,
+                  179,
+                  255,
+                  0.4,
+                ), // BBB3FF at 12% opacity for subtle effect
+                offset: Offset(0, 0),
+                blurRadius: 0,
+                spreadRadius: 3,
               ),
           ],
         ),
         child: Row(
+          mainAxisAlignment:
+              MainAxisAlignment.center, // Center content vertically
           children: <Widget>[
             SvgPicture.asset(
               mood['icon'] ?? 'assets/icons/placeholder.svg',
-              width: 30,
-              height: 30,
+              width: 20, // Icon width 20
+              height: 20, // Icon height 20
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Center text vertically
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     mood['label'] ?? 'Label',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontFamily: 'General Sans',
+                      letterSpacing: 0,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color:
                           isSelected
@@ -242,7 +259,12 @@ class _MoodCheckinScreenState extends State<MoodCheckinScreen> {
                   ),
                   Text(
                     mood['description'] ?? 'Description',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontFamily: 'General Sans',
+                      letterSpacing: 0,
+                      color: const Color(0xFF000000),
+                    ), // Subtitle font size 10
                   ),
                 ],
               ),

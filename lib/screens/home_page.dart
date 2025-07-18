@@ -378,7 +378,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                   'Recommended for today',
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                   ),
                 ),
@@ -438,7 +438,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                   'Explore yourself',
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                   ),
                 ),
@@ -462,7 +462,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                   'Daily Prompts',
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                   ),
                 ),
@@ -490,7 +490,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                   'Mood Check-In',
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                   ),
                 ),

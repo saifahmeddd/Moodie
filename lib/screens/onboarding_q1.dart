@@ -86,15 +86,15 @@ class _OnboardingQuestionOneScreenState
                 children: <Widget>[
                   const CircleAvatar(
                     radius: 24.0,
-                    backgroundColor: Color(0xFFE0E0E0),
+                    backgroundColor: Color(0xFFE5E5F8),
                     child: Text(
                       '1',
                       style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.w600,
                         color: Colors.black87,
                         fontFamily: 'quicksand',
-                        letterSpacing: -1.5,
+                        letterSpacing: -0.5,
                       ),
                     ),
                   ),
@@ -109,49 +109,64 @@ class _OnboardingQuestionOneScreenState
                       letterSpacing: -1.5,
                     ),
                   ),
-                  const SizedBox(height: 24.0),
-                  const SizedBox(height: 32.0),
-                  _buildOption(index: 0, text: 'Reflect quietly'),
-                  const SizedBox(height: 16.0),
-                  _buildOption(index: 1, text: 'Reach out'),
-                  const SizedBox(height: 16.0),
-                  _buildOption(index: 2, text: 'Power through'),
-                  const SizedBox(height: 16.0),
-                  _buildOption(index: 3, text: 'Distract yourself'),
-                  const SizedBox(height: 32.0),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed:
-                          _selectedValue == -1
-                              ? null
-                              : _saveResponseAndContinue,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF7D7DDE),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8.0,
-                          horizontal: 16.0,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                              fontFamily: 'quicksand',
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: -1.5,
-                            ),
+                  const SizedBox(height: 48.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: _buildOption(index: 0, text: 'Reflect quietly'),
+                  ),
+                  const SizedBox(height: 12.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: _buildOption(index: 1, text: 'Reach out'),
+                  ),
+                  const SizedBox(height: 12.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: _buildOption(index: 2, text: 'Power through'),
+                  ),
+                  const SizedBox(height: 12.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: _buildOption(index: 3, text: 'Distract yourself'),
+                  ),
+                  const SizedBox(height: 48.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 364,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed:
+                            _selectedValue == -1
+                                ? null
+                                : _saveResponseAndContinue,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF7D7DDE),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 16.0,
                           ),
-                          SizedBox(width: 8.0),
-                          Icon(Icons.arrow_forward, color: Colors.white),
-                        ],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Next',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.0,
+                                fontFamily: 'General Sans',
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0,
+                              ),
+                            ),
+                            SizedBox(width: 8.0),
+                            Icon(Icons.arrow_forward, color: Colors.white),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -172,6 +187,7 @@ class _OnboardingQuestionOneScreenState
 
   Widget _buildOption({required int index, required String text}) {
     final bool isSelected = _selectedValue == index;
+    final Color purple = const Color(0xFF535394);
 
     return InkWell(
       onTap: () {
@@ -179,41 +195,56 @@ class _OnboardingQuestionOneScreenState
           _selectedValue = index;
         });
       },
-      borderRadius: BorderRadius.circular(8.0),
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF535394) : Colors.grey[200],
-          borderRadius: BorderRadius.circular(8.0),
-          boxShadow: [
-            BoxShadow(
-              color:
-                  isSelected
-                      ? const Color(0xFF535394).withOpacity(0.5)
-                      : Colors.grey.withOpacity(0.3),
-              blurRadius: isSelected ? 12.0 : 8.0,
-              spreadRadius: isSelected ? 1.5 : 1.0,
-            ),
-          ],
-        ),
-        child: Row(
-          children: <Widget>[
-            Icon(
-              isSelected ? Icons.check_circle : Icons.radio_button_unchecked,
-              color: isSelected ? Colors.white : Colors.black45,
-            ),
-            const SizedBox(width: 16.0),
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 16.0,
-                color: isSelected ? Colors.white : Colors.black87,
-                fontFamily: 'quicksand',
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                letterSpacing: -1.5,
+      borderRadius: BorderRadius.circular(12.0),
+      child: SizedBox(
+        width: 364,
+        height: 45,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12.0),
+          decoration: BoxDecoration(
+            color: isSelected ? purple : Colors.white,
+            borderRadius: BorderRadius.circular(12.0),
+            border:
+                isSelected
+                    ? null
+                    : Border.all(color: const Color(0xFFBBB3FF), width: 1),
+            boxShadow:
+                isSelected
+                    ? []
+                    : [
+                      BoxShadow(
+                        color: const Color(0x3D7B5CFA), // 24% opacity
+                        blurRadius: 0,
+                        spreadRadius: 3,
+                        offset: Offset(0, 0),
+                      ),
+                    ],
+          ),
+          child: Row(
+            children: <Widget>[
+              isSelected
+                  ? Icon(Icons.check, color: Colors.white)
+                  : Container(
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF7D7DDE),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+              const SizedBox(width: 16.0),
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: isSelected ? Colors.white : Colors.black87,
+                  fontFamily: 'General Sans',
+                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.w500,
+                  letterSpacing: 0,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
