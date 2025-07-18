@@ -55,41 +55,42 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const SizedBox(
-                    height: 176.0,
+                    height: 160.0,
+                    width: 364,
                   ), // Increased from 64.0 to create space below back button
                   const Text(
                     'Tell us about yourself',
                     style: TextStyle(
-                      fontSize: 27.0,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.w600,
                       color: Colors.black87,
                       fontFamily: 'quicksand',
-                      letterSpacing: -1.5,
+                      letterSpacing: -0.7,
                     ),
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(height: 8.0),
                   const Text(
                     'We\'ll use this information to personalise your experience and ensure you get suggestions suited to you.',
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 12.0,
                       color: Colors.black,
-                      fontFamily: 'quicksand',
+                      fontFamily: 'General Sans',
                       fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: -1.5,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0,
                     ),
                   ),
-                  const SizedBox(height: 56.0),
+                  const SizedBox(height: 44.0),
                   const Text(
                     'First, what should we call you?',
                     style: TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: 'quicksand',
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -1.5,
+                      fontSize: 12.0,
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 0.2,
                     ),
                   ),
-                  const SizedBox(height: 4.0),
+                  const SizedBox(height: 14, width: 364),
                   Container(
                     decoration: BoxDecoration(
                       boxShadow: [
@@ -103,12 +104,20 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     ),
                     child: TextField(
                       controller: _nameController,
-                      style: const TextStyle(fontFamily: 'quicksand'),
+                      style: const TextStyle(
+                        fontFamily: 'General Sans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        letterSpacing: 0,
+                      ),
                       decoration: InputDecoration(
-                        hintText: 'e.g. Jerry',
+                        hintText: 'Jerry',
                         hintStyle: const TextStyle(
-                          color: Color.fromARGB(137, 146, 139, 139),
-                          fontFamily: 'quicksand',
+                          color: Color(0xFF8C929C),
+                          fontFamily: 'General Sans',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          letterSpacing: 0,
                         ),
                         isDense: true,
                         contentPadding: const EdgeInsets.symmetric(
@@ -128,7 +137,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
                           borderSide: const BorderSide(
-                            color: Color(0xFF9F7AEA),
+                            color: Color(0xFFBBB3FF),
                             width: 2.0,
                           ),
                         ),
@@ -141,10 +150,10 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                   const Text(
                     'How old are you?',
                     style: TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: 'quicksand',
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -1.5,
+                      fontSize: 12.0,
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 0.2,
                     ),
                   ),
                   const SizedBox(height: 4.0),
@@ -162,12 +171,20 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     child: TextField(
                       controller: _ageController,
                       keyboardType: TextInputType.number,
-                      style: const TextStyle(fontFamily: 'quicksand'),
+                      style: const TextStyle(
+                        fontFamily: 'General Sans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        letterSpacing: 0,
+                      ),
                       decoration: InputDecoration(
-                        hintText: 'e.g. 19',
+                        hintText: '19',
                         hintStyle: const TextStyle(
-                          color: Color.fromARGB(137, 146, 139, 139),
-                          fontFamily: 'quicksand',
+                          color: Color(0xFF8C929C),
+                          fontFamily: 'General Sans',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          letterSpacing: 0,
                         ),
                         isDense: true,
                         contentPadding: const EdgeInsets.symmetric(
@@ -187,7 +204,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
                           borderSide: const BorderSide(
-                            color: Color(0xFF9F7AEA),
+                            color: Color(0xFFBBB3FF),
                             width: 2.0,
                           ),
                         ),
@@ -200,10 +217,10 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                   const Text(
                     'What do you do?',
                     style: TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: 'quicksand',
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -1.5,
+                      fontSize: 12.0,
+                      fontFamily: 'General Sans',
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 0.2,
                     ),
                   ),
                   const SizedBox(height: 4.0),
@@ -221,12 +238,20 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     ),
                     child: TextField(
                       controller: _occupationController,
-                      style: const TextStyle(fontFamily: 'quicksand'),
+                      style: const TextStyle(
+                        fontFamily: 'General Sans',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        letterSpacing: 0,
+                      ),
                       decoration: InputDecoration(
-                        hintText: 'e.g. Student, Engineer, Artist...',
+                        hintText: 'Student, Engineer, Artist...',
                         hintStyle: const TextStyle(
-                          color: Color.fromARGB(137, 146, 139, 139),
-                          fontFamily: 'quicksand',
+                          color: Color(0xFF8C929C),
+                          fontFamily: 'General Sans',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          letterSpacing: 0,
                         ),
                         isDense: true,
                         contentPadding: const EdgeInsets.symmetric(
@@ -246,7 +271,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
                           borderSide: const BorderSide(
-                            color: Color(0xFF9F7AEA),
+                            color: Color(0xFFBBB3FF),
                             width: 2.0,
                           ),
                         ),
@@ -268,11 +293,11 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                         child: Text(
                           'Knowing what you do helps us understand what you\'re balancing',
                           style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.black38,
-                            fontFamily: 'quicksand',
+                            fontSize: 10,
+                            color: Color(0xFF5B616D),
+                            fontFamily: 'General Sans',
                             fontWeight: FontWeight.w400,
-                            letterSpacing: -1.5,
+                            letterSpacing: 0.2,
                           ),
                         ),
                       ),
@@ -282,13 +307,12 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                     height: 32.0,
                   ), // Increased padding above the next button
                   SizedBox(
+                    height: 44,
                     width: double.infinity,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         color: const Color(0xFF7D7DDE),
-                        borderRadius: BorderRadius.circular(
-                          8.0,
-                        ), // Less rounded corners
+                        borderRadius: BorderRadius.circular(6.0),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.deepPurple.withOpacity(0.12),
@@ -316,9 +340,10 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                             Text(
                               'Next',
                               style: TextStyle(
+                                fontFamily: 'General Sans',
                                 color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                             SizedBox(width: 8.0),
