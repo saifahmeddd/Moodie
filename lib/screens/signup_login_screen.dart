@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'enter_info.dart';
 import 'package:moodie_v2/screens/login_screen.dart'; // Import the LoginScreen
 
@@ -9,7 +10,7 @@ class SignupLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFFFFFFF),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -19,31 +20,36 @@ class SignupLoginScreen extends StatelessWidget {
             const Text(
               'Welcome to moodie',
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 32,
                 fontFamily: 'quicksand',
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 color: Colors.black87,
-                letterSpacing: -2.5,
+                letterSpacing: -0.7,
               ),
             ),
             const SizedBox(height: 10),
             const Text(
               'This is your space—let\'s make it feel like home. You won\'t even need an email, just sign up and get started',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black54,
-                fontFamily: 'quicksand',
-                letterSpacing: -1.0,
+                fontFamily: 'General Sans',
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.2,
               ),
             ),
             const SizedBox(height: 30),
-            Image.asset('assets/images/img3.png', height: 364, width: 364),
+            SvgPicture.asset(
+              'assets/images/Enthusiastic-pana.svg',
+              height: 364,
+              width: 364,
+            ),
             const SizedBox(height: 40),
 
             // Create account button with anonymous login
             SizedBox(
-              width: double.infinity,
-              height: 50,
+              width: 364,
+              height: 45,
               child: ElevatedButton(
                 onPressed: () async {
                   try {
@@ -71,16 +77,17 @@ class SignupLoginScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF7C84F8),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(6),
                   ),
                   elevation: 3,
                 ),
                 child: const Text(
                   'Create an account',
                   style: TextStyle(
+                    fontFamily: 'General Sans',
                     color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -90,8 +97,8 @@ class SignupLoginScreen extends StatelessWidget {
 
             // Log in button
             SizedBox(
-              width: double.infinity,
-              height: 50,
+              width: 364,
+              height: 48,
               child: OutlinedButton(
                 onPressed: () {
                   print('Navigating to LoginScreen...');
@@ -103,18 +110,24 @@ class SignupLoginScreen extends StatelessWidget {
                   );
                 },
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Color(0xFF7C84F8)),
+                  side: BorderSide.none, // Remove outline
+                  backgroundColor: const Color(
+                    0xFFF8F7FF,
+                  ), // White background for contrast
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(6),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 12,
+                  ), // Adjusted padding
                 ),
                 child: const Text(
                   'Log In',
                   style: TextStyle(
-                    color: Color(0xFF7C84F8),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
+                    fontFamily: 'General Sans',
+                    color: Color(0xFF2B2930),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -122,18 +135,19 @@ class SignupLoginScreen extends StatelessWidget {
 
             const SizedBox(height: 32),
 
-            const Row(
-              children: [
-                Expanded(child: Divider(color: Colors.grey)),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    'Or sign up using:',
-                    style: TextStyle(color: Colors.grey),
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  'Or sign up using:',
+                  style: TextStyle(
+                    fontFamily: 'General Sans',
+                    color: Color(0xFF2B2930),
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
-                Expanded(child: Divider(color: Colors.grey)),
-              ],
+              ),
             ),
 
             const SizedBox(height: 16),
