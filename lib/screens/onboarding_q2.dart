@@ -69,7 +69,10 @@ class _OnboardingQuestionTwoScreenState
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 126.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 126.0,
+            ),
             child: Padding(
               padding: const EdgeInsets.only(top: 60.0),
               child: Column(
@@ -154,7 +157,7 @@ class _OnboardingQuestionTwoScreenState
                                 letterSpacing: 0,
                               ),
                             ),
-                            SizedBox(width: 8.0),
+                            const SizedBox(width: 8.0),
                             Icon(Icons.arrow_forward, color: Colors.white),
                           ],
                         ),

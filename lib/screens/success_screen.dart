@@ -83,7 +83,11 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   ),
                 ),
                 const SizedBox(height: 24.0),
-                SvgPicture.asset('assets/images/Self confidence-pana.svg', height: 324, width: 324),
+                SvgPicture.asset(
+                  'assets/images/Self confidence-pana.svg',
+                  height: 324,
+                  width: 324,
+                ),
                 const SizedBox(height: 32.0),
                 SizedBox(
                   width: double.infinity,

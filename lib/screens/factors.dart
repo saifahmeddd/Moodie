@@ -276,7 +276,7 @@ class _FactorsScreenState extends State<FactorsScreen> {
               fontFamily: 'General Sans',
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Icon(Icons.check, size: 18),
         ],
       ),

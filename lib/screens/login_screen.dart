@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 56),
+                const SizedBox(height: 20),
                 Center(
                   child: SvgPicture.asset(
                     'assets/images/happy-earth.svg',
@@ -303,21 +303,8 @@ class CustomInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isFocused = focusNode.hasFocus;
     return Container(
-      decoration: BoxDecoration(
-        boxShadow:
-            isFocused
-                ? [
-                  BoxShadow(
-                    color: Color(0xFFBBB3FF).withOpacity(0.5),
-                    blurRadius: 0,
-                    spreadRadius: 2,
-                  ),
-                ]
-                : [],
-        borderRadius: BorderRadius.circular(8),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
       child: TextField(
         controller: controller,
         focusNode: focusNode,
@@ -332,7 +319,7 @@ class CustomInputField extends StatelessWidget {
         ),
         decoration: InputDecoration(
           filled: true,
-          fillColor: isFocused ? Colors.white : const Color(0xFFF6F6F8),
+          fillColor: const Color(0xFFF6F6F8),
           prefixIcon: Icon(icon, size: 18, color: Color(0xFF7B7B7B)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -340,7 +327,7 @@ class CustomInputField extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Color(0xFFBBB3FF), width: 2.0),
+            borderSide: BorderSide(color: Color(0xFFE0E0E0)),
           ),
           hintText: hintText,
           hintStyle: const TextStyle(

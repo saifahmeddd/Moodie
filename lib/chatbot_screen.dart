@@ -319,8 +319,8 @@ class _ChatbotScreenState extends State<ChatbotScreen>
 
       setState(() {});
     } catch (e) {
-        print('Error initializing chat: $e');
-        print('Stack trace: ${e.toString()}');
+      print('Error initializing chat: $e');
+      print('Stack trace: ${e.toString()}');
     }
   }
 

@@ -67,7 +67,7 @@ class MoodCheckinCompleteScreen extends StatelessWidget {
                           fontFamily: 'General Sans',
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Icon(Icons.north_east_rounded, size: 20),
                     ],
                   ),

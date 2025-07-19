@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Stay in touch—with yourself',
                     style: TextStyle(

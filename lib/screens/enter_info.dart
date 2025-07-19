@@ -293,7 +293,7 @@ class _EnterInfoScreenState extends State<EnterInfoScreen> {
                           size: 16.0,
                           color: Colors.black38,
                         ),
-                        SizedBox(width: 4.0),
+                        const SizedBox(width: 4.0),
                         Expanded(
                           child: Text(
                             'Knowing what you do helps us understand what you\'re balancing',

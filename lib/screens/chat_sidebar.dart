@@ -33,30 +33,28 @@ class ChatSidebar extends StatelessWidget {
           children: [
             // Header
             _buildHeader(),
-            
+
             const SizedBox(height: 20),
-            
+
             // New Chat Button
             _buildNewChatButton(),
-            
+
             const SizedBox(height: 20),
-            
+
             // Conversations List
-            Expanded(
-              child: _buildConversationsList(),
-            ),
+            Expanded(child: _buildConversationsList()),
           ],
         ),
       ),
     );
   }
-  
+
   String _formatSessionDate(DateTime? date) {
     if (date == null) return 'Unknown date';
-    
+
     final dateFormat = DateFormat('dd/MM/yy');
     final timeFormat = DateFormat('hh:mm:ss a');
-    
+
     return '${dateFormat.format(date)} ${timeFormat.format(date)}';
   }
 
@@ -135,7 +133,7 @@ class ChatSidebar extends StatelessWidget {
 
   Widget _buildConversationsList() {
     final sessions = chatSessions ?? [];
-    
+
     if (sessions.isEmpty) {
       return const Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -151,7 +149,7 @@ class ChatSidebar extends StatelessWidget {
         ),
       );
     }
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: ListView.builder(
@@ -169,7 +167,7 @@ class ChatSidebar extends StatelessWidget {
 
   Widget _buildConversationItem(ChatSession session) {
     final displayTitle = _formatSessionDate(session.updatedAt);
-    
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -222,4 +220,4 @@ class ChatSidebar extends StatelessWidget {
       ),
     );
   }
-} 
+}

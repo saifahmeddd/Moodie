@@ -173,7 +173,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     return _AnimatedTile(
       onTap: onTap,
       child: SizedBox(
-        width: 390,
+        width: 400,
         height: 220,
         child: Container(
           decoration: BoxDecoration(

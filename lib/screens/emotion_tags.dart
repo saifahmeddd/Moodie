@@ -396,7 +396,7 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Next Step'),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Icon(Icons.arrow_forward, size: 22),
             ],
           ),
