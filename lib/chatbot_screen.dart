@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'services/chatbot.dart';
 import 'services/chat_session_service.dart';
 import 'screens/chat_sidebar.dart';
 import 'package:intl/intl.dart';
-import 'services/user_data_service.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);

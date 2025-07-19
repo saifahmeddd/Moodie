@@ -112,13 +112,13 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
     'Calm & Positive': [
       {
         'key': 'grateful',
-        'emojiAsset': '😊', // Unicode emoji
+        'emojiAsset': 'assets/emojis/positive/grateful.png',
         'label': 'Grateful',
         'selected': false,
       },
       {
         'key': 'happy',
-        'emojiAsset': '😄', // Unicode emoji
+        'emojiAsset': 'assets/emojis/positive/happy.png',
         'label': 'Happy',
         'selected': false,
       },
@@ -144,7 +144,7 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
     'Vibes': [
       {
         'key': 'hilarious',
-        'emojiAsset': '😂', // Unicode emoji
+        'emojiAsset': 'assets/emojis/vibes/hilarious.png', // Unicode emoji
         'label': 'Hilarious',
         'selected': false,
       },
@@ -306,8 +306,9 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
     required String label,
     required bool isSelected,
   }) {
-    bool isUnicodeEmoji =
-        !emojiAsset.endsWith('.svg') && !emojiAsset.endsWith('.png');
+    bool isSvg = emojiAsset.endsWith('.svg');
+    bool isPng = emojiAsset.endsWith('.png');
+
     return Container(
       width: 80,
       height: 98,
@@ -330,17 +331,28 @@ class _EmotionTagsScreenState extends State<EmotionTagsScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          isUnicodeEmoji
-              ? Text(emojiAsset, style: const TextStyle(fontSize: 36))
-              : SvgPicture.asset(
-                emojiAsset,
-                width: 40,
-                height: 40,
-                fit: BoxFit.contain,
-                placeholderBuilder:
-                    (context) =>
-                        const Icon(Icons.image, size: 40, color: Colors.grey),
-              ),
+          if (isSvg)
+            SvgPicture.asset(
+              emojiAsset,
+              width: 40,
+              height: 40,
+              fit: BoxFit.contain,
+              placeholderBuilder:
+                  (context) =>
+                      const Icon(Icons.image, size: 40, color: Colors.grey),
+            )
+          else if (isPng)
+            Image.asset(
+              emojiAsset,
+              width: 40,
+              height: 40,
+              fit: BoxFit.contain,
+              errorBuilder:
+                  (context, error, stackTrace) =>
+                      const Icon(Icons.image, size: 40, color: Colors.grey),
+            )
+          else
+            const Icon(Icons.image, size: 40, color: Colors.grey),
           const SizedBox(height: 10),
           Text(
             label,
