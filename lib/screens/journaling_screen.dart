@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'journal_entry_screen.dart';
 import '../widgets/custom_back_button.dart';
 import 'journal_scratch_entry_screen.dart';
@@ -33,34 +34,21 @@ class _JournalingScreenState extends State<JournalingScreen> {
     },
   ];
 
-  void _onNavTap(int index) {
-    if (index == _selectedIndex) return;
-    setState(() => _selectedIndex = index);
-    switch (index) {
-      case 0:
-        Navigator.pushReplacementNamed(context, '/home');
-        break;
-      case 1:
-        Navigator.pushReplacementNamed(context, '/mood-tracker');
-        break;
-      case 2:
-        // Placeholder for Exercises
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Exercises coming soon!')));
-        break;
-      case 3:
-        Navigator.pushReplacementNamed(context, '/profile');
-        break;
+  void _onItemTapped(int index) {
+    if (index == 2) {
+      Navigator.pushNamed(context, '/exercises');
+    } else {
+      setState(() => _selectedIndex = index);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
+    return SafeArea(
+      top: true,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -261,34 +249,65 @@ class _JournalingScreenState extends State<JournalingScreen> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF8C88F8),
-        unselectedItemColor: Colors.grey[500],
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.emoji_emotions_outlined),
-            label: 'Tracker',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: 'Exercises',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onNavTap,
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _selectedIndex == 0
+                    ? 'assets/icons/nav-icons/house-fill.svg'
+                    : 'assets/icons/nav-icons/house.svg',
+                height: 28,
+                width: 28,
+                color:
+                    _selectedIndex == 0 ? const Color(0xFF7D7DDE) : Colors.grey,
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _selectedIndex == 1
+                    ? 'assets/icons/nav-icons/smiley-fill.svg'
+                    : 'assets/icons/nav-icons/smiley.svg',
+                height: 28,
+                width: 28,
+                color:
+                    _selectedIndex == 1 ? const Color(0xFF7D7DDE) : Colors.grey,
+              ),
+              label: 'Tracker',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _selectedIndex == 2
+                    ? 'assets/icons/nav-icons/heartbeat-fill.svg'
+                    : 'assets/icons/nav-icons/heartbeat.svg',
+                height: 28,
+                width: 28,
+                color:
+                    _selectedIndex == 2 ? const Color(0xFF7D7DDE) : Colors.grey,
+              ),
+              label: 'Exercises',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _selectedIndex == 3
+                    ? 'assets/icons/nav-icons/user-circle-fill.svg'
+                    : 'assets/icons/nav-icons/user-circle.svg',
+                height: 28,
+                width: 28,
+                color:
+                    _selectedIndex == 3 ? const Color(0xFF7D7DDE) : Colors.grey,
+              ),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: const Color(0xFF7D7DDE),
+          unselectedItemColor: Colors.grey,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: true,
+          backgroundColor: Colors.white,
+        ),
       ),
     );
   }
